@@ -1,0 +1,11 @@
+
+.calendar-container {float: left; width: 30%; height: 250px; margin: 25px 10px; }
+.calendar-title {background-color: #2D60AB; color: white; font-weight:bold; text-align: center; }
+.calendar-month {font-size: 11pt; border-collapse: collapse; width: 80%; margin: 0 auto;}
+.calendar-month td {padding: 6px; text-align: center; border: 1px solid black; }
+.calendar-day-blocked {background-color: #898B8D;  cursor: not-allowed;}
+.calendar-day-selected {background-color: #86f8aa !important; cursor: pointer;}
+.calendar-day {background-color: white; cursor: pointer; }
+.calendar-titleday {font-weight: bold; background-color: #CCE2FE; cursor: default; }
+.calendar-hover {background-color: black !important; color: white; cursor: pointer;}
+

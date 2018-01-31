@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="Autoloader.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551790697748" remote="130904820000000000" Dst="2" />
+<file name="CachedObjectStorageFactory.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551796324660" remote="130904820000000000" Dst="2" />
+<file name="Calculation.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551803629036" remote="130904820000000000" Dst="2" />
+<file name="Cell.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551804789522" remote="130904820000000000" Dst="2" />
+<file name="Chart.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551808544613" remote="130904820000000000" Dst="2" />
+<file name="Comment.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551808832566" remote="130904820000000000" Dst="2" />
+<file name="DocumentProperties.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551809111795" remote="130904820000000000" Dst="2" />
+<file name="DocumentSecurity.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551809462210" remote="130904820000000000" Dst="2" />
+<file name="Exception.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551809669128" remote="130904820000000000" Dst="2" />
+<file name="HashTable.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551809997937" remote="130904820000000000" Dst="2" />
+<file name="IComparable.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551810151737" remote="130904820000000000" Dst="2" />
+<file name="IOFactory.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551810412127" remote="130904820000000000" Dst="2" />
+<file name="NamedRange.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551814814330" remote="130904820000000000" Dst="2" />
+<file name="ReferenceHelper.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551823770126" remote="130904820000000000" Dst="2" />
+<file name="RichText.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551824620856" remote="130904820000000000" Dst="2" />
+<file name="Settings.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551824801045" remote="130904820000000000" Dst="2" />
+<file name="Style.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551841530866" remote="130904820000000000" Dst="2" />
+<file name="Worksheet.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551847605402" remote="130904820000000000" Dst="2" />
+<file name="WorksheetIterator.php" server="172.22.5.37/contraloria/sicoseg/" local="131069551847845734" remote="130904820000000000" Dst="2" />
+<file name="Autoloader.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347551704422" remote="130904820000000000" Dst="2" />
+<file name="CachedObjectStorageFactory.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347559832229" remote="130904820000000000" Dst="2" />
+<file name="Calculation.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347572526650" remote="130904820000000000" Dst="2" />
+<file name="Cell.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347573919866" remote="130904820000000000" Dst="2" />
+<file name="Chart.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347578366091" remote="130904820000000000" Dst="2" />
+<file name="Comment.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347578736540" remote="130904820000000000" Dst="2" />
+<file name="DocumentProperties.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347579067627" remote="130904820000000000" Dst="2" />
+<file name="DocumentSecurity.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347579688441" remote="130904820000000000" Dst="2" />
+<file name="Exception.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347579861508" remote="130904820000000000" Dst="2" />
+<file name="HashTable.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347580353531" remote="130904820000000000" Dst="2" />
+<file name="IComparable.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347580744030" remote="130904820000000000" Dst="2" />
+<file name="IOFactory.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347581034299" remote="130904820000000000" Dst="2" />
+<file name="NamedRange.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347589342747" remote="130904820000000000" Dst="2" />
+<file name="ReferenceHelper.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347598273439" remote="130904820000000000" Dst="2" />
+<file name="RichText.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347599391884" remote="130904820000000000" Dst="2" />
+<file name="Settings.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347599678544" remote="130904820000000000" Dst="2" />
+<file name="Style.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347620854861" remote="130904820000000000" Dst="2" />
+<file name="WorksheetIterator.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347628643949" remote="130904820000000000" Dst="2" />
+<file name="Worksheet.php" server="172.22.5.37/contraloria/sicosegprueba/" local="131076347629660242" remote="130904820000000000" Dst="2" />
+</dwsync>
