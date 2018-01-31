@@ -8,7 +8,7 @@
                     if($('#Password').val()!=$('#Password2').val()){
                         Error("Las contraseñas no coinciden");
                      }else{  
-                        $.get('usuarios.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val() , function (e) {                        
+                        $.get('usuarios.php?action=ckc&id='+$('#id').val()+'&cor=' +$('#mail').val() , function (e) {                        
                          
                             LoadButton($(this));
                             $.post('usuarios.php?action=save', $('#user').serialize(), function(data){
