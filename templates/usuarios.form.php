@@ -8,17 +8,21 @@
                     if($('#Password').val()!=$('#Password2').val()){
                         Error("Las contraseñas no coinciden");
                      }else{  
-                         LoadButton($(this));
-                         $.post('usuarios.php?action=save', $('#user').serialize(), function(data){
-                           Ready();
-                           if(data)
-                               Error(data);
-                           else{
-                             ReloadGrid(grid, 'data/loadUsuarios.php');
-                               OK("Guardado");
-                               CloseModal();
-                           }
-                        });
+                        $.get('usuarios.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val() , function (e) {                        
+                         
+                            LoadButton($(this));
+                            $.post('usuarios.php?action=save', $('#user').serialize(), function(data){
+                              Ready();
+                              if(data)
+                                  Error(data);
+                              else{
+                                ReloadGrid(grid, 'data/loadUsuarios.php');
+                                  OK("Guardado");
+                                  CloseModal();
+                              }
+                           });
+                        }else
+                             Error("El correo ya existe en otro usuario");                                
                      }
                 }else
                      Error("El formato del correo es incorrecto");
