@@ -2,10 +2,11 @@
     $(function(){
         $('#btnSave').click(function(){
            if(Full($('#op'))) {
+               LoadButton($(this));
                if(validateRFC13($('#RFC').val()) ){
                     $.get('operadores.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val() , function (e) {                        
                         if(e==''){
-                            LoadButton($(this));
+                            
                             $.post('operadores.php?action=save', $('#op').serialize(), function(data){
                                Ready();
                                if(data)
@@ -18,11 +19,14 @@
                                }
                             });
                         }else{
+                            Ready();
                             Error("El RFC ya existe en otro operador");        
                         }
                     });                     
-                }else
+                }else{
+                    Ready();
                     Error("El formato del RFC es incorrecto");
+                }
            }
         });
     });
