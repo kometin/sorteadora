@@ -432,16 +432,26 @@ function isNumeric(n) {
 }
 
 function validateRFC(rfc){	
-	for(var i=0; i<rfc.length; i++){
-		if(i < 4){
-			if(isNumeric(rfc[i]) || rfc[i] == ' ')
-				return false;
-		}else if(i > 3 && i < 10){
-			if(!isNumeric(rfc[i]) || rfc[i] == ' ')
-				return false;
-		}		
-	}
-	return true;
+    for(var i=0; i<rfc.length; i++){
+        if(i < 4){
+                if(isNumeric(rfc[i]) || rfc[i] == ' ')
+                        return false;
+        }else if(i > 3 && i < 10){
+                if(!isNumeric(rfc[i]) || rfc[i] == ' ')
+                        return false;
+        }		
+    }
+    return true;
+}
+function validateRFC13(rfc){
+    if(rfc.length == 13){
+        if(rfc.match(/^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))$/i)){//AAAA######AAAAAA##
+            return true;
+        }else{
+            return false;
+        }
+    }else
+        return false;
 }
 
 function ReloadGrid(obj, page, fn){

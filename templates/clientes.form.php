@@ -8,18 +8,23 @@
                    Error("Las contraseñas no coinciden");
                 }else{  
                     if(ValidMail($('#Correo').val()) ){               
+                        $.get('clientes.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val()+'&cor=' +$('#Correo').val() , function (e) {                        
+                            if(e==''){
+                                LoadButton($(this));
+                                $.post('clientes.php?action=save', $('#op').serialize(), function(data){
+                                   Ready();
+                                   if(data)
+                                       Error(data);
+                                   else{
+                                       ReloadGrid(grid, 'data/loadClientes.php');
+                                       OK("Guardado");
+                                       CloseModal();
+                                   }
+                                });
+                            }else{
+                                 Error(e);        
 
-                        LoadButton($(this));
-                        $.post('clientes.php?action=save', $('#op').serialize(), function(data){
-                           Ready();
-                           if(data)
-                               Error(data);
-                           else{
-                               ReloadGrid(grid, 'data/loadClientes.php');
-
-                               OK("Guardado");
-                               CloseModal();
-                           }
+                            }
                         });
                     }else
                      Error("El formato del correo es incorrecto");
@@ -50,7 +55,7 @@ $data=$context->data;
     </div>
     <div class="form-group">
         <label>RFC</label>
-        <input type="text" class="form-control " name="RFC" value="<?=$data[0]['RFC']?>" placeholder="RFC">
+        <input type="text" class="form-control " name="RFC" id="RFC" value="<?=$data[0]['RFC']?>" placeholder="RFC">
     </div>
     <div class="form-group">
         <label>Correo</label>

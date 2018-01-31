@@ -70,4 +70,17 @@ if(!$action){
     if($id)
         $db->execute ("UPDATE clientes SET Estatus=0 WHERE id=$id");
     
+}elseif($action == "ckr"){
+    if($rfc)
+       $existeRFC=$db->getOne("SELECT * FROM clientes WHERE RFC='$rfc' AND Estatus=1 AND id!=$id ");
+    if($cor)
+       $existeCorreo=$db->getOne("SELECT * FROM clientes WHERE Correo='$cor' AND Estatus=1 AND id!=$id ");
+    
+    if($existeCorreo!='' && $existeRFC!='')
+        echo "El correo y el RFC ya existen en otro cliente";
+    else if($existeCorreo!='' && $existeRFC=='')
+            echo "El correo ya existen en otro cliente";
+    elseif($existeCorreo=='' && $existeRFC!='')
+            echo "El RFC ya existen en otro cliente";
+    
 }

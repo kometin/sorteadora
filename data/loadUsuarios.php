@@ -1,0 +1,38 @@
+<?php
+
+    require_once('../lib/DBConn.php');
+    require_once('../lib/secure.php');
+    
+
+    if (stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
+        header("Content-type: application/xhtml+xml"); 
+    else
+        header("Content-type: text/xml");
+    
+    $db = new DBConn();
+    $sql = "select * FROM usuarios WHERE Estatus=1";
+    $data = $db->getArray($sql);
+    
+    print  "<?xml version='1.0' encoding='UTF-8'?>\n";
+    print  "<rows pos='0'>";
+    $cont = 1;
+    $temp = "";
+    $x=0;
+    foreach($data as $d){
+        if($temp != $d['id']){
+            $x++;
+            if($d["id"]=='')
+                $d["id"]=0;
+            $temp = $d['id'];
+            print "<row id = '" . $d["id"] . "'>";
+            print "<cell>" . $x. "</cell>";
+            print "<cell align=\"center\" >" . htmlentities('<i class="fa fa-2x fa-pencil" onclick="Edit(\'' .$d['id'] . '\')"></li>') . "</cell>";        
+            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-trash-o" onclick="Del(\'' . $d['id'] . '\')"></li>') . "</cell>";        
+            print "<cell>" . $d["Nombre"] ." ". $d["Paterno"]." ". $d["Materno"] . "</cell>";		
+         //   print "<cell>" . $d["Rol"] . "</cell>";
+            print "<cell>" . $d["Correo"] . "</cell>";
+            print "</row>";
+        }
+    }
+    print "</rows>";    
+?>

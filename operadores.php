@@ -64,4 +64,10 @@ if(!$action){
     if($id)
         $db->execute ("UPDATE clientes SET Estatus=0 WHERE id=$id");
     
+}elseif($action == "ckr"){
+    if($rfc)
+       $elemento=$db->getOne("SELECT * FROM operadores WHERE RFC='$rfc' AND Estatus=1 AND id!=$id ");
+    if($elemento)
+        echo $elemento;
+    
 }
