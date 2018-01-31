@@ -3,32 +3,43 @@
         $('#Password').val('');
         $('#Password2').val('');    
         $('#btnSave').click(function(){
+           
            if(Full($('#op'))) {
+               LoadButton($('#btnSave'));
                if($('#Password').val()!=$('#Password2').val()){
                    Error("Las contraseñas no coinciden");
                 }else{  
-                    if(ValidMail($('#Correo').val()) ){               
-                        $.get('clientes.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val()+'&cor=' +$('#Correo').val() , function (e) {                        
-                            if(e==''){
-                                LoadButton($(this));
-                                $.post('clientes.php?action=save', $('#op').serialize(), function(data){
-                                   Ready();
-                                   if(data)
-                                       Error(data);
-                                   else{
-                                       ReloadGrid(grid, 'data/loadClientes.php');
-                                       OK("Guardado");
-                                       CloseModal();
-                                   }
-                                });
-                            }else{
-                                 Error(e);        
-
-                            }
-                        });
-                    }else
-                     Error("El formato del correo es incorrecto");
+                    if(ValidMail($('#Correo').val()) ){ 
+                       if($('#RFC').val()=='' || validateRFC13($('#RFC').val()) ){                    
+                            $.get('clientes.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val()+'&cor=' +$('#Correo').val() , function (e) {                        
+                                if(e==''){
+                                    
+                                    $.post('clientes.php?action=save', $('#op').serialize(), function(data){
+                                       Ready();
+                                       if(data)
+                                           Error(data);
+                                       else{
+                                           ReloadGrid(grid, 'data/loadClientes.php');
+                                           OK("Guardado");
+                                           CloseModal();
+                                       }
+                                       
+                                    });
+                                }else{
+                                     Error(e);        
+                                     Ready();
+                                }
+                            });
+                        }else{
+                            Error("El formato del RFC es incorrecto");                            
+                            Ready();
+                        }
+                    }else{
+                        Error("El formato del correo es incorrecto");
+                        Ready();
+                    }
                 }
+                
            }
         });
     });
