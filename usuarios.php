@@ -64,5 +64,12 @@ if(!$action){
     if($id)
         $db->execute ("UPDATE usuarios SET Estatus=0 WHERE id=$id");
     
+}elseif($action == "ckc"){
+    
+    if($cor)
+       $elemento=$db->getOne("SELECT * FROM usuarios WHERE Correo='$cor' AND Estatus=1 AND id!=$id ");
+    if($elemento)
+        echo $elemento;
+    
 }
 
