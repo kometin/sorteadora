@@ -78,21 +78,6 @@
 <?}?>
 
 <?function Body($context){?>
-<div id ="selector" class="form-group">
-    <table class="table">
-        <tr>
-            <td width ="200"><button class="btn btn-default" id ="btnPrev" disabled><i class="fa fa-arrow-left"></i></button></td>
-            <td><label>Fecha de inicio</label></td>
-            <td><input type="text" class="form-control date require" id="txtSince"></td>
-            <td><label>Fecha de fin</label></td>
-            <td><input type="text" class="form-control date require" id="txtUntil"></td>
-            <td>
-                <a class="btn btn-primary" id ="btnShow"><i class="fa fa-search"></i> Mostrar</a>
-            </td>
-            <td width ="200"><button class="btn btn-default" id ="btnNext" disabled><i class="fa fa-arrow-right"></i></button></td>
-        </tr>
-    </table>
-</div>
 <div class="panel panel-info">
     <div class="panel-heading"><h4>Valor de parámetros actuales</h4></div>
     <div class="panel-body">
@@ -112,6 +97,23 @@
         </table>
     </div>
 </div>
+
+<div id ="selector" class="form-group">
+    <table class="table">
+        <tr>
+            <td width ="200"><button class="btn btn-default" id ="btnPrev" disabled><i class="fa fa-arrow-left"></i></button></td>
+            <td><label>Fecha de inicio</label></td>
+            <td><input type="text" class="form-control date require" id="txtSince"></td>
+            <td><label>Fecha de fin</label></td>
+            <td><input type="text" class="form-control date require" id="txtUntil"></td>
+            <td>
+                <a class="btn btn-primary" id ="btnShow"><i class="fa fa-search"></i> Mostrar</a>
+            </td>
+            <td width ="200"><button class="btn btn-default" id ="btnNext" disabled><i class="fa fa-arrow-right"></i></button></td>
+        </tr>
+    </table>
+</div>
+
 <div id ="display">
     
 </div>

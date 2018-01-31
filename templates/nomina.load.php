@@ -36,7 +36,8 @@
         $('#tbl-work').find('td, th').not('.fixed').hide();
         $('.timepicker').timepicker({timeFormat: 'G:i', scrollDefault: '06:30'}).on('changeTime', function(){
             if($(this).hasClass('time-in')){
-                var time = moment('2018-01-30 ' + $(this).val());
+                var time = moment('2018-01-01 ' + $(this).val());
+                console.log(time);
                 var out = $(this).parent().next().find('.time-out');
                 if(!$(out).val()){
                     $(out).timepicker('setTime', time.add(8, 'hours').format('HH:mm'));
