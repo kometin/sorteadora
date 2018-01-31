@@ -315,7 +315,7 @@ function deprecate(msg, fn) {
                 }
                 args.push(arg);
             }
-            warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
+//            warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
             firstTime = false;
         }
         return fn.apply(this, arguments);
