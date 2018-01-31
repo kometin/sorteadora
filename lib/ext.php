@@ -161,12 +161,12 @@
             . $grid . ".setImagePath('js/dhtmlx/imgs/');"
             . $grid . ".enableSmartRendering(true);"
             . $grid . ".setSkin('dhx_skyblue');"
-            . $grid . ".setHeader('" . Display($params, "Header") . "',null,[" . styleHeaderGrid(count($params)) . "]);"
-            . $grid . ".setInitWidths('" . Display($params, "Width") . "');"
-            . $grid . ".attachHeader('" . Display($params, "Attach") . "');"
-            . $grid . ".setColAlign('" . Display($params, "Align") . "');"
-            . $grid . ".setColSorting('" . Display($params, "Sort") . "');"
-            . $grid . ".setColTypes('" . Display($params, "Type") . "');"
+            . $grid . ".setHeader('" . DisplayHeaderGrid($params, "Header") . "',null,[" . styleHeaderGrid(count($params)) . "]);"
+            . $grid . ".setInitWidths('" . DisplayHeaderGrid($params, "Width") . "');"
+            . $grid . ".attachHeader('" . DisplayHeaderGrid($params, "Attach") . "');"
+            . $grid . ".setColAlign('" . DisplayHeaderGrid($params, "Align") . "');"
+            . $grid . ".setColSorting('" . DisplayHeaderGrid($params, "Sort") . "');"
+            . $grid . ".setColTypes('" . DisplayHeaderGrid($params, "Type") . "');"
             . $grid . ".enableMultiline(" . ($multiline?"true":"false") . ");";
         if($paging){
             $html .=  $grid . ".enablePaging(true,100,null,'pager_" . $grid . "',true,'infopage_" . $grid . "');"
@@ -174,6 +174,11 @@
         }
         $html .= $grid . ".init();"
                . $grid . ".attachEvent('onFilterEnd', function(){ Count(" . $grid . "); });";
+        $footer = "Total,";
+        for($i=1; $i<count($params); $i++)
+            $footer .= ($params[$i][Sum] ? "#stat_total" : "#cspan") . ",";
+        if(substr_count($footer, "stat_total"))
+            $html.= $grid . ".attachFooter('" . substr($footer, 0, -1) . "');";
         echo $html;	
     }
 
@@ -183,7 +188,7 @@
             return $style;
     }
 
-    function Display($array, $key){
+    function DisplayHeaderGrid($array, $key){
             $val = "";
             for($i=0; $i<count($array)-1; $i++)
                     $val .= ParseFilter($array[$i][$key]) . ",";

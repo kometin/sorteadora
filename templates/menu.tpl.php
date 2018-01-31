@@ -55,7 +55,9 @@
                                     <a href="#">Reportes</a>
                                     <div class="dropdown left-indent">
                                         <ul class="dropdown-items">
-                                            
+                                            <li>
+                                                <a href="repnomina.php">Nómina</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -65,6 +67,9 @@
                                         <ul class="dropdown-items">
                                             <li>
                                                 <a href="config.php">Opciones</a>
+                                            </li>
+                                            <li>
+                                                <a href="calendar.php">Calendario</a>
                                             </li>
                                         </ul>
                                     </div>

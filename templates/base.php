@@ -20,6 +20,7 @@
         <link type="text/css" rel="stylesheet" href="js/dataTables/css/jquery.dataTables.min.css">
         <link type="text/css" rel="stylesheet" href="js/sweetalert/dist/sweetalert.css">
         <link type="text/css" rel="stylesheet" href="js/timepicker/jquery.timepicker.css">
+        <link type="text/css" rel="stylesheet" href="js/calendar/calendar.css">
         <?}else{?>
         <link type="text/css" rel="stylesheet" href="css/login.css">
         <?}?>
@@ -68,6 +69,7 @@
         <script type="text/javascript" src="js/sweetalert/dist/sweetalert2.all.js"></script>
         <script type="text/javascript" src="js/timepicker/jquery.timepicker.js"></script>
         <script type="text/javascript" src="js/moment-with-locales.js"></script>
+        <script type="text/javascript" src="js/calendar/calendar.js"></script>
         <script type="text/javascript" src="js/fn.js"></script>
         
         <script type="text/javascript">
