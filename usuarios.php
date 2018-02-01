@@ -8,8 +8,7 @@ $context = new Context();
 $db = new DBConn();
 
 if(!$action){
-    $context->title = "Lista de usuarios";
-    
+    $context->title = "Lista de usuarios";    
     $context->params[] = array("Header" => "#", "Width" => "40", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Editar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Borrar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
