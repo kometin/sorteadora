@@ -9,6 +9,7 @@
     var grid;
     $(function(){
         <?setGrid("grid", $context->params, true)?>
+        Loading();        
         ReloadGrid(grid, 'data/loadClientes.php');
                 
         $('#btnNew').click(function(){
@@ -24,6 +25,7 @@
         }        
     });
 function Grid(){
+    Loading();
     ReloadGrid(grid, 'data/loadUsuarios.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
 }   
 function Edit(id){

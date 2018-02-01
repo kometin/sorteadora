@@ -9,6 +9,7 @@
     var grid;
     $(function(){
         <?setGrid("grid", $context->params, true)?>
+        Loading();
         ReloadGrid(grid, 'data/loadOperadores.php');
                 
         $('#btnNew').click(function(){
@@ -24,6 +25,7 @@ $('#chkGrid').click(function(){
         }        
     });
 function Grid(){
+    Loading();
     ReloadGrid(grid, 'data/loadOperadores.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
 }   
 function Edit(id){
