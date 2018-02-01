@@ -50,7 +50,7 @@ function Ver(id){
     } 
     function Del(id){
 
-        Question( "¿Desea borrar este operador?", function(){
+        Question( "¿Desea dar de baja este operador?", function(){
            Loading();
         $.get('operadores.php?action=del&id=' + id, function (data) {
               Ready();
@@ -58,7 +58,7 @@ function Ver(id){
                   Error(data);
               else{
                   OK("Borrado");
-                ReloadGrid(grid, 'data/loadOperadores.php');
+                    ReloadGrid(grid, 'data/loadOperadores.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
               }
            });
         });
