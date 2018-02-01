@@ -9,12 +9,14 @@
     else
         header("Content-type: text/xml");
     if($_GET['all'] &&  $_GET['all']==1)
-        $and=" OR Estatus=0";       
+        $and=" AND Estatus=0";       
+    else
+        $and=" AND Estatus = 1";       
     
     $db = new DBConn();
     $sql = "Select * "
             . "from clientes  "
-            . "where Estatus = 1 $and";
+            . "where id is not null   $and";
     $data = $db->getArray($sql);
     
     print  "<?xml version='1.0' encoding='UTF-8'?>\n";
