@@ -19,6 +19,7 @@ if(!$action){
     $context->params[] = array("Header" => "Correo", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Teléfono", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Dirección", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     
     RenderTemplate('templates/clientes.tpl.php', $context, 'templates/base.php');
     

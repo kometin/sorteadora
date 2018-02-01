@@ -8,6 +8,7 @@
         <title>Ingenium Services Admin</title>
         
         <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+        <link type="text/css" rel="stylesheet" href="css/awesome-bootstrap-checkbox.css"  />
         <?if($_SESSION[SORTUSER]){?>
         <link type="text/css" rel="stylesheet" href="css/jquery-ui.css">
         <link type="text/css" rel="stylesheet" href="css/menu/plugins.css">

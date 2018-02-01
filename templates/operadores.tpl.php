@@ -14,7 +14,18 @@
         $('#btnNew').click(function(){
              Modal('operadores.php?action=form', 'Nuevo operador', 600); 
         });
+$('#chkGrid').click(function(){
+            Grid();
+        });        
+        if($('#chkGrid').is(':checked')){
+            Loading();
+                ReloadGrid(grid, 'data/loadOperadores.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+
+        }        
     });
+function Grid(){
+    ReloadGrid(grid, 'data/loadOperadores.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+}   
 function Edit(id){
     Modal('operadores.php?action=form&id=' + id, 'Editar usuario', 700, function () {
     });
@@ -32,7 +43,7 @@ function Ver(id){
                   Error(data);
               else{
                   OK("Borrado");
-               ReloadGrid(grid, 'data/loadClientes.php');
+                    ReloadGrid(grid, 'data/loadOperadores.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
               }
            });
         });
@@ -54,13 +65,27 @@ function Ver(id){
     } 
     
 </script>
+<style>
+.checkbox{
+    float: right;
+    margin-right: 10px;
+    top: -32px;
+    height: 0px;
+}
+
+</style>
 <?}?>
 
 <?function Body($context){?>
 <p>
     <a class="btn btn-primary" id ="btnNew"><i class="fa fa-plus"></i> Nuevo operador</a>
 </p>
-<br>
+<div class="checkbox checkbox-circle checkbox-primary" id ="chkAll">
+    <input type="checkbox" id="chkGrid" >
+    <label for="chkGrid">
+        Mostrar bajas
+    </label>
+</div>  
 <table width="100%"  cellpadding="0" cellspacing="0">		
     <tr>
          <td id="pager_grid"></td>

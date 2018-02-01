@@ -15,8 +15,17 @@
         $('#btnNew').click(function(){
              Modal('usuarios.php?action=form', 'Nuevo usuario', 600); 
         });
-        
+        $('#chkGrid').click(function(){
+            Grid();
+        });
+        if($('#chkGrid').is(':checked')){
+            Loading();
+            ReloadGrid(grid, 'data/loadUsuarios.php?all=1');
+        }        
     });
+    function Grid(){
+        ReloadGrid(grid, 'data/loadUsuarios.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+    }        
 function Edit(id){
     Modal('usuarios.php?action=form&id=' + id, 'Editar usuario', 700, function () {
     });
@@ -24,7 +33,7 @@ function Edit(id){
 
 
 function Del(id){
-    Question( "¿Desea borrar este usuario?", function(){
+    Question( "¿Desea dar de baja este usuario?", function(){
      Loading();
     $.get('usuarios.php?action=del&id=' + id, function (data) {
           Ready();
@@ -32,7 +41,7 @@ function Del(id){
               Error(data);
           else{
               OK("Borrado");
-           ReloadGrid(grid, 'data/loadUsuarios.php');
+                ReloadGrid(grid, 'data/loadUsuarios.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
           }
        });
     });
@@ -40,12 +49,12 @@ function Del(id){
 </script>
 <style>
 .checkbox{
- float: right;
+    float: right;
     margin-right: 10px;
+    top: -32px;
+    height: 0px;
 }
-.checkbox.checkbox-circle label::before {
-  border-radius: 50%;
-}
+
 </style>
 <?}?>
 
@@ -56,7 +65,7 @@ function Del(id){
 <div class="checkbox checkbox-circle checkbox-primary" id ="chkAll">
     <input type="checkbox" id="chkGrid" >
     <label for="chkGrid">
-        Mostrar elementos eliminados
+        Mostrar bajas
     </label>
 </div>
 <br>
