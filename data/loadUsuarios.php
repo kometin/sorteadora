@@ -31,6 +31,8 @@
             print "<cell>" . $d["Nombre"] ." ". $d["Paterno"]." ". $d["Materno"] . "</cell>";		
          //   print "<cell>" . $d["Rol"] . "</cell>";
             print "<cell>" . $d["Correo"] . "</cell>";
+            print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
+
             print "</row>";
         }
     }

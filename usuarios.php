@@ -17,6 +17,8 @@ if(!$action){
    // $context->params[] = array("Header" => "Tipo", "Width" => "100", "Attach" => "cmb", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Correo", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     
+    $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+
     RenderTemplate('templates/usuarios.tpl.php', $context, 'templates/base.php');
     
 }elseif($action == "form"){
@@ -62,7 +64,7 @@ if(!$action){
     sleep(1);
 }elseif($action == "del"){
     if($id)
-        $db->execute ("UPDATE usuarios SET Estatus=0 WHERE id=$id");
+        $db->execute ("UPDATE usuarios SET Estatus=0, updated_at=now() WHERE id=$id");
     
 }elseif($action == "ckc"){   
     if($id)

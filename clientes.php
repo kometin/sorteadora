@@ -68,7 +68,7 @@ if(!$action){
 
 }elseif($action == "del"){
     if($id)
-        $db->execute ("UPDATE clientes SET Estatus=0 WHERE id=$id");
+        $db->execute ("UPDATE clientes SET Estatus=0, updated_at=now() WHERE id=$id");
     
 }elseif($action == "ckr"){
     if($id)

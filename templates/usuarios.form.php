@@ -7,6 +7,7 @@
                LoadButton($(this));
                if(ValidMail($('#mail').val()) ){               
                     if($('#Password').val()!=$('#Password2').val()){
+                        Ready();
                         Error("Las contraseñas no coinciden");
                      }else{  
                         $.get('usuarios.php?action=ckc&id='+$('#id').val()+'&cor=' +$('#mail').val() , function (e) {                                                 

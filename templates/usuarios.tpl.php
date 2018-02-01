@@ -38,12 +38,27 @@ function Del(id){
     });
 }     
 </script>
+<style>
+.checkbox{
+ float: right;
+    margin-right: 10px;
+}
+.checkbox.checkbox-circle label::before {
+  border-radius: 50%;
+}
+</style>
 <?}?>
 
 <?function Body($context){?>
 <p>
     <a class="btn btn-primary" id ="btnNew"><i class="fa fa-plus"></i> Nuevo usuario</a>
 </p>
+<div class="checkbox checkbox-circle checkbox-primary" id ="chkAll">
+    <input type="checkbox" id="chkGrid" >
+    <label for="chkGrid">
+        Mostrar elementos eliminados
+    </label>
+</div>
 <br>
 <table width="100%"  cellpadding="0" cellspacing="0">		
     <tr>
