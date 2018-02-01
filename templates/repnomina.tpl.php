@@ -22,11 +22,13 @@
        
     </ul>
     <div class="tab-content">
+        
         <div role="tabpanel" class="tab-pane fade in active" id="details">
             <table width="100%"  cellpadding="0" cellspacing="0">		
                 <tr>
                      <td id="pager_grid_det"></td>
                 </tr>
+                
                 <tr>
                      <td><div id="infopage_grid_det" style =""></div></td>
                 </tr>
