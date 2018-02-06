@@ -44,7 +44,7 @@ if(!$action){
                  . "Direccion = '$Direccion', "
                 . "Telefono = '$Telefono', "
                 . "updated_at = NOW(), "
-                . "updated_by = '{$_SESSION['ID_Usuario']}'"
+                . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";        
     }else{
         $sql = "insert into operadores set "
@@ -56,14 +56,14 @@ if(!$action){
                  . "Direccion = '$Direccion', "
                 . "Telefono = '$Telefono', "
                 . "Fecha_Alta = NOW(), "
-                . "updated_by = '{$_SESSION['ID_Usuario']}' ";
+                . "updated_by = '{$_SESSION['SORTUSER']}' ";
     }
     $db->execute($sql);
     sleep(1);
 
 }elseif($action == "del"){
     if($id)
-        $db->execute ("UPDATE operadores SET Estatus=0, updated_at=now() WHERE id=$id");
+        $db->execute ("UPDATE operadores SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
     
 }elseif($action == "ckr"){
     if($id)

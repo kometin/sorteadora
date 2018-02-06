@@ -54,31 +54,34 @@
 $data=$context->data;
 ?>
 <form id="op" <? if($context->ver==1){echo 'class="vista"';}?> autocomplete="off">
-    <div class="form-group">
+   <? /* <div class="form-group">
         <label>Nombre</label>
         <input type="text" class="form-control require" name="Nombre" value="<?=$data[0]['Nombre']?>" placeholder="Nombre del cliente">
     </div>
-    
+    */?>
     <div class="form-group">
         <label>Empresa</label>
         <input type="text" class="form-control require" name="Empresa" value="<?=$data[0]['Empresa']?>" placeholder="Empresa">
     </div>
     <div class="form-group">
         <label>RFC</label>
-        <input type="text" class="form-control " name="RFC" id="RFC" value="<?=$data[0]['RFC']?>" placeholder="RFC">
+        <input type="text" class="form-control require" name="RFC" id="RFC" value="<?=$data[0]['RFC']?>" placeholder="RFC">
     </div>
+
+    <div class="form-group">
+        <label>Dirección</label>
+        <textarea class="form-control " name="Direccion" placeholder="Dirección"><?=$data[0]['Direccion']?></textarea> 
+    </div>
+         
+    <div class="form-group">
+        <label>Teléfono</label>
+        <input type="text" class="form-control " name="Telefono" value="<?=$data[0]['Telefono']?>" placeholder="Teléfono">
+    </div> 
+    <? /*
     <div class="form-group">
         <label>Correo</label>
         <input type="text" class="form-control require" name="Correo" id="Correo" value="<?=$data[0]['Correo']?>" placeholder="Correo">
     </div>
-    <div class="form-group">
-        <label>Dirección</label>
-        <textarea class="form-control " name="Direccion" placeholder="Dirección"><?=$data[0]['Direccion']?></textarea> 
-    </div>    
-    <div class="form-group">
-        <label>Teléfono</label>
-        <input type="text" class="form-control " name="Telefono" value="<?=$data[0]['Telefono']?>" placeholder="Teléfono">
-    </div>        
     <div class="form-group" <?=($context->id?"style='display:none'":"")?> id="pwd">
         <label>Contraseña</label>
         <input type="password" autocomplete="Off" class="form-control require" name="Password" id="Password" value="" placeholder="Contraseña">
@@ -86,7 +89,9 @@ $data=$context->data;
     <div class="form-group" <?=($context->id?"style='display:none'":"")?>  id="pwd2">
         <label>Repetir contraseña</label>
         <input type="password" class="form-control require" name="Password2" id="Password2" value="" placeholder="Repetir contraseña">
-    </div>    
+    </div> 
+     
+     */?>   
     <input type="hidden" name="id" id="id" value="<?=$context->id?>">
     <p>
         <a class=" btn btn-info btn-lg" id="chg1"  style="display:<?=($context->id?"":"none")?>"  onclick="$('#chg1').hide(); $('#pwd').show();$('#pwd2').show();$( '#Password2' ).prop( 'disabled', false ); $( '#Password' ).prop( 'disabled', false ); " >Cambiar password</a>

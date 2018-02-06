@@ -32,13 +32,14 @@
         }else {
             print "<cell></cell><cell></cell>";
         }            
-        print "<cell>" . htmlspecialchars($d["Nombre"])."</cell>";		
+       // print "<cell>" . htmlspecialchars($d["Nombre"])."</cell>";		
         print "<cell>" . htmlspecialchars($d["Empresa"]) . "</cell>";		
         print "<cell>" . htmlspecialchars($d["RFC"]) . "</cell>";		
-        print "<cell>" . htmlspecialchars($d["Correo"]) . "</cell>";		
-        print "<cell>" . htmlspecialchars($d["Telefono"]) . "</cell>";
+        //print "<cell>" . htmlspecialchars($d["Correo"]) . "</cell>";		        
         print "<cell>" . htmlspecialchars($d["Direccion"]) . "</cell>";
+        print "<cell>" . htmlspecialchars($d["Telefono"]) . "</cell>";
         print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
+            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-address-card" onclick="Contact(\'' . $d['id'] . '\')"></li>') . "</cell>";          
          
        print "</row>";
     }

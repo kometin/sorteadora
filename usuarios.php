@@ -43,7 +43,7 @@ if(!$action){
                 . "Correo = '$mail', "
                  . $pwd
                 . "updated_at = NOW(), "
-                . "updated_by = '{$_SESSION['ID_Usuario']}'"
+                . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";              
     }else{
         $PWD= Encrypt($Password);        
@@ -63,7 +63,7 @@ if(!$action){
     sleep(1);
 }elseif($action == "del"){
     if($id)
-        $db->execute ("UPDATE usuarios SET Estatus=0, updated_at=now() WHERE id=$id");
+        $db->execute ("UPDATE usuarios SET Estatus=0, updated_at=now(), updated_by='{$_SESSION[SORTUSER]}' WHERE id=$id");
     
 }elseif($action == "ckc"){   
     if($id)

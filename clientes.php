@@ -13,15 +13,26 @@ if(!$action){
     $context->params[] = array("Header" => "#", "Width" => "40", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Editar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Borrar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
-    $context->params[] = array("Header" => "Nombre", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+   // $context->params[] = array("Header" => "Nombre", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Empresa", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "RFC", "Width" => "150", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Correo", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Teléfono", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+   // $context->params[] = array("Header" => "Correo", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Dirección", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+
+    $context->params[] = array("Header" => "Teléfono", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Contactos", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     
     RenderTemplate('templates/clientes.tpl.php', $context, 'templates/base.php');
+    
+}elseif($action == "contact"){
+    if($id){
+        $context->id=$id;
+        $sql="SELECT * FROM contactos WHERE cliente_id=$id AND Activo=1";
+        $context->contactos=$db->getArray($sql);
+    }
+
+    RenderTemplate('templates/contactos.php', $context);
     
 }elseif($action == "form" || $action == "ver"){
     $context->ver=0;
@@ -48,7 +59,7 @@ if(!$action){
                 . "Telefono = '$Telefono', "
                  . $pwd
                 . "updated_at = NOW(), "
-                . "updated_by = '{$_SESSION['ID_Usuario']}'"
+                . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";        
     }else{
         $PWD= Encrypt($Password);
@@ -62,15 +73,52 @@ if(!$action){
                 . "Telefono = '$Telefono', "
                 . "Estatus=1,   "
                 . "Fecha_Alta = NOW(), "
-                . "updated_by = '{$_SESSION['ID_Usuario']}' ";
+                . "updated_by = '{$_SESSION['SORTUSER']}' ";
     }
     $db->execute($sql);
     sleep(1);
 
+}elseif($action == "savecontact"){
+    $x=0;
+    foreach($Nombre as $Nom){
+        
+        $PWD='';
+        if($Password[$x])
+            $PWD= Encrypt($Password);
+        if($id[$x]!=''){
+            $sql = "update contactos set "
+            . "Tipo = '$Tipo[$x]', "
+             . "Nombre = '$Nom', "
+            . "Correo = '$Correo[$x]', " 
+            . "Password = '$PWD', "
+             . "Principal = '$Principal[$x]', "                
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' "
+            . " WHERE id=$id[$x]";        
+            $db->execute($sql);
+        }elseif($Nom!=''){
+           $sql = "insert into contactos set "
+            . "Tipo = '$Tipo[$x]', "
+             . "Nombre = '$Nom', "
+            . "Correo = '$Correo[$x]', " 
+            . "Password = '$PWD', "
+             . "Principal = '$Principal[$x]', " 
+             . "cliente_id=$cid, "
+
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' ";        
+            $db->execute($sql);
+        }
+        $x++;
+    }
+    sleep(1);    
 }elseif($action == "del"){
     if($id)
-        $db->execute ("UPDATE clientes SET Estatus=0, updated_at=now() WHERE id=$id");
-    
+        $db->execute ("UPDATE clientes SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+}elseif($action == "delc"){
+       if($id)
+        $db->execute ("UPDATE contactos SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+ 
 }elseif($action == "ckr"){
     if($id)
         $and=" AND id!='$id'";

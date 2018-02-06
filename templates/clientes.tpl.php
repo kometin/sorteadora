@@ -32,12 +32,16 @@ function Edit(id){
     Modal('clientes.php?action=form&id=' + id, 'Editar cliente', 700, function () {
     });
 }
+function Contact(id){
+    Modal('clientes.php?action=contact&id=' + id, 'Contactos', 1000, function () {
+    });
+}
 function Ver(id){
     Modal('clientes.php?action=ver&id=' + id, 'Ver cliente', 700, function () {
     });
 }
-
-    function Del(id){
+ 
+function Del(id){
 
         Question( "¿Desea dar de baja este cliente?", function(){
            Loading();
