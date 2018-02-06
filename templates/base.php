@@ -53,6 +53,7 @@
             .fa-download {color: #218DED; }
             .RowCount {float: right; padding: 10px 20px;}
             .fa-search-plus {color: #036;}
+            .tab-content {padding-top: 10px; }
             <?if($_SESSION[SORTUSER]){?>
             #main-content {padding: 10px; border-radius: 5px; border: 2px solid #6d6767; background: white; }
             <?}?>

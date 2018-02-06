@@ -11,12 +11,57 @@
         <?=setGrid("grid_det", $context->params['DET'], true)?>
         <?=setGrid("grid_con", $context->params['CON'], true)?>
                 
+        DatePicker($('.date'));
+        DoSelect($('.select2'));
+        
+        $('#btnSearch').click(function(){
+            if($('#txtDate1').val() && $('#txtDate2').val()){
+                Loading();
+                LoadDetails();
+//                LoadConcentrade();
+            }else{
+                Warning("Seleccione ambas fechas para ccontinuar");
+            }
+        });
     });
+    
+    function LoadDetails(){
+        ReloadGrid(grid_det, 'data/loadRepNomina.php?mode=det' + getURL());
+    }
+    
+    function LoadConcentrade(){
+        ReloadGrid(grid_con, 'data/loadRepNomina.php?mode=con' + getURL());
+    }
+    
+    function getURL(){
+        return '&oper=' + $('#cmbOper').val() + '&d1=' + $('#txtDate1').val() + '&d2=' + $('#txtDate2').val();
+    }
 </script>
 <?}?>
 
 <?function Body($context){?>
-<ul class="nav nav-tabs" role="tablist">
+<div class="form-group">
+    <table class="table">
+        <tr>
+            <td><label>Operador</label></td>
+            <td>
+                <select class="select2" style="width: 400px" id ="cmbOper">
+                    <option value="">TODOS</option>
+                    <?foreach($context->oper as $o){?>
+                    <option value="<?=$o[id]?>"><?=$o[RFC]?> <?=$o[Nombre]?> <?=$o[Paterno]?> <?=$o[Materno]?></option>
+                    <?}?>
+                </select>
+            </td>
+            <td><label>Entre</label></td>
+            <td><input type="text" class="form-control date" id ="txtDate1"></td>
+            <td><label>y</label></td>
+            <td><input type="text" class="form-control date" id ="txtDate2"></td>
+            <td><button class="btn btn-primary" id ="btnSearch"><i class="fa fa-search"></i> Mostrar</button></td>
+        </tr>
+    </table>
+</div>
+
+    <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#details" role="tab" data-toggle="tab">Reporte detallado</a></li>
         <li role="presentation" class=""><a href="#concentrade" role="tab" data-toggle="tab">Reporte concentrado</a></li>
        

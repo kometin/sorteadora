@@ -175,8 +175,19 @@
         $html .= $grid . ".init();"
                . $grid . ".attachEvent('onFilterEnd', function(){ Count(" . $grid . "); });";
         $footer = "Total,";
-        for($i=1; $i<count($params); $i++)
-            $footer .= ($params[$i][Sum] ? "#stat_total" : "#cspan") . ",";
+        for($i=1; $i<count($params); $i++){
+            if($params[$i]['Type'] == "edn")
+                $html.= $grid . ".setNumberFormat('0,000.00'," . $i . ");";
+            if($params[$i][Sum]){
+                $footer .= "#stat_total,";
+                $cspan = true;
+            }elseif(!$cspan){
+                $footer .= "#cspan,";
+            }else{
+                $footer .= ",";
+            }
+//            $footer .= ($params[$i][Sum] ? "#stat_total" : " ") . ",";
+        }
         if(substr_count($footer, "stat_total"))
             $html.= $grid . ".attachFooter('" . substr($footer, 0, -1) . "');";
         echo $html;	
