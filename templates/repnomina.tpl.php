@@ -28,10 +28,10 @@
             var tab = $('ul.nav').find('li.active').find('a').attr('href');
             switch(tab){
                 case "#details":
-                    ExportData(grid_det);
+                    ExportData(grid_det, 'Reporte detallado');
                    break;
                 case "#concentrade":
-                    ExportData(grid_con);
+                    ExportData(grid_con, 'Reporte concentrado');
                    break;
             }
 
