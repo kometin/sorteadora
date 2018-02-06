@@ -3,7 +3,6 @@
 require_once 'gridExcelGenerator.php';
 require_once 'gridExcelWrapper.php';
 
-$title_report = $_GET['report'];
 
 $debug = false;
 $error_handler = set_error_handler("PDFErrorHandler");
@@ -20,7 +19,6 @@ if ($debug == true) {
 
 $xml = simplexml_load_string($xmlString);
 $excel = new gridExcelGenerator();
-if($title_report) $excel->title = $title_report;
 $excel->printGrid($xml);
 
 function PDFErrorHandler ($errno, $errstr, $errfile, $errline) {

@@ -235,14 +235,14 @@ class gridExcelWrapper {
 			case 'excel2003':
 				$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
 				header('Content-Type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment;filename="' . $title . '.xls"');
+				header('Content-Disposition: attachment;filename="grid.xls"');
 				header('Cache-Control: max-age=0');
 				break;
 			case 'csv':
 				$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'CSV');
 				$objWriter->setDelimiter(';');
 				header("Content-type: application/csv");
-				header("Content-Disposition: attachment; filename=" . $title . ".csv");
+				header("Content-Disposition: attachment; filename=grid.csv");
 				header("Pragma: no-cache");
 				header("Expires: 0");
 				break;
@@ -250,7 +250,7 @@ class gridExcelWrapper {
 			default:
 				$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
 				header('Content-Type: application/xlsx');
-				header('Content-Disposition: attachment;filename="' . $title . '.xlsx"');
+				header('Content-Disposition: attachment;filename="grid.xlsx"');
 				header('Cache-Control: max-age=0');
 				break;
 		}

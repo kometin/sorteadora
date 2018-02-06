@@ -18,10 +18,23 @@
             if($('#txtDate1').val() && $('#txtDate2').val()){
                 Loading();
                 LoadDetails();
-//                LoadConcentrade();
+                LoadConcentrade();
             }else{
                 Warning("Seleccione ambas fechas para ccontinuar");
             }
+        });
+        
+        $('#btnExport').click(function(){
+            var tab = $('ul.nav').find('li.active').find('a').attr('href');
+            switch(tab){
+                case "#details":
+                    ExportData(grid_det);
+                   break;
+                case "#concentrade":
+                    ExportData(grid_con);
+                   break;
+            }
+
         });
     });
     
@@ -57,6 +70,7 @@
             <td><label>y</label></td>
             <td><input type="text" class="form-control date" id ="txtDate2"></td>
             <td><button class="btn btn-primary" id ="btnSearch"><i class="fa fa-search"></i> Mostrar</button></td>
+            <td><button class="btn btn-default" id ="btnExport"><i class="fa fa-file-excel-o"></i> Exportar</button></td>
         </tr>
     </table>
 </div>

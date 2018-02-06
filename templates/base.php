@@ -65,6 +65,7 @@
         <script type="text/javascript" src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/dhtmlx/dhtmlx.js"></script>
+        <script type="text/javascript" src="js/dhtmlx/dhtmlxgrid_export.js"></script>
         <script type="text/javascript" src="js/dataTables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/select2.js"></script>
         <script type="text/javascript" src="js/jquery.multi-select.js"></script>
