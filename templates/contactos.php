@@ -113,13 +113,16 @@ $data=$context->data;
         <tr id="tr<?=$row['id']?>">
             <td>
                 <select  name="Tipo[]" class="form-control" id="Tipo">
-                    <option value="Financial" <? if($row['Tipo']=='Financial')?>>Financial</option>
-                    <option value="Quality" <? if($row['Quality']=='Financial')?>>Quality</option>
+                    <option value="Financial" <? if($row['Tipo']=='Financial')echo "selected";?>>Financial</option>
+                    <option value="Quality" <? if($row['Tipo']=='Quality')echo "selected";?>>Quality</option>
                 </select>
             </td>
             <td><input type="text" name="Nombre[]" class="form-control require" id="Nombre" value="<?=$row['Nombre']?>"></td>  
             <td><input type="text" name="Correo[]" class="form-control require mail" id="Correo" value="<?=$row['Correo']?>"></td>  
-            <td><input type="password" name="Password[]" class="form-control" id="Password"></td>  
+            <td>
+                <a class=" btn btn-info btn-lg" id="chg1"  style="display:<?=($row['id']?"":"none")?>"  onclick="$(this).hide();$('#Password<?=$row['id']?>').val(''); $('#Password<?=$row['id']?>').show(); " >Cambiar password</a>
+                <input type="password" name="Password[]" style="display:none" class="form-control" id="Password<?=$row['id']?>" value='0'>
+            </td>  
             <td>
                 <input type="hidden" value="">
                 <input type="checkbox" name="Principal[]" id="Principal" class="form-control checado" value="1" <? if($row['Principal']==1)echo "checked";?>>

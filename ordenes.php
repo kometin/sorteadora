@@ -22,7 +22,7 @@ if(!$action){
     $context->params[] = array("Header" => "Folio", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Fecha cierre", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
 
-    $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+   // $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     
     RenderTemplate('templates/ordenes.tpl.php', $context, 'templates/base.php');
     
@@ -31,6 +31,9 @@ if(!$action){
     $sql="SELECT * FROM servicios "               
             . "WHERE Activo=1";
     $context->servicios=$db->getArray($sql);
+    $sql="SELECT * FROM clientes "               
+            . "WHERE Estatus=1";
+    $context->clientes=$db->getArray($sql);    
     if($id){
         $context->id=$id;
         $sql="SELECT * FROM ordenes o"
@@ -60,6 +63,7 @@ if(!$action){
                 . " WHERE id=$id ";        
     }else{
         $sql = "insert into ordenes set "
+                . "cliente_id = '$cliente_id', "
                 . "Servicio = '$Servicio', "
                 . "updated_at = NOW(), "
                 . "updated_by = '{$_SESSION['SORTUSER']}' ";

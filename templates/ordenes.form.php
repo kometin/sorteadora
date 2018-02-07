@@ -41,20 +41,20 @@ $data=$context->data;
     </div>
     */?>
     <div class="form-group">
-        <label>Cliente</label>
-        <input type="text" class="form-control require" name="cliente_id" value="<?=$data[0]['cliente_id']?>" placeholder="cliente_id">
+        <label>Empresa</label>
+        <select  name="cliente_id" id="cliente_id" class="require  form-control" >
+       <? foreach($context->clientes as $c){?>
+       <option value="<?= $c['id'] ?>" ><?= $c['Empresa'] ?></option>
+       <? }?>
+       </select> 
     </div>
     <div class="form-group">
         <label>Número de partes</label>
-        <input type="text" class="form-control " name="Numero_parte" value="<?=$data[0]['Numero_parte']?>" placeholder="Numero_parte">
+        <input type="text" class="form-control require"  name="Numero_parte" value="<?=$data[0]['Numero_parte']?>" placeholder="Número de parte">
     </div>
     <div class="form-group">
         <label>Descripción</label>
-        <textarea  class="form-control require" name="Descripcion" id="Descripcion"  placeholder="Descripcion"><?=$data[0]['Descripcion']?></textarea>
-    </div>
-    <div class="form-group">
-        <label>Folio</label>
-        <input type="text" class="form-control " name="Folio" value="<?=$data[0]['Folio']?>" placeholder="Folio">
+        <textarea  class="form-control require" name="Descripcion" id="Descripcion"  placeholder="Descripción"><?=$data[0]['Descripcion']?></textarea>
     </div>
     <div class="form-group">
         <label>Herremientas</label>
@@ -78,19 +78,18 @@ $data=$context->data;
     </div>
     <div class="form-group">
         <label>Total de partes</label>
-        <input type="text" class="form-control " name="Total_partes" value="<?=$data[0]['Total_partes']?>" placeholder="Total_partes">
+        <input type="text" class="form-control numeric" style="width:200px" name="Total_partes" value="<?=$data[0]['Total_partes']?>" placeholder="Total_partes">
     </div>
     <div class="form-group">
         <label>Fecha cierre</label>
         <input type="text" class="form-control date" name="Fecha_cierre" value="<?= SimpleDate($data[0]['Fecha_cierre'])?>" placeholder="Numero_parte">
     </div>
-    <select multiple="multiple" name="Servicios[]" id="Servicios" class="require  form-control" >
+    <label>Servicios</label>
+    <select multiple="multiple"  placeholder="Servicios" name="Servicios[]" id="Servicios" class="require  form-control" >
                     <? foreach($context->servicios as $un){?>
                     <option value="<?= $un['id'] ?>" ><?= $un['Servicio'] ?></option>
                     <? }?>
-    </select>    
-
-
+    </select>   
     <input type="hidden" name="id" id="id" value="<?=$context->id?>">
     <p>
         <a class="btn btn-success btn-lg" id ="btnSave"><i class="fa fa-save"></i> Guardar</a>

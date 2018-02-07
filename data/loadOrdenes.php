@@ -33,14 +33,14 @@
             print "<cell></cell><cell></cell>";
         }
 
-        print "<cell>" . htmlspecialchars($d["Cliente"])."</cell>";		
+        print "<cell>" . htmlspecialchars($d["Empresa"])."</cell>";		
         print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_orden"]))."</cell>";		
         print "<cell>" . htmlspecialchars($d["Numero_Parte"])."</cell>";		
         print "<cell>" . htmlspecialchars($d["Descripcion"])."</cell>";		
         print "<cell>" . htmlspecialchars($d["Folio"])."</cell>";		
         print "<cell>" . htmlspecialchars($d["Servicio"])."</cell>";		
         print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_cierre"]))."</cell>";		
-        print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
+    //    print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
         
        print "</row>";
     }

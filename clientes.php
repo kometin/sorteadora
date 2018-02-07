@@ -53,12 +53,10 @@ if(!$action){
                 . "Empresa = '$Empresa', " 
                  . "Direccion = '$Direccion', "
                 . "Telefono = '$Telefono', "
-                 . $pwd
                 . "updated_at = NOW(), "
                 . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";        
     }else{
-        $PWD= Encrypt($Password);
         $sql = "insert into clientes set "
                  . "RFC = '$RFC', "
                 . "Empresa = '$Empresa', " 
@@ -76,14 +74,17 @@ if(!$action){
     foreach($Nombre as $Nom){
         
         $PWD='';
-        if($Password[$x])
-            $PWD= Encrypt($Password);
+        if($Password[$x]=='')       
+            $PWD="Password = '', ";
+        elseif($Password[$x]!=0)       
+            $PWD="Password = '". md5($Password[$x])."' , ";
+        
         if($id[$x]!=''){
             $sql = "update contactos set "
             . "Tipo = '$Tipo[$x]', "
              . "Nombre = '$Nom', "
             . "Correo = '$Correo[$x]', " 
-            . "Password = '$PWD', "
+            . $PWD
              . "Principal = '$Principal[$x]', "                
             . "updated_at = NOW(), "
             . "updated_by = '{$_SESSION['SORTUSER']}' "
@@ -94,8 +95,8 @@ if(!$action){
             . "Tipo = '$Tipo[$x]', "
              . "Nombre = '$Nom', "
             . "Correo = '$Correo[$x]', " 
-            . "Password = '$PWD', "
-             . "Principal = '$Principal[$x]', " 
+            .$PWD
+             . " Principal = '$Principal[$x]', " 
              . "cliente_id=$cid, "
 
             . "updated_at = NOW(), "

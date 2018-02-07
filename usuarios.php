@@ -33,7 +33,7 @@ if(!$action){
     
     if($id){
         if($Password)
-            $pwd="Password='".Encrypt($Password)."',";
+            $pwd="Password='".md5($Password)."',";
         $sql = "UPDATE usuarios set "
                 . "Nombre = '$name', "
                 . "Paterno = '$patern', "
@@ -46,7 +46,7 @@ if(!$action){
                 . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";              
     }else{
-        $PWD= Encrypt($Password);        
+        $PWD= md5($Password);        
         $sql = "insert into usuarios set "
                 . "Nombre = '$name', "
                 . "Paterno = '$patern', "
