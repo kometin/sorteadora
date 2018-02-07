@@ -16,7 +16,7 @@
     $db = new DBConn();
     $sql = "Select * "
             . "from clientes  "
-            . "where id is not null   $and";
+            . "where id is not null   $and order by Empresa ASC";
     $data = $db->getArray($sql);
     
     print  "<?xml version='1.0' encoding='UTF-8'?>\n";
