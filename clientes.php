@@ -48,13 +48,9 @@ if(!$action){
 }elseif($action == "save"){
     
     if($id){
-        if($Password)
-            $pwd="Password='".Encrypt($Password)."',";
         $sql = "UPDATE clientes set "
-                . "Nombre = '$Nombre', "
                  . "RFC = '$RFC', "
                 . "Empresa = '$Empresa', " 
-                . "Correo = '$Correo', "
                  . "Direccion = '$Direccion', "
                 . "Telefono = '$Telefono', "
                  . $pwd
@@ -64,12 +60,9 @@ if(!$action){
     }else{
         $PWD= Encrypt($Password);
         $sql = "insert into clientes set "
-                . "Nombre = '$Nombre', "
                  . "RFC = '$RFC', "
                 . "Empresa = '$Empresa', " 
-                . "Correo = '$Correo', "
                  . "Direccion = '$Direccion', "
-                 . "Password ='$PWD',"
                 . "Telefono = '$Telefono', "
                 . "Estatus=1,   "
                 . "Fecha_Alta = NOW(), "

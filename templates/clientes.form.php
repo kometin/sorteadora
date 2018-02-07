@@ -5,40 +5,29 @@
         $('#btnSave').click(function(){
            
            if(Full($('#op'))) {
-               LoadButton($('#btnSave'));
-               if($('#Password').val()!=$('#Password2').val()){
-                   Ready();
-                   Error("Las contraseñas no coinciden");
-                }else{  
-                    if(ValidMail($('#Correo').val()) ){ 
-                       if($('#RFC').val()=='' || validateRFC13($('#RFC').val()) ){                    
-                            $.get('clientes.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val()+'&cor=' +$('#Correo').val() , function (e) {                        
-                                if(e==''){                                    
-                                    $.post('clientes.php?action=save', $('#op').serialize(), function(data){
-                                       Ready();
-                                       if(data)
-                                           Error(data);
-                                       else{
-                                              ReloadGrid(grid, 'data/loadClientes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
-                                           OK("Guardado");
-                                           CloseModal();
-                                       }                                       
-                                    });
-                                }else{
-                                     Error(e);        
-                                     Ready();
-                                }
-                            });
-                        }else{
-                            Error("El formato del RFC es incorrecto");                            
-                            Ready();
-                        }
-                    }else{
-                        Error("El formato del correo es incorrecto");
-                        Ready();
-                    }
-                }
-                
+               LoadButton($('#btnSave')); 
+                if($('#RFC').val()=='' || validateRFC13($('#RFC').val()) ){                    
+                     $.get('clientes.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val() , function (e) {                        
+                         if(e==''){                                    
+                             $.post('clientes.php?action=save', $('#op').serialize(), function(data){
+                                Ready();
+                                if(data)
+                                    Error(data);
+                                else{
+                                       ReloadGrid(grid, 'data/loadClientes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+                                    OK("Guardado");
+                                    CloseModal();
+                                }                                       
+                             });
+                         }else{
+                              Error(e);        
+                              Ready();
+                         }
+                     });
+                 }else{
+                     Error("El formato del RFC es incorrecto");                            
+                     Ready();
+                 }
            }
         });
     });
@@ -94,7 +83,6 @@ $data=$context->data;
      */?>   
     <input type="hidden" name="id" id="id" value="<?=$context->id?>">
     <p>
-        <a class=" btn btn-info btn-lg" id="chg1"  style="display:<?=($context->id?"":"none")?>"  onclick="$('#chg1').hide(); $('#pwd').show();$('#pwd2').show();$( '#Password2' ).prop( 'disabled', false ); $( '#Password' ).prop( 'disabled', false ); " >Cambiar password</a>
         <a class="btn btn-success btn-lg" id ="btnSave"><i class="fa fa-save"></i> Guardar</a>
     </p>
 </form>

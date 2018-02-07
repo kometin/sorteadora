@@ -26,7 +26,7 @@
     });
 function Grid(){
     Loading();
-    ReloadGrid(grid, 'data/loadUsuarios.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+    ReloadGrid(grid, 'data/loadClientes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
 }   
 function Edit(id){
     Modal('clientes.php?action=form&id=' + id, 'Editar cliente', 700, function () {
