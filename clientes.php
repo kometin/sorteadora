@@ -127,4 +127,44 @@ if(!$action){
     elseif($existeCorreo=='' && $existeRFC!='')
             echo "El RFC ya existen en otro cliente";
     
+}elseif($action == "checacontacto"){
+    foreach($Correo as $cor){
+        if($cor){
+           $correo=$db->getOne("SELECT Correo FROM contactos WHERE Correo='$cor' AND Activo=1 AND cliente_id!='$cid' ");    
+        }
+        if($correo!='')
+            $existeCorreo[]=$correo;
+    }
+    if(count($existeCorreo)>0){
+        $existeCorreo = array_unique($existeCorreo);
+       if(count($existeCorreo)==1)
+           echo "El correo ".$existeCorreo[0]." esta en uso en otro cliente";
+       else
+           echo "Los correos ".implode(',',$existeCorreo)." estan en uso  en otro cliente";
+           
+    }else{
+        
+        $temp='';
+        foreach($Correo as $cor){
+            if(contar_valores($Correo,$cor)>1)
+                $existeCorreo[]=$cor;                       
+        }
+        if(count($existeCorreo)>0){
+            $existeCorreo = array_unique($existeCorreo);
+           if(count($existeCorreo)==1)
+               echo "El correo ".$existeCorreo[0]." esta duplicado";
+           else
+               echo "Los correos".implode(',',$existeCorreo)." estan duplicados ";
+
+        }        
+    }
 }
+function contar_valores($a,$buscado)
+ {
+  if(!is_array($a)) return NULL;
+  $i=0;
+  foreach($a as $v)
+   if($buscado===$v)
+    $i++;
+  return $i;
+ }

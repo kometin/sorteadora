@@ -1,31 +1,49 @@
 <script>
     $(function(){
         error=0;
+        errorMail=0;
         $('#btnSaveContact').click(function(){
+           var correos= ['']; 
+           mensaje='';
            if(Full($('#contact'))) {
                LoadButton($(this)); 
-               Loading();
+               //Loading();
                $(".mail").each(function() {
                     if(ValidMail($(this).val())==false ){
                         error=1;   
                        Error("El formato del correo es incorrecto");
                        Ready();
-                    } 
+                    }               
                 });
-                if(error==0){
-                    $('#contact').find(':checkbox:not(:checked)').attr('value', '0').prop('checked', true);                        
-                    $.post('clientes.php?action=savecontact', $('#contact').serialize(), function(data){
-                        Ready();
-                         if(data)
-                             Error(data);
-                         else{
-                             ReloadGrid(grid, 'data/loadClientes.php');
-                             OK("Guardado");
-                             CloseModal();
-                         }                      
-                    });           
+                if(errorMail==1){
+                    Error("El/los correos "+mensaje+" ya estan dados de alta en otro cliente");                                   
+                    Ready(); 
                 }
-
+                if(error==0){
+                    if(  $('.checado:checked').length  > 0){
+                        $.post('clientes.php?action=checacontacto', $('#contact').serialize(), function(e){
+                            if(e!='' ){                             
+                                Error(e);   
+                                Ready();
+                            }else{
+                                $('#contact').find(':checkbox:not(:checked)').attr('value', '0').prop('checked', true);                        
+                                $.post('clientes.php?action=savecontact', $('#contact').serialize(), function(data){
+                                    Ready();
+                                     if(data)
+                                         Error(data);
+                                     else{
+                                         ReloadGrid(grid, 'data/loadClientes.php');
+                                         OK("Guardado");
+                                         CloseModal();
+                                     }                      
+                                });      
+                            }
+                        });
+                    }else{
+                       Error("Debe de haber almenos un contacto principal");   
+                        Ready(); 
+                    }
+                }
            }
         });
         $('#btnNewContact').click(function(){
@@ -33,14 +51,14 @@
            table='<tr>';
             table+='<td>'; 
             table+='      <select  name="Tipo[]" class="form-control" id="Tipo">';
-            table+='            <option value="uno">uno</option>';
-            table+='            <option value="dos">dos</option>';
+            table+='            <option value="Financial">Financial</option>';
+            table+='            <option value="Quality">Quality</option>';
             table+='        </select>';
             table+='    </td>';
             table+='    <td><input type="text" name="Nombre[]" class="form-control require" id="Nombre" value=""></td>';  
             table+='    <td><input type="text" name="Correo[]" class="form-control require mail" id="Correo" value=""></td>';
             table+='    <td><input type="password" name="Password[]" class="form-control" id="Password"></td>';  
-            table+='    <td><input type="checkbox" name="Principal[]" id="Principal" class="form-control" value="1"></td>';
+            table+='    <td><input type="checkbox" name="Principal[]" id="Principal" class="form-control checado" value="1"></td>';
             table+='    <td><input type="hidden" name="id[]" id="id" value=""><i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>';
             table+='</tr>'; 
             $("#contactostbl").append(table);
@@ -48,6 +66,11 @@
         });
         
     });
+    $('.checado').on('change', function() {
+        $('.checado').not(this).prop('checked', false);  
+        $(this).prop("checked", true); 
+    });
+
         function DelContacto(id){
 
         Question( "¿Desea dar de baja este contacto?", function(){
@@ -90,8 +113,8 @@ $data=$context->data;
         <tr id="tr<?=$row['id']?>">
             <td>
                 <select  name="Tipo[]" class="form-control" id="Tipo">
-                    <option value="uno">uno</option>
-                    <option value="dos">dos</option>
+                    <option value="Financial" <? if($row['Tipo']=='Financial')?>>Financial</option>
+                    <option value="Quality" <? if($row['Quality']=='Financial')?>>Quality</option>
                 </select>
             </td>
             <td><input type="text" name="Nombre[]" class="form-control require" id="Nombre" value="<?=$row['Nombre']?>"></td>  
@@ -99,7 +122,7 @@ $data=$context->data;
             <td><input type="password" name="Password[]" class="form-control" id="Password"></td>  
             <td>
                 <input type="hidden" value="">
-                <input type="checkbox" name="Principal[]" id="Principal" class="form-control" value="1" <? if($row['Principal']==1)echo "checked";?>>
+                <input type="checkbox" name="Principal[]" id="Principal" class="form-control checado" value="1" <? if($row['Principal']==1)echo "checked";?>>
             
             </td>
             <td>
