@@ -53,6 +53,7 @@
             .fa-download {color: #218DED; }
             .RowCount {float: right; padding: 10px 20px;}
             .fa-search-plus {color: #036;}
+            .tab-content {padding-top: 10px; }
             <?if($_SESSION[SORTUSER]){?>
             #main-content {padding: 10px; border-radius: 5px; border: 2px solid #6d6767; background: white; }
             <?}?>
@@ -64,6 +65,7 @@
         <script type="text/javascript" src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/dhtmlx/dhtmlx.js"></script>
+        <script type="text/javascript" src="js/dhtmlx/dhtmlxgrid_export.js"></script>
         <script type="text/javascript" src="js/dataTables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/select2.js"></script>
         <script type="text/javascript" src="js/jquery.multi-select.js"></script>

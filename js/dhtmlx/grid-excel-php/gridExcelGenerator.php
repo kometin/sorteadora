@@ -26,7 +26,7 @@ class gridExcelGenerator {
 
 	public $creator = 'DHTMLX LTD';
 	public $lastModifiedBy = '';
-	public $title = 'Grid';
+	public $title = 'dhtmlxGrid';
 	public $subject = '';
 	public $dsc = '';
 	public $keywords = '';
@@ -225,7 +225,6 @@ class gridExcelGenerator {
 			$this->wrapper->rowPrint($this->rows[$i], $this->rowHeight, $this->lineColor, $this->gridFontSize, $this->fontFamily);
 		$this->wrapper->footerPrint($this->footerColumns, $this->headerHeight, $this->textColor, $this->bgColor, $this->lineColor, $this->headerFontSize, $this->fontFamily);
 		$this->wrapper->outXLS($this->title, $this->outputType);
-		
 	}
 
 	private function strip($param) {

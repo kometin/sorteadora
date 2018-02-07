@@ -28,6 +28,9 @@
                                             <li>
                                                 <a href="operadores.php">Operadores</a>
                                             </li>
+                                            <li>
+                                                <a href="servicios.php">Servicios</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -36,7 +39,7 @@
                                     <div class="dropdown left-indent">
                                         <ul class="dropdown-items">
                                             <li>
-                                                <a href="servicios.php">Seguimiento</a>
+                                                <a href="ordenes.php">Órdenes de servicio</a>
                                             </li>
                                         </ul>
                                     </div>

@@ -11,6 +11,7 @@ class DBConn{
     var $active = "SORT"; // Declara cual sera la conexion x default cuando no se especifique lo contrario
     var $debug = true; // Modo de tratado de excepciones o errores
     var $protocol = "MYSQL"; // Protocolo de conexion x default
+    var $result;
     
     //Constructor, recibe el nombre de la conexion que se desea o en caso contrario adopta la DEFAULT como se declaro antes
     function __construct($conn = null, $pro = null){
@@ -165,7 +166,16 @@ class DBConn{
                 break;
         }
         $this->CloseDB();
+        
         return $result;
+    }
+    
+    public function lists($data, $value){
+        $array = Array();
+        foreach($data as $r){
+            $array[ ] = $r[$value];
+        }
+        return $array;
     }
     
     //Reeliza una consulta basado en el query enviado devolviendo solo el primer resultado en forma de objeto
