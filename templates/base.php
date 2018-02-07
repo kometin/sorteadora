@@ -69,6 +69,9 @@
         <script type="text/javascript" src="js/dataTables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/select2.js"></script>
         <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+        <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+        <script src="js/jquery.quicksearch.js" type="text/javascript"></script>
+
         <script type="text/javascript" src="js/sweetalert/dist/sweetalert2.all.js"></script>
         <script type="text/javascript" src="js/timepicker/jquery.timepicker.js"></script>
         <script type="text/javascript" src="js/moment-with-locales.js"></script>

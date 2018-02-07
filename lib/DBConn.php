@@ -20,7 +20,7 @@ class DBConn{
        if($pro)
            $this->protocol = $pro;
        if($_SERVER['HTTP_HOST'] == "localhost")
-            $this->connection['SORT'] = array('HOST' => 'localhost', 'USER' => 'root', 'PWD' => '', 'DB' => 'sorteadora');
+            $this->connection['SORT'] = array('HOST' => 'techgto.com', 'USER' => 'user_sort', 'PWD' => 'sorteadora', 'DB' => 'sorteadora');
        else
             $this->connection['SORT'] = array('HOST' => 'localhost', 'USER' => 'user_sort', 'PWD' => 'sorteadora', 'DB' => 'sorteadora');
        

@@ -12,7 +12,7 @@
                                if(data)
                                    Error(data);
                                else{
-                                   ReloadGrid(grid, 'data/loadOperadores.php');
+                                    ReloadGrid(grid, 'data/loadOperadores.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
 
                                    OK("Guardado");
                                    CloseModal();
