@@ -60,7 +60,7 @@
             table+='    <td><input type="text" name="Nombre[]" class="form-control require" id="Nombre" value=""></td>';  
             table+='    <td><input type="text" name="Correo[]" class="form-control require mail" id="Correo" value=""></td>';
             table+='    <td><input type="password" name="Password[]" class="form-control" id="Password"></td>';  
-            table+='    <td align="center"><center><input type="checkbox" name="Principal[]" id="Principal" class="form-control checado" value="1"></center></td>';
+            table+='    <td align="center" style="text-align:center !important;"><center><input type="checkbox" name="Principal[]"  id="Principal" class=" checado" value="1"></center></td>';
             table+='    <td><input type="hidden" name="id[]" id="id" value=""><i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>';
             table+='</tr>'; 
             $("#contactostbl").append(table);
@@ -101,7 +101,7 @@
 $data=$context->data;
 ?>
     <a class="btn btn-primary" id ="btnNewContact"><i class="fa fa-plus"></i> Nuevo contacto</a>
-    <br>
+    </br>
 <form id="contact" >
     <table class="table table-striped" id="contactostbl">
         <tr>
