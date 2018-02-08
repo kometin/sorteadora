@@ -81,10 +81,11 @@ if(!$action){
         }                
     }else{
         $consecutivo=$db->getOne("SELECT Folio from ordenes  order by id DESC limit 1");
-        if($consecutivo>0)
-            $Folio=$consecutivo++;
+        if($consecutivo != 0)
+            $consecutivo=$consecutivo+1;
         else
             $Folio=1;
+        
         $sql = "insert into ordenes set "
                 . "cliente_id = '$cliente_id'," 
                 . "Fecha_Orden=now(), "                
