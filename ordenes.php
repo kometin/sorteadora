@@ -80,11 +80,9 @@ if(!$action){
             $db->execute($sql);
         }                
     }else{
-        $consecutivo=$db->getOne("SELECT Folio from ordenes  order by id DESC limit 1");
-        if($consecutivo != 0)
-            $consecutivo=$consecutivo+1;
-        else
-            $Folio=1;
+        $Folio=$db->getOne("SELECT IFNULL(MAX(Folio),0)+1 from ordenes  order by id DESC limit 1");
+        
+     
         
         $sql = "insert into ordenes set "
                 . "cliente_id = '$cliente_id'," 
