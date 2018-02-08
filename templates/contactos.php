@@ -58,7 +58,7 @@
             table+='    <td><input type="text" name="Nombre[]" class="form-control require" id="Nombre" value=""></td>';  
             table+='    <td><input type="text" name="Correo[]" class="form-control require mail" id="Correo" value=""></td>';
             table+='    <td><input type="password" name="Password[]" class="form-control" id="Password"></td>';  
-            table+='    <td><input type="checkbox" name="Principal[]" id="Principal" class="form-control checado" value="1"></td>';
+            table+='    <td align="center"><input type="checkbox" name="Principal[]" id="Principal" class="form-control checado" value="1"></td>';
             table+='    <td><input type="hidden" name="id[]" id="id" value=""><i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>';
             table+='</tr>'; 
             $("#contactostbl").append(table);
@@ -123,9 +123,9 @@ $data=$context->data;
                 <a class=" btn btn-info btn-lg" id="chg1"  style="display:<?=($row['id']?"":"none")?>"  onclick="$(this).hide();$('#Password<?=$row['id']?>').val(''); $('#Password<?=$row['id']?>').show(); " >Cambiar password</a>
                 <input type="password" name="Password[]" style="display:none" class="form-control" id="Password<?=$row['id']?>" value='0'>
             </td>  
-            <td>
+            <td  align="center">
                 <input type="hidden" value="">
-                <input type="checkbox" name="Principal[]" id="Principal" class="form-control checado" value="1" <? if($row['Principal']==1)echo "checked";?>>
+                <input type="checkbox" name="Principal[]" id="Principal" class="checado" value="1" <? if($row['Principal']==1)echo "checked";?>>
             
             </td>
             <td>

@@ -75,7 +75,7 @@ if(!$action){
         
         $PWD='';
         if($Password[$x]=='')       
-            $PWD="Password = '', ";
+            $PWD="Password = NULL, ";
         elseif($Password[$x]!=0)       
             $PWD="Password = '". md5($Password[$x])."' , ";
         
