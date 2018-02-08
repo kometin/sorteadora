@@ -4,7 +4,7 @@
 <?php foreach ($context->serviciosguardados as $u) { ?>
             ser.push("<?php echo $u ?>");
 <?php } ?>
- MultiSelect($('#Servicios'), '', '', false, ser);
+ MultiSelect($('#Servicios'), 'Servicios disponibles', 'Seleccionados', false, ser);
 
     $(function(){
                 DoSelect($('.select2'));
