@@ -101,6 +101,7 @@
 $data=$context->data;
 ?>
     <a class="btn btn-primary" id ="btnNewContact"><i class="fa fa-plus"></i> Nuevo contacto</a>
+    <br>
 <form id="contact" >
     <table class="table table-striped" id="contactostbl">
         <tr>
