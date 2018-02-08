@@ -50,7 +50,7 @@ $data=$context->data;
     */?>
     <div class="form-group">
         <label>Empresa</label>
-        <select  name="cliente_id" id="cliente_id" class="require  form-control select2" >
+        <select  name="cliente_id" id="cliente_id" class="require select2" style="width:500px" >
         <? foreach($context->clientes as $c){?>
             <option value="<?= $c['id'] ?>" <? if($data[0]['cliente_id']==$c['id'] )echo "SELECTED";?> ><?= $c['Empresa'] ?></option>
         <? }?>
@@ -62,19 +62,19 @@ $data=$context->data;
     </div>
     <div class="form-group">
         <label>Descripción</label>
-        <textarea  class="form-control require" name="Descripcion" id="Descripcion"  placeholder="Descripción"><?=$data[0]['Descripcion']?></textarea>
+        <textarea  class="form-control require" name="Descripcion" id="Descripcion"  placeholder="Descripción de servicio"><?=$data[0]['Descripcion']?></textarea>
     </div>
     <div class="form-group">
         <label>Herramientas</label>
-        <textarea class="form-control " name="Herramientas" placeholder="Herramientas"><?=$data[0]['Herramientas']?></textarea>
+        <textarea class="form-control " name="Herramientas" placeholder="Herramientas especiales"><?=$data[0]['Herramientas']?></textarea>
     </div>
     <div class="form-group">
         <label>Medidores</label>
-        <textarea  class="form-control " name="Medidores" placeholder="Medidores"><?=$data[0]['Medidores']?></textarea>
+        <textarea  class="form-control " name="Medidores" placeholder="Equipo especial de medición "><?=$data[0]['Medidores']?></textarea>
     </div>
     <div class="form-group">
         <label>Químicos</label>
-        <textarea  class="form-control " name="Quimicos"  placeholder="Químicos"><?=$data[0]['Quimicos']?></textarea>
+        <textarea  class="form-control " name="Quimicos"  placeholder="Químicos especiales"><?=$data[0]['Quimicos']?></textarea>
     </div>
     <div class="form-group">
         <label>Otros</label>

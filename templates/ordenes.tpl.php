@@ -68,6 +68,7 @@ function Ver(id){
 <p>
     <a class="btn btn-primary" id ="btnNew"><i class="fa fa-plus"></i> Nuevo orden de servicio</a>
 </p>
+</br>
 <div class="checkbox checkbox-circle checkbox-primary" style='display:none' id ="chkAll">
     <input type="checkbox" id="chkGrid" >
     <label for="chkGrid">
