@@ -38,7 +38,7 @@ function Ver(id){
 }    
     function Del(id){
 
-        Question( "¿Desea dar de baja esta ordenes?", function(){
+        Question( "¿Desea dar de baja esta orden?", function(){
            Loading();
         $.get('ordenes.php?action=del&id=' + id, function (data) {
               Ready();

@@ -13,9 +13,9 @@
     else
         $and=" AND o.Estatus = 1";   
     $db = new DBConn();
-    $sql = "SELECT * FROM ordenes o"
-                . " INNER JOIN clientes c ON c.id=o.cliente_id "               
-            . "where o.id is not null   $and";
+    $sql = "SELECT o.*, c.Direccion,c.Empresa FROM ordenes o
+                INNER JOIN clientes c ON c.id=o.cliente_id         
+            where o.id is not null   $and";
     $data = $db->getArray($sql);
     
     print  "<?xml version='1.0' encoding='UTF-8'?>\n";
@@ -25,21 +25,24 @@
         print "<row id = '" . $d["id"] ."'>";
         print "<cell>" . $cont++ . "</cell>";
    //     print "<cell align=\"center\" >" . htmlentities('<i class="fa fa-2x fa-search-plus" onclick="Ver(\'' .$d['id'] . '\')"></li>') . "</cell>";        
-        if($d['Activo']==1){
+        if($d['Estatus']==1){
         
             print "<cell align=\"center\" >" . htmlentities('<i class="fa fa-2x fa-pencil" onclick="Edit(\'' .$d['id'] . '\')"></li>') . "</cell>";        
             print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-trash-o" onclick="Del(\'' . $d['id'] . '\')"></li>') . "</cell>";        
         }else {
             print "<cell></cell><cell></cell>";
         }
-
+        print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_Orden"]))."</cell>";		
         print "<cell>" . htmlspecialchars($d["Empresa"])."</cell>";		
-        print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_orden"]))."</cell>";		
         print "<cell>" . htmlspecialchars($d["Numero_Parte"])."</cell>";		
-        print "<cell>" . htmlspecialchars($d["Descripcion"])."</cell>";		
-        print "<cell>" . htmlspecialchars($d["Folio"])."</cell>";		
-        print "<cell>" . htmlspecialchars($d["Servicio"])."</cell>";		
-        print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_cierre"]))."</cell>";		
+        print "<cell>" . htmlspecialchars($d["Descripcion"])."</cell>";	
+        if(strlen($d["Folio"])==1)
+            $Folio="00".$d["Folio"];
+        if(strlen($d["Folio"])==2)
+            $Folio="0".$d["Folio"];
+
+        print "<cell>" . htmlspecialchars(strtoupper(substr($d['Empresa'],0,3)).$Folio)."</cell>";		
+        print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_Cierre"]))."</cell>";		
     //    print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
         
        print "</row>";
