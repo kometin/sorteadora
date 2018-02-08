@@ -42,7 +42,7 @@
             $Folio="0".$d["Folio"];
 
         print "<cell>" . htmlspecialchars(strtoupper(substr($d['Empresa'],0,3)).$Folio)."</cell>";		
-        print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_Cierre"]))."</cell>";		
+    //    print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_Cierre"]))."</cell>";		
     //    print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
         
        print "</row>";

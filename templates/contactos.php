@@ -1,8 +1,9 @@
 <script>
     $(function(){
-        error=0;
+       
         errorMail=0;
         $('#btnSaveContact').click(function(){
+           error=0;
            var correos= ['']; 
            mensaje='';
            if(Full($('#contact'))) {
@@ -10,7 +11,7 @@
                //Loading();
                $(".mail").each(function() {
                     if(ValidMail($(this).val())==false ){
-                        error=1;   
+                       error=1;   
                        Error("El formato del correo es incorrecto");
                        Ready();
                     }               
@@ -29,13 +30,14 @@
                                 $('#contact').find(':checkbox:not(:checked)').attr('value', '0').prop('checked', true);                        
                                 $.post('clientes.php?action=savecontact', $('#contact').serialize(), function(data){
                                     Ready();
-                                     if(data)
+                                    Loading();
+                                    if(data)
                                          Error(data);
-                                     else{
-                                         ReloadGrid(grid, 'data/loadClientes.php');
-                                         OK("Guardado");
-                                         CloseModal();
-                                     }                      
+                                    else{
+                                        CloseModal();
+                                        ReloadGrid(grid, 'data/loadClientes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+                                        OK("Guardado");                                        
+                                    }                      
                                 });      
                             }
                         });
@@ -113,7 +115,7 @@ $data=$context->data;
         <tr id="tr<?=$row['id']?>">
             <td>
                 <select  name="Tipo[]" class="form-control" id="Tipo">
-                    <option value="Financial" <? if($row['Tipo']=='Financial')echo "selected";?>>Financial</option>
+                    <option value="Financial" <? if($row['Tipo']=='Finantial')echo "selected";?>>Financial</option>
                     <option value="Quality" <? if($row['Tipo']=='Quality')echo "selected";?>>Quality</option>
                 </select>
             </td>

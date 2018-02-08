@@ -20,7 +20,7 @@
         });        
         if($('#chkGrid').is(':checked')){
             Loading();
-                ReloadGrid(grid, 'data/loadClientes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+            ReloadGrid(grid, 'data/loadClientes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
 
         }        
     });

@@ -8,7 +8,7 @@ $context = new Context();
 $db = new DBConn();
 
 if(!$action){
-    $context->title = "Lista de servicios";
+    $context->title = "Ordenes de servicios";
     
     $context->params[] = array("Header" => "#", "Width" => "40", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
   //  $context->params[] = array("Header" => "Ver", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
@@ -21,7 +21,7 @@ if(!$action){
     $context->params[] = array("Header" => "No partes", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Descripción", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Folio", "Width" => "*", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Fecha cierre", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
+   // $context->params[] = array("Header" => "Fecha cierre", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
 
    // $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     
@@ -58,6 +58,7 @@ if(!$action){
     
     if($id){
         $sql = "UPDATE ordenes set "
+                ."cliente_id=$cliente_id, "
                 . "Numero_Parte='$Numero_parte',"   
                 . "Descripcion='$Descripcion', "
                 . "Herramientas='$Herramientas', " 

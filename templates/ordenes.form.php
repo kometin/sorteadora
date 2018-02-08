@@ -6,7 +6,9 @@
 <?php } ?>
  MultiSelect($('#Servicios'), '', '', false, ser);
 
-    $(function(){  
+    $(function(){
+                DoSelect($('.select2'));
+
                 DatePicker($('.date'));
 
         $('#btnSave').click(function(){ 
@@ -48,14 +50,14 @@ $data=$context->data;
     */?>
     <div class="form-group">
         <label>Empresa</label>
-        <select  name="cliente_id" id="cliente_id" class="require  form-control" >
-       <? foreach($context->clientes as $c){?>
-       <option value="<?= $c['id'] ?>" ><?= $c['Empresa'] ?></option>
-       <? }?>
+        <select  name="cliente_id" id="cliente_id" class="require  form-control select2" >
+        <? foreach($context->clientes as $c){?>
+            <option value="<?= $c['id'] ?>" <? if($data[0]['cliente_id']==$c['id'] )echo "SELECTED";?> ><?= $c['Empresa'] ?></option>
+        <? }?>
        </select> 
     </div>
     <div class="form-group">
-        <label>Número de partes</label>
+        <label>Número de parte</label>
         <input type="text" class="form-control require"  name="Numero_parte" id="Numero_parte" value="<?=$data[0]['Numero_Parte']?>" placeholder="Número de parte">
     </div>
     <div class="form-group">
@@ -80,16 +82,18 @@ $data=$context->data;
     </div>
     <div class="form-group">
         <label>Tiempo por parte</label>
-        <input type="text" class="form-control " name="Tiempo_x_parte" value="<?=$data[0]['Tiempo_x_Parte']?>" placeholder="Tiempo por cada parte">
+        <input type="text" class="form-control numeric require" style="width:200px" name="Tiempo_x_parte" value="<?=$data[0]['Tiempo_x_Parte']?>" placeholder="Tiempo por cada parte">
     </div>
     <div class="form-group">
         <label>Total de partes</label>
-        <input type="text" class="form-control numeric" style="width:200px" name="Total_partes" value="<?=$data[0]['Total_Partes']?>" placeholder="Total partes">
+        <input type="text" class="form-control numeric require" style="width:200px" name="Total_partes" value="<?=$data[0]['Total_Partes']?>" placeholder="Total partes">
     </div>
+    <? /*
     <div class="form-group">
         <label>Fecha cierre</label>
         <input type="text" class="form-control date require"  style="width:120px" name="Fecha_Cierre" value="<?= SimpleDate($data[0]['Fecha_Cierre'])?>" placeholder="Fecha de cierre">
     </div>
+    */?>
     <label>Servicios</label>
     <select multiple="multiple"  placeholder="Servicios" name="Servicios[]" id="Servicios" class="require  form-control MultiSelect" >
                     <? foreach($context->servicios as $un){?>

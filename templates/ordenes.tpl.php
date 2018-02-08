@@ -13,7 +13,7 @@
         ReloadGrid(grid, 'data/loadOrdenes.php');
                 
         $('#btnNew').click(function(){
-             Modal('ordenes.php?action=form', 'Nuevo operador', 600); 
+             Modal('ordenes.php?action=form', 'Nueva orden de servicio', 600); 
         });
 $('#chkGrid').click(function(){
             Grid();
@@ -68,7 +68,7 @@ function Ver(id){
 <p>
     <a class="btn btn-primary" id ="btnNew"><i class="fa fa-plus"></i> Nuevo orden de servicio</a>
 </p>
-<div class="checkbox checkbox-circle checkbox-primary" id ="chkAll">
+<div class="checkbox checkbox-circle checkbox-primary" style='display:none' id ="chkAll">
     <input type="checkbox" id="chkGrid" >
     <label for="chkGrid">
         Mostrar bajas
