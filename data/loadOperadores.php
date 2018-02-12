@@ -34,6 +34,8 @@
         }
         print "<cell>" . htmlspecialchars($d["Nombre"]." ".$d["Paterno"]." ".$d["Materno"]) . "</cell>";		
         print "<cell>" . htmlspecialchars($d["RFC"]) . "</cell>";		
+        print "<cell>" . htmlspecialchars($d["NSS"]) . "</cell>";		
+
         print "<cell>" . htmlspecialchars($d["Telefono"]) . "</cell>";	
         print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
         

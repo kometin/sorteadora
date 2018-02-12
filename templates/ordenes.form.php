@@ -1,14 +1,17 @@
 <script>
- var ser = new Array();
 
-<?php foreach ($context->serviciosguardados as $u) { ?>
+<?php /*
+ *  var ser = new Array();
+
+ * foreach ($context->serviciosguardados as $u) { ?>
             ser.push("<?php echo $u ?>");
-<?php } ?>
  MultiSelect($('#Servicios'), 'Servicios disponibles', 'Seleccionados', false, ser);
+
+                <?php } */?>
 
     $(function(){
                 DoSelect($('.select2'));
-
+   
                 DatePicker($('.date'));
 
         $('#btnSave').click(function(){ 
@@ -50,7 +53,9 @@ $data=$context->data;
     */?>
     <div class="form-group">
         <label>Empresa</label>
+        </br>
         <select  name="cliente_id" id="cliente_id" class="require select2" style="width:500px" >
+            <option></option>
         <? foreach($context->clientes as $c){?>
             <option value="<?= $c['id'] ?>" <? if($data[0]['cliente_id']==$c['id'] )echo "SELECTED";?> ><?= $c['Empresa'] ?></option>
         <? }?>
@@ -94,14 +99,16 @@ $data=$context->data;
         <input type="text" class="form-control date require"  style="width:120px" name="Fecha_Cierre" value="<?= SimpleDate($data[0]['Fecha_Cierre'])?>" placeholder="Fecha de cierre">
     </div>
     */?>
-    <label>Servicios</label>
-    <select multiple="multiple"  placeholder="Servicios" name="Servicios[]" id="Servicios" class="require  form-control MultiSelect" >
+    <label>Servicio</label>
+    </br>
+    <select  placeholder="Servicios" name="ID_Servicio"  style="width:500px" id="ID_Servicio" class="require  form-control select2" >
+        <option></option>
                     <? foreach($context->servicios as $un){?>
                     <option value="<?= $un['id'] ?>" ><?= $un['Servicio'] ?></option>
                     <? }?>
     </select>   
     <input type="hidden" name="id" id="id" value="<?=$context->id?>">
-    <br>
+    <br></br>
     <p>
         <a class="btn btn-success btn-lg" id ="btnSave"><i class="fa fa-save"></i> Guardar</a>
     </p>

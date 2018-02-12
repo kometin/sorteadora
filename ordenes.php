@@ -61,7 +61,8 @@ if(!$action){
                 ."cliente_id=$cliente_id, "
                 . "Numero_Parte='$Numero_parte',"   
                 . "Descripcion='$Descripcion', "
-                . "Herramientas='$Herramientas', " 
+                . "Herramientas='$Herramientas', "
+                . "ID_Servicio=$ID_Servicio, " 
                 . "Medidores ='$Medidores', " 
                 . "Quimicos='$Quimicos', " 
                 . "Otros='$Otros', " 
@@ -72,13 +73,15 @@ if(!$action){
                 . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";        
         $db->execute($sql);
-        
+        /*
         $sql="DELETE FROM ordenes_servicios WHERE orden_id=$id";
         $db->execute($sql);                
         foreach($Servicios as $ser){
             $sql="insert into ordenes_servicios(orden_id,servicio_id)VALUES($id,'$ser')";
             $db->execute($sql);
-        }                
+        }       
+         
+         */         
     }else{
         $Folio=$db->getOne("SELECT IFNULL(MAX(Folio),0)+1 from ordenes  order by id DESC limit 1");
         
@@ -89,6 +92,7 @@ if(!$action){
                 . "Fecha_Orden=now(), "                
                 . "Numero_Parte='$Numero_parte',"   
                 . "Descripcion='$Descripcion', "
+                . "ID_Servicio=$ID_Servicio, "
                 . "Folio='$Folio', " 
                 . "Herramientas='$Herramientas', " 
                 . "Medidores ='$Medidores', " 
@@ -101,11 +105,13 @@ if(!$action){
                 . "Estatus=1, "
                 . "updated_by = '{$_SESSION['SORTUSER']}' ";
         $db->execute($sql);
-        $idOrden=$db->getOne("SELECT id from ordenes  order by id DESC limit 1");
-        foreach($Servicios as $ser){
+     /*   $idOrden=$db->getOne("SELECT id from ordenes  order by id DESC limit 1");
+       foreach($Servicios as $ser){
             $sql="insert into ordenes_servicios(orden_id,servicio_id)VALUES($idOrden,'$ser')";
             $db->execute($sql);
         }
+      
+      */
     }
 
     sleep(1);

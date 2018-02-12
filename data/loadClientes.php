@@ -34,6 +34,8 @@
         }            
        // print "<cell>" . htmlspecialchars($d["Nombre"])."</cell>";		
         print "<cell>" . htmlspecialchars($d["Empresa"]) . "</cell>";		
+        print "<cell>" . htmlspecialchars($d["RazonSocial"]) . "</cell>";		
+
         print "<cell>" . htmlspecialchars($d["RFC"]) . "</cell>";		
         //print "<cell>" . htmlspecialchars($d["Correo"]) . "</cell>";		        
         print "<cell>" . htmlspecialchars($d["Direccion"]) . "</cell>";

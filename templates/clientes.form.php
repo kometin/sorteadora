@@ -54,6 +54,10 @@ $data=$context->data;
         <input type="text" class="form-control require" name="Empresa" value="<?=$data[0]['Empresa']?>" placeholder="Empresa">
     </div>
     <div class="form-group">
+        <label>Razón social</label>
+        <input type="text" class="form-control require" name="RazonSocial" value="<?=$data[0]['RazonSocial']?>" placeholder="Razón social">
+    </div>    
+    <div class="form-group">
         <label>RFC</label>
         <input type="text" class="form-control require" name="RFC" id="RFC" value="<?=$data[0]['RFC']?>" placeholder="RFC">
     </div>

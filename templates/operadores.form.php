@@ -63,6 +63,10 @@ $data=$context->data;
         <input type="text" class="form-control " name="CURP" value="<?=$data[0]['CURP']?>" placeholder="CURP">
     </div>
     <div class="form-group">
+        <label>Número de seguro social</label>
+        <input type="text" class="form-control numeric" name="NSS" value="<?=$data[0]['NSS']?>" placeholder="Número de seguro social">
+    </div>    
+    <div class="form-group">
         <label>Dirección</label>
         <textarea class="form-control require" name="Direccion" placeholder="Dirección"><?=$data[0]['Direccion']?></textarea>
     </div>

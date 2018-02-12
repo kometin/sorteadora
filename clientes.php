@@ -15,6 +15,8 @@ if(!$action){
     $context->params[] = array("Header" => "Borrar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
    // $context->params[] = array("Header" => "Nombre", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Empresa", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Razón social", "Width" => "150", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+
     $context->params[] = array("Header" => "RFC", "Width" => "150", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
    // $context->params[] = array("Header" => "Correo", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Dirección", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
@@ -51,6 +53,7 @@ if(!$action){
         $sql = "UPDATE clientes set "
                  . "RFC = '$RFC', "
                 . "Empresa = '$Empresa', " 
+                . "RazonSocial = '$RazonSocial', "
                  . "Direccion = '$Direccion', "
                 . "Telefono = '$Telefono', "
                 . "updated_at = NOW(), "
@@ -60,7 +63,8 @@ if(!$action){
         $sql = "insert into clientes set "
                  . "RFC = '$RFC', "
                 . "Empresa = '$Empresa', " 
-                 . "Direccion = '$Direccion', "
+                . "RazonSocial = '$RazonSocial', "
+                . "Direccion = '$Direccion', "
                 . "Telefono = '$Telefono', "
                 . "Estatus=1,   "
                 . "Fecha_Alta = NOW(), "
