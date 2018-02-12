@@ -29,10 +29,11 @@
         <style type="text/css">
             body, html {
                 height: 100%;
-                background-repeat: no-repeat;
-                background-image: linear-gradient(#27ACDD, #84BA55);
+                background: #444242;
+/*                background-repeat: no-repeat;
+                background-image: linear-gradient( #050608, #F7C854);*/
             }
-            #main-title {margin-top: 100px;}
+            #main-title {margin: 100px auto 20px; width: 50%; background-color: #B3933D !important; padding: 5px; border-radius: 5px; text-align: center; font-size: 20pt;}
             div.gridbox {
                 -webkit-box-sizing: content-box;
                 -moz-box-sizing: content-box;
@@ -55,7 +56,7 @@
             .fa-search-plus {color: #036;}
             .tab-content {padding-top: 10px; }
             <?if($_SESSION[SORTUSER]){?>
-            #main-content {padding: 10px; border-radius: 5px; border: 2px solid #6d6767; background: white; }
+            #main-content {padding: 10px; border-radius: 5px; border: 2px solid #F7C854; background: white; }
             <?}?>
         </style>
         
@@ -111,7 +112,7 @@
             </div>
         </div>
 
-        <h2 id ="main-title" class="text-center"><span class="label label-success"> <?=$context->title?> </span></h2><hr>
+        <h2 id ="main-title" class="text-center"> <?=$context->title?> </h2><hr>
 
         <?}?>
 
