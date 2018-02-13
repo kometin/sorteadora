@@ -35,7 +35,7 @@ if(!$action){
         $context->contactos=$db->getArray($sql);
     }
 
-    RenderTemplate('templates/contactos.php', $context);
+    RenderTemplate('templates/clientes.contactos.php', $context);
     
 }elseif($action == "ctas"){
     if($id){
@@ -44,7 +44,7 @@ if(!$action){
         $context->cuentas=$db->getArray($sql);
     }
 
-    RenderTemplate('templates/cuentas.php', $context);
+    RenderTemplate('templates/clientes.cuentas.php', $context);
     
 }elseif($action == "form" || $action == "ver"){
     $context->ver=0;
