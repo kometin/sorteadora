@@ -25,6 +25,7 @@ if(!$action){
    // $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Contactos", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     
+    $context->params[] = array("Header" => "Cuentas", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     RenderTemplate('templates/clientes.tpl.php', $context, 'templates/base.php');
     
 }elseif($action == "contact"){
@@ -35,6 +36,15 @@ if(!$action){
     }
 
     RenderTemplate('templates/contactos.php', $context);
+    
+}elseif($action == "ctas"){
+    if($id){
+        $context->id=$id;
+        $sql="SELECT * FROM clientes_cuentas WHERE cliente_id=$id AND Activo=1";
+        $context->cuentas=$db->getArray($sql);
+    }
+
+    RenderTemplate('templates/cuentas.php', $context);
     
 }elseif($action == "form" || $action == "ver"){
     $context->ver=0;
@@ -110,12 +120,45 @@ if(!$action){
         $x++;
     }
     sleep(1);    
+}elseif($action == "savecta"){
+    $x=0;
+    foreach($Banco as $Bank){       
+        if($id[$x]!=''){
+            $sql = "update clientes_cuentas set "
+            . "Banco = '$Bank', "
+            . "Cuenta = '$Cuenta[$x]', "
+            . "Moneda = '$Moneda[$x]', " 
+            . "Referencia = '$Referencia[$x]', " 
+            . "Representante='$Representante[$x]',"
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}'"
+            . " WHERE id=$id[$x]";        
+            $db->execute($sql);
+        }elseif($Bank!=''){
+           $sql = "insert into clientes_cuentas set "
+            . "Banco = '$Bank', "
+            . "Cuenta = '$Cuenta[$x]', "
+            . "Moneda = '$Moneda[$x]', " 
+            . "Referencia = '$Referencia[$x]', " 
+            . "Representante='$Representante[$x]',"
+            . "cliente_id=$cid, "
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' ";        
+            $db->execute($sql);
+        }
+        $x++;
+    }
+    sleep(1);    
 }elseif($action == "del"){
     if($id)
         $db->execute ("UPDATE clientes SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
 }elseif($action == "delc"){
        if($id)
         $db->execute ("UPDATE contactos SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+ 
+}elseif($action == "delcta"){
+       if($id)
+        $db->execute ("UPDATE clientes_cuentas SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
  
 }elseif($action == "ckr"){
     if($id)

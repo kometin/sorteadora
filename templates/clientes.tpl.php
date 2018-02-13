@@ -40,6 +40,10 @@ function Ver(id){
     Modal('clientes.php?action=ver&id=' + id, 'Ver cliente', 700, function () {
     });
 }
+function Cuentas(id){
+    Modal('clientes.php?action=ctas&id=' + id, 'Cuentas bancarias', 700, function () {
+    });
+}
  
 function Del(id){
 
