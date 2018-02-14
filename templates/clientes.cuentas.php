@@ -72,7 +72,7 @@ $data=$context->data;
             <th>Moneda</th>
             <th>Referencia</th>
             <th>Representante</th>
-            <th>Borar</th>
+            <th>Borrar</th>
         </tr>
         <? foreach($context->cuentas as $row){?>
         <tr id="tr<?=$row['id']?>">

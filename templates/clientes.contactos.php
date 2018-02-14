@@ -116,7 +116,7 @@ $data=$context->data;
             <th>Correo</th>
             <th>Password</th>
             <th>Principal</th>
-            <th>Borar</th>
+            <th>Borrar</th>
         </tr>
         <? foreach($context->contactos as $row){?>
         <tr id="tr<?=$row['id']?>">

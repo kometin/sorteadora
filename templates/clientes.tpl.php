@@ -41,7 +41,7 @@ function Ver(id){
     });
 }
 function Cuentas(id){
-    Modal('clientes.php?action=ctas&id=' + id, 'Cuentas bancarias', 700, function () {
+    Modal('clientes.php?action=ctas&id=' + id, 'Cuentas bancarias', 1000, function () {
     });
 }
  
