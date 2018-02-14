@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="es"> 
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
+
         <title>Ingenium Services Admin</title>
-        
+
         <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="css/awesome-bootstrap-checkbox.css"  />
         <?if($_SESSION[SORTUSER]){?>
@@ -25,7 +25,7 @@
         <?}else{?>
         <link type="text/css" rel="stylesheet" href="css/login.css">
         <?}?>
-        
+
         <style type="text/css">
             body, html {
                 height: 100%;
@@ -59,9 +59,9 @@
             #main-content {padding: 10px; border-radius: 5px; border: 2px solid #F7C854; background: white; }
             <?}?>
         </style>
-        
+
         <?Style($context)?>
-        
+
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -78,16 +78,16 @@
         <script type="text/javascript" src="js/moment-with-locales.js"></script>
         <script type="text/javascript" src="js/calendar/calendar.js"></script>
         <script type="text/javascript" src="js/fn.js"></script>
-        
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $('.main-nav').find('li.has-child').removeClass('active');
                 $('.main-nav').find('a[href="<?=getModule()?>"]').parents('li.has-child').addClass('active');
             });
         </script>
-        
+
         <?Script($context)?>
-        
+
     </head>
     <body>
         <?if($_SESSION[SORTUSER]){?>
@@ -123,4 +123,3 @@
         </div>
     </body>
 </html>
-
