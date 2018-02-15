@@ -18,10 +18,12 @@ if(!$action){
 
     $context->params[] = array("Header" => "Empresa", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
 
-    $context->params[] = array("Header" => "No partes", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "No. Parte", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Descripción", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Folio", "Width" => "*", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
-   // $context->params[] = array("Header" => "Fecha cierre", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Folio", "Width" => "120", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Total", "Width" => "120", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
+   
+// $context->params[] = array("Header" => "Fecha cierre", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
 
    // $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     
@@ -42,10 +44,10 @@ if(!$action){
                 . " WHERE o.id=$id";
         $context->data=$db->getArray($sql);
         
-        $context->serviciosguardados=explode(",",$db->getOne("SELECT GROUP_CONCAT(s.id) FROM ordenes_servicios o
+        /*$context->serviciosguardados=explode(",",$db->getOne("SELECT GROUP_CONCAT(s.id) FROM ordenes_servicios o
                  INNER JOIN servicios s ON s.id=o.servicio_id
                 WHERE orden_id=$id GROUP BY orden_id "));
-        
+        */
         
     } else {
         $context->ur=array();   

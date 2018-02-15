@@ -29,7 +29,7 @@ function Grid(){
     ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
 }   
 function Edit(id){
-    Modal('ordenes.php?action=form&id=' + id, 'Editar usuario', 700, function () {
+    Modal('ordenes.php?action=form&id=' + id, 'Editar orden de servicio', 700, function () {
     });
 }
 function Ver(id){
