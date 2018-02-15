@@ -15,13 +15,12 @@ if(!$action){
     $context->params[] = array("Header" => "Editar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Borrar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Fecha orden ", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
-
     $context->params[] = array("Header" => "Empresa", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
-
+    $context->params[] = array("Header" => "Servicio", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "No. Parte", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Descripción", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Folio", "Width" => "120", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Total", "Width" => "120", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Folio", "Width" => "80", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Total", "Width" => "80", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
    
 // $context->params[] = array("Header" => "Fecha cierre", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
 

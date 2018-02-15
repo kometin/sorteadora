@@ -13,8 +13,10 @@
     else
         $and=" AND o.Estatus = 1";   
     $db = new DBConn();
-    $sql = "SELECT o.*, c.Direccion,c.Empresa FROM ordenes o
-                INNER JOIN clientes c ON c.id=o.cliente_id         
+    $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio
+                FROM ordenes o
+                INNER JOIN clientes c ON c.id=o.cliente_id 
+                INNER JOIN servicios s on o.ID_Servicio=s.id
             where o.id is not null   $and";
     $data = $db->getArray($sql);
     
@@ -34,6 +36,7 @@
         }
         print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_Orden"]))."</cell>";		
         print "<cell>" . htmlspecialchars($d["Empresa"])."</cell>";		
+        print "<cell>" . htmlspecialchars($d["Servicio"])."</cell>";        
         print "<cell>" . htmlspecialchars($d["Numero_Parte"])."</cell>";		
         print "<cell>" . htmlspecialchars($d["Descripcion"])."</cell>";	
         if(strlen($d["Folio"])==1)
