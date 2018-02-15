@@ -98,8 +98,8 @@ $data=$context->data;
     */?>
     <label>Servicio</label>
     </br>
-    <select  placeholder="Servicios" name="ID_Servicio"  style="width:500px" id="ID_Servicio" class="require  form-control select2" >
-        <option></option>
+    <select  placeholder="Servicios" name="ID_Servicio"  style="width:500px" id="ID_Servicio" class="require select2" >
+        <option value=""></option>
                     <? foreach($context->servicios as $un){?>
                     <option value="<?= $un['id'] ?>" ><?= $un['Servicio'] ?></option>
                     <? }?>
