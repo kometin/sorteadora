@@ -66,7 +66,7 @@ function Ver(id){
 
 <?function Body($context){?>
 <p>
-    <a class="btn btn-primary" id ="btnNew"><i class="fa fa-plus"></i> Nuevo orden de servicio</a>
+    <a class="btn btn-primary" id ="btnNew"><i class="fa fa-plus"></i> Nueva orden de servicio</a>
 </p>
 </br>
 <div class="checkbox checkbox-circle checkbox-primary" style='display:none' id ="chkAll">

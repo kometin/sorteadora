@@ -61,6 +61,7 @@ if(!$action){
                  . "Direccion = '$Direccion', "
                 . "Telefono = '$Telefono', "
                 . "Fecha_Alta = NOW(), "
+                . "updated_at = NOW(), "
                 . "updated_by = '{$_SESSION['SORTUSER']}' ";
     }
     $db->execute($sql);
@@ -68,7 +69,7 @@ if(!$action){
 
 }elseif($action == "del"){
     if($id)
-        $db->execute ("UPDATE operadores SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+        $db->execute ("UPDATE operadores SET Estatus=0, Fecha_Baja=now(), updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
     
 }elseif($action == "ckr"){
     if($id)

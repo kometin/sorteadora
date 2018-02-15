@@ -1,8 +1,8 @@
 <script>
     $(function(){
-       
         errorMail=0;
         $('#btnSaveCta').click(function(){
+           
            error=0;
            var correos= ['']; 
            mensaje='';
@@ -28,16 +28,22 @@
            table='<tr>';
             table+='<td><input type="text" name="Banco[]" class="form-control require" placeholder="Banco" id="Banco" value="<?=$row['Banco']?>"></td> '; 
             table+='<td><input type="text" name="Cuenta[]" class="form-control require" placeholder="Cuenta" id="Cuenta" value="<?=$row['Cuenta']?>"></td>';  
-            table+='<td><input type="text" name="Moneda[]" class="form-control require " placeholder="Moneda" id="Moneda" value="<?=$row['Moneda']?>"></td>';  
+            table+='<td>';
+            table+='<select name="Moneda[]" class="require form-control">';
+            table+='        <option value=""></option>';
+            table+='        <option value="MXP" >MXP</option>';
+            table+='        <option value="USD" >USD</option>';
+            table+='        <option value="EUR" >EUR</option>';
+             table+='       <option value="GBP" >GBP</option>';
+            table+='    </select></td>';  
             table+='<td><input type="text" name="Referencia[]" class="form-control require " placeholder="Referencia" id="Referencia" value="<?=$row['Referencia']?>"></td>';  
             table+='<td><input type="text" name="Representante[]" class="form-control require " placeholder="Representante" id="Representante" value="<?=$row['Representante']?>"></td>';  
    
             table+='    <td><input type="hidden" name="id[]" id="id" value=""><i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>';
             table+='</tr>'; 
             $("#ctatbl").append(table);
-
         });
-
+        
        
     });
 
@@ -62,7 +68,7 @@ function DelCta(id){
 <?
 $data=$context->data;
 ?>
-    <a class="btn btn-primary" id ="btnNewCta"><i class="fa fa-plus"></i> Nuevo cuenta</a>
+    <a class="btn btn-primary" id ="btnNewCta"><i class="fa fa-plus"></i> Nueva cuenta</a>
     </br>
 <form id="cta" >
     <table class="table table-striped" id="ctatbl">
@@ -78,7 +84,14 @@ $data=$context->data;
         <tr id="tr<?=$row['id']?>">
             <td><input type="text" name="Banco[]" class="form-control require" placeholder="Banco" id="Banco" value="<?=$row['Banco']?>"></td>  
             <td><input type="text" name="Cuenta[]" class="form-control require" placeholder="Cuenta" id="Cuenta" value="<?=$row['Cuenta']?>"></td>  
-            <td><input type="text" name="Moneda[]" class="form-control require " placeholder="Moneda" id="Moneda" value="<?=$row['Moneda']?>"></td>  
+            <td><select name="Moneda[]" class="require form-control">
+                    <option value=""></option>
+                    <option value="MXP" <? if($row['Moneda']=='MXP')echo "SELECTED";?>>MXP</option>
+                    <option value="USD" <? if($row['Moneda']=='USD')echo "SELECTED";?>>USD</option>
+                    <option value="EUR" <? if($row['Moneda']=='EUR')echo "SELECTED";?>>EUR</option>
+                    <option value="GBP" <? if($row['Moneda']=='GBP')echo "SELECTED";?>>GBP</option>
+                </select>
+            </td>  
             <td><input type="text" name="Referencia[]" class="form-control require " placeholder="Referencia" id="Referencia" value="<?=$row['Referencia']?>"></td>  
             <td><input type="text" name="Representante[]" class="form-control require " placeholder="Representante" id="Representante" value="<?=$row['Representante']?>"></td>  
             <td>

@@ -37,8 +37,11 @@
         print "<cell>" . htmlspecialchars($d["NSS"]) . "</cell>";		
 
         print "<cell>" . htmlspecialchars($d["Telefono"]) . "</cell>";	
-        print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
-        
+        if($d["Estatus"]==1)
+            print "<cell>" . SimpleDate($d["Fecha_Alta"]) . "</cell>";
+        else
+            print "<cell>" . SimpleDate($d["Fecha_Baja"]) . "</cell>";
+
        print "</row>";
     }
     print "</rows>";    
