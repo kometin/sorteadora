@@ -15,23 +15,20 @@
                 DatePicker($('.date'));
 
         $('#btnSave').click(function(){ 
-            if($('#Servicios').val()!=null){
-                if(Full($('#op'))) {
-                     LoadButton($('#btnSave'));                                                                              
-                     $.post('ordenes.php?action=save', $('#op').serialize(), function(data){
-                        Ready();
-                        if(data)
-                            Error(data);
-                        else{
-                            ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
-                            OK("Guardado");
-                            CloseModal();
-                        }                                       
-                     });                    
-                }
-            }else{
-                Error("Debe seleccionar almenos un servicio");
+            if(Full($('#op'))) {
+                 LoadButton($('#btnSave'));                                                                              
+                 $.post('ordenes.php?action=save', $('#op').serialize(), function(data){
+                    Ready();
+                    if(data)
+                        Error(data);
+                    else{
+                        ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+                        OK("Guardado");
+                        CloseModal();
+                    }                                       
+                 });                    
             }
+
         });
     });
 </script>
