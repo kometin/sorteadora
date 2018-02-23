@@ -33,8 +33,16 @@
 /*                background-repeat: no-repeat;
                 background-image: linear-gradient( #050608, #F7C854);*/
             }
-            #main-title {margin: 100px auto 20px; width: 50%; background-color: #B3933D !important; padding: 5px; border-radius: 5px; text-align: center; font-size: 20pt;}
-            div.gridbox {
+            #main-title {margin: 100px auto 20px; 
+                                 width: 50%; 
+                                 background-color: #B3933D !important; 
+                                 padding: 5px; 
+                                 border-radius: 5px; 
+                                 text-align: center; 
+                                 font-size: 20pt;
+                                 color: white;
+            }
+            div.gridbox {   
                 -webkit-box-sizing: content-box;
                 -moz-box-sizing: content-box;
                 box-sizing: content-box;
