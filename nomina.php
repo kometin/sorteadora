@@ -66,7 +66,7 @@ if(!$action){
             $date = SimpleDate($exp[1]);
             $type = $exp[2];
 
-            if(!validateTime($v))
+            if($v && !validateTime($v))
                 die("Error en formato de hora para el día " . SimpleDate($date) . " ($v) ");
 
             if(!in_array($date, $master[$id]['dates']))
@@ -81,43 +81,46 @@ if(!$action){
         foreach($master as $k => $v){
 
             foreach($v[dates] as $d){
+                
+                if($v[$d][in] && $v[$d][out]){
+                
+                    $init_turn = date('Y-m-d H:i', strtotime($d." ".$v[$d][in]));
+                    $end_turn = date('Y-m-d H:i', strtotime($d." ".$v[$d][out]));
+                    $diff = DateDiff($end_turn, $init_turn, 'HORAS', true);
 
-                $init_turn = date('Y-m-d H:i', strtotime($d." ".$v[$d][in]));
-                $end_turn = date('Y-m-d H:i', strtotime($d." ".$v[$d][out]));
-                $diff = DateDiff($end_turn, $init_turn, 'HORAS', true);
+        //            echo $init_turn . "/" . $end_turn . " = " . $diff ."<br>";
 
-    //            echo $init_turn . "/" . $end_turn . " = " . $diff ."<br>";
+                    if($rec = $db->exist("id", "jornadas", "operador_id = $k and Fecha = '$d'")) {
+                        $sql = "update jornadas set "
+                                . "Entrada = '" . $v[$d][in] . "', "
+                                . "Salida = '" . $v[$d][out] . "', "
+                                . "Horas = '$diff', "
+                                . "LimiteDobles = '$LD', "
+                                . "LimiteTriples = '$LT', "
+                                . "PagoNormal = '$PN', "
+                                . "PagoDobles = '$PD', "
+                                . "PagoTriples = '$PT', "
+                                . "updated_at = NOW(), "
+                                . "updated_by = $_SESSION[SORTUSER] "
+                                . "where id = $rec";
+                    }else{
+                        $sql = "insert into jornadas values(NULL, "
+                                . "$k, "
+                                . "'$d', "
+                                . "'" . $v[$d][in] . "', "
+                                . "'" . $v[$d][out] . "', "
+                                . "'$diff', "
+                                . "'$LD', "
+                                . "'$LT', "
+                                . "'$PN', "
+                                . "'$PD', "
+                                . "'$PT', "
+                                . "NOW(), "
+                                . "'$_SESSION[SORTUSER]')";
+                    }
 
-                if($rec = $db->exist("id", "jornadas", "operador_id = $k and Fecha = '$d'")) {
-                    $sql = "update jornadas set "
-                            . "Entrada = '" . $v[$d][in] . "', "
-                            . "Salida = '" . $v[$d][out] . "', "
-                            . "Horas = '$diff', "
-                            . "LimiteDobles = '$LD', "
-                            . "LimiteTriples = '$LT', "
-                            . "PagoNormal = '$PN', "
-                            . "PagoDobles = '$PD', "
-                            . "PagoTriples = '$PT', "
-                            . "updated_at = NOW(), "
-                            . "updated_by = $_SESSION[SORTUSER] "
-                            . "where id = $rec";
-                }else{
-                    $sql = "insert into jornadas values(NULL, "
-                            . "$k, "
-                            . "'$d', "
-                            . "'" . $v[$d][in] . "', "
-                            . "'" . $v[$d][out] . "', "
-                            . "'$diff', "
-                            . "'$LD', "
-                            . "'$LT', "
-                            . "'$PN', "
-                            . "'$PD', "
-                            . "'$PT', "
-                            . "NOW(), "
-                            . "'$_SESSION[SORTUSER]')";
+                    $db->execute($sql);
                 }
-
-                $db->execute($sql);
             }
 
         }

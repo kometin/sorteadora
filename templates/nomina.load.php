@@ -53,7 +53,7 @@
         Navigate('+');
         
         $('#btnSaveAll').click(function(){
-            if(Full($('#tbl-work'), true) && Full($('#tbl-param'))){
+            if(Full($('#tbl-param'))){
                 Loading();
                 $.post('nomina.php?action=save' + getParamValues(), $('#jornadas').serialize(), function(data){
                     Ready();
@@ -64,7 +64,7 @@
                     }
                 });
             }else{
-                Error("Debe completar todos los campos vacíos para continuar");
+                Error("Debe completar todos los valores de nómina para continuar");
             }
         });
     });
