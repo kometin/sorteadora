@@ -14,7 +14,7 @@
 
 <?function Body($context){?>
 <div class="card card-container">
-    <center><img src="css/img/logo.JPG" width="150" height="150" alt=""/> </center> <hr>
+    <center><img src="css/img/logo.png" width="150" height="150" alt=""/> </center> <hr>
     <h3 class="text-center">Ingenium Services Login</h3><br>
     <!--<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />-->
     <p id="profile-name" class="profile-name-card"></p>
