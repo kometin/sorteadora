@@ -7,6 +7,14 @@
     
     date_default_timezone_set('America/Mexico_City');
     
+    DEFINE('MAIL', 'info@ingeniumservices.com.mx');
+    DEFINE('MAIL_NAME', 'Ingenium Services');
+    DEFINE('MAIL_HOST', 'email-smtp.us-east-1.amazonaws.com');
+    DEFINE('MAIL_PORT', 587);
+    DEFINE('MAIL_USER', 'AKIAJ3DAYPV74ZGCRNAA');
+    DEFINE('MAIL_PWD', ' Agc7yTwGjyc+jhPn1g/+1G2Er71vE088NYZpCkeBzJZX');
+    DEFINE('DOMAIN', 'ingeniumservices.com.mx');
+    
     function getParams($id = null) {
         $db = new DBConn();
         $sql = "select * from parametros";
@@ -352,25 +360,31 @@
         return $resultado;
      }
      
-     function SendMail($send, $subject, $name, $text, $attach = null){
-            $from = "notificaciones_strc@guanajuato.gob.mx";
-            $pass = "AdM1nM@1L001";	
-            $mail = new PHPMailer();		
-            $mail -> AddAddress ($send);
-            $mail -> From = $from;
-            $mail -> FromName = "Materiales";		
+     function SendMail($send, $subject, $text, $attach = null, $file = null){
+            $mail = new PHPMailer();
+            if(is_array($send)){
+                foreach($send as $s)
+                    $mail -> AddAddress ($s);
+            }else
+                $mail -> AddAddress ($send);
+            $mail -> From = MAIL;
+            $mail -> FromName = MAIL_NAME;		
             $mail -> Subject = utf8_decode($subject);
-            $mail -> Body = BodyMail($subject, $name, $text);
+            $mail -> Body = utf8_decode($text);
             $mail -> IsHTML(true);
             if($attach)
                 $mail->AddAttachment($attach, $file);
             $mail->IsSMTP();
-//            $mail->SMTPDebug  = 2;  //---->Esta linea es para hacer debug y ver los errores que se generan en el envio del mail.
-            $mail->Host = 'ssl://smtp.gmail.com';
-            $mail->Port = 465;
+            $mail->SMTPDebug  = 1;  //---->Esta linea es para hacer debug y ver los errores que se generan en el envio del mail.
+            $mail->SMTPSecure = "tls";
+//            $mail->Host = 'ssl://p3plcpnl0438.prod.phx3.secureserver.net'; 
+//            $mail->Host = 'ssl://mail.techgto.com'; 
+            $mail->Host = MAIL_HOST; 
+            $mail->Port = MAIL_PORT;
+//            $mail->Port = 465;
             $mail->SMTPAuth = true;
-            $mail->Username = $from;
-            $mail->Password = $pass;
+            $mail->Username = MAIL_USER;
+            $mail->Password = MAIL_PWD;
 
             //Se verifica que se haya enviado el correo con el metodo Send().
             return $mail->Send();	
