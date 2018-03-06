@@ -11,6 +11,7 @@
                         Error("Las contraseñas no coinciden");
                      }else{  
                         $.get('usuarios.php?action=ckc&id='+$('#id').val()+'&cor=' +$('#mail').val() , function (e) {                                                 
+
                                if(e==''){                                    
                                     $.post('usuarios.php?action=save', $('#user').serialize(), function(data){
                                         Ready();
@@ -27,6 +28,7 @@
                                     Ready();                      
                                 }
                         
+
                         });                              
                      }
                 }else{

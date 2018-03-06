@@ -8,6 +8,7 @@
         header("Content-type: application/xhtml+xml"); 
     else
         header("Content-type: text/xml");
+
     if($_GET['all'] &&  $_GET['all']==1)
         $and=" AND Estatus=0";       
     else
@@ -15,6 +16,7 @@
     $db = new DBConn();
     $sql = "select * FROM usuarios "
             . "where id is not null   $and";
+
     $data = $db->getArray($sql);
     
     print  "<?xml version='1.0' encoding='UTF-8'?>\n";
@@ -30,6 +32,7 @@
             $temp = $d['id'];
             print "<row id = '" . $d["id"] . "'>";
             print "<cell>" . $x. "</cell>";
+
             if($d['Estatus']==1){
                 print "<cell align=\"center\" >" . htmlentities('<i class="fa fa-2x fa-pencil" onclick="Edit(\'' .$d['id'] . '\')"></li>') . "</cell>";        
                 print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-trash-o" onclick="Del(\'' . $d['id'] . '\')"></li>') . "</cell>";        
@@ -40,6 +43,7 @@
          //   print "<cell>" . $d["Rol"] . "</cell>";
             print "<cell>" . $d["Correo"] . "</cell>";
             print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
+
 
             print "</row>";
         }
