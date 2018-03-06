@@ -21,7 +21,9 @@ if(!$action){
     $context->params[] = array("Header" => "Descripción", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Folio", "Width" => "80", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Total", "Width" => "80", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Factores", "Width" => "80", "Attach" => "", "Align" => "right", "Sort" => "str", "Type" => "ed");
    
+    $context->params[] = array("Header" => "Resultados", "Width" => "80", "Attach" => "", "Align" => "right", "Sort" => "str", "Type" => "ed");
 // $context->params[] = array("Header" => "Fecha cierre", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
 
    // $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
@@ -54,7 +56,11 @@ if(!$action){
     if($action=='ver')
         $context->ver=1;
     RenderTemplate('templates/ordenes.form.php', $context);
-    
+}elseif($action == "fac" || $action == "ver"){
+    $context->idOrden=$id;
+    $context->Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$id." AND Activo=1");
+    RenderTemplate('templates/ordenes.fact.php', $context);
+  
 }elseif($action == "save"){
     
     if($id){
@@ -116,9 +122,110 @@ if(!$action){
     }
 
     sleep(1);
-
+}elseif($action == "savefact"){
+    $x=0;
+    foreach($Factor as $Fac){
+        if($id[$x]!=''&& $idOrden!=''){
+            $sql = "update orden_factores SET "
+                   
+                   ." Factor='$Fac',"
+                                            
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' "
+            . " WHERE id=$id[$x]";        
+            $db->execute($sql);
+        }elseif($Fac!='' && $idOrden!=''){
+           $sql = "insert into orden_factores SET "
+                   . "orden_id=$idOrden, "
+                   ." Factor='$Fac',"
+                   ." Activo=1,"            
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' ";        
+            $db->execute($sql);
+        }
+        $x++;
+    }
+    sleep(1);     
 }elseif($action == "del"){
     if($id)
         $db->execute ("UPDATE ordenes SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
     
+}elseif($action == "delfac"){
+    if($id)
+        $db->execute ("UPDATE orden_factores SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+}elseif($action == "res"){
+    
+    $context->idOrden=$id;
+    $context->Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$id." AND Activo=1");
+    $context->Resultados=$db->getArray("SELECT *
+                                        FROM resultados 
+                                        WHERE orden_id=".$id);
+    $ResFac=$db->getArray("SELECT RF.factor_id, Valor
+                        FROM resultado_factores RF
+                        INNER JOIN resultados RES on RES.id=RF.resultado_id
+                        WHERE orden_id=1
+                         ");
+    if(count($ResFac)>0){
+        foreach($ResFac as $res){
+            $ResultadosFac[$res['factor_id']]=$res['Valor'];
+            $idsFac[$res['factor_id']]=$res['id'];
+        }    
+    }
+    $context->idsFac=$idsFac;
+    $context->ResultadosFac=$ResultadosFac;
+    RenderTemplate('templates/ordenes.res1.php', $context);
+ }elseif($action == "savefacres"){
+    $x=0;
+    $Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$idOrden." AND Activo=1");
+    
+    foreach($Lote as $L){
+        if($id[$x]!=''&& $idOrden!=''){
+          echo  $sql = "update resultados SET "
+                   ." Lote='$L',"
+                   . "Fecha_Lote ='".SimpleDate($Fecha[$x])."',"
+                   . "Cantidad ='".$Cantidad[$x]."',"                       
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' "
+            . " WHERE id=$id[$x]";        
+            $db->execute($sql);
+            $x=0;
+            foreach($idFactor as $id){                
+                if($id){
+                echo    $sql = "UPDATE  resultado_factores SET "
+                            . "Valor ='".$Factor[$x]."' "
+                            . "WHERE id=".$id;        
+                     $db->execute($sql);   
+                }else{
+                    $sql = "insert into resultado_factores SET "
+                        . "resultado_id=$id, "
+                        ." factor_id='".$id."',"
+                        . "Valor ='".$Factor[$x]."'";        
+                    $db->execute($sql);  
+                }
+                $x++;
+            }            
+        }elseif($L!='' && $idOrden!=''){
+           $sql = "insert into resultados SET "
+                   . "orden_id=$idOrden, "
+                   ." Lote='$L',"
+                   . "Fecha_Lote ='".SimpleDate($Fecha[$x])."',"
+                   . "Cantidad ='".$Cantidad[$x]."',"
+                   ." Activo=1,"            
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' ";        
+            $db->execute($sql);
+            $resultado_id=$db->getOne("SELECT id from resultados ORDER BY id DESC LIMIT 1");
+            
+            foreach($Factores as $Fac){
+                $sql = "insert into resultado_factores SET "
+                        . "resultado_id=$resultado_id, "
+                        ." factor_id='".$Fac['id']."',"
+                        . "Valor ='".$Factor[$x]."'";        
+                 $db->execute($sql);                
+            }
+        }
+        $x++;
+    }
+    sleep(1);      
+
 }

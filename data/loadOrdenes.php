@@ -13,10 +13,11 @@
     else
         $and=" AND o.Estatus = 1";   
     $db = new DBConn();
-    $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio
+    $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio, of.orden_id,of.id as id_orden_factor
                 FROM ordenes o
                 INNER JOIN clientes c ON c.id=o.cliente_id 
                 INNER JOIN servicios s on o.ID_Servicio=s.id
+                left join orden_factores of ON of.orden_id=o.id
             where o.id is not null   $and";
     $data = $db->getArray($sql);
     
@@ -46,7 +47,13 @@
 
         print "<cell>" . htmlspecialchars(strtoupper(substr($d['Empresa'],0,3)).$Folio)."</cell>";	
         print "<cell>" . htmlspecialchars($d["Total_Partes"])."</cell>";	
-        
+        print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Factores(\'' . $d['id'] . '\')"></li>') . "</cell>";        
+        if($d['orden_id']!='')
+            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Resultados(\'' . $d['id_orden_factor'] . '\','.$tipo.')"></li>') . "</cell>";        
+        else
+            print "<cell></cell>";
+            
+                
     //    print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_Cierre"]))."</cell>";		
     //    print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
         
