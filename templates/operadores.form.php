@@ -3,17 +3,30 @@
         $('#btnSave').click(function(){
            if(Full($('#op'))) {
                LoadButton($(this));
-               $.post('operadores.php?action=save', $('#op').serialize(), function(data){
-                  Ready();
-                  if(data)
-                      Error(data);
-                  else{
-                      ReloadGrid(grid, 'data/loadOperadores.php');
-                      
-                      OK("Guardado");
-                      CloseModal();
-                  }
-               });
+               if(validateRFC13($('#RFC').val()) ){
+                    $.get('operadores.php?action=ckr&id='+$('#id').val()+'&rfc=' +$('#RFC').val() , function (e) {                        
+                        if(e==''){
+                            
+                            $.post('operadores.php?action=save', $('#op').serialize(), function(data){
+                               Ready();
+                               if(data)
+                                   Error(data);
+                               else{
+                                    ReloadGrid(grid, 'data/loadOperadores.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+
+                                   OK("Guardado");
+                                   CloseModal();
+                               }
+                            });
+                        }else{
+                            Ready();
+                            Error("El RFC ya existe en otro operador");        
+                        }
+                    });                     
+                }else{
+                    Ready();
+                    Error("El formato del RFC es incorrecto");
+                }
            }
         });
     });
@@ -43,12 +56,16 @@ $data=$context->data;
     </div>
     <div class="form-group">
         <label>RFC</label>
-        <input type="text" class="form-control require" name="RFC" value="<?=$data[0]['RFC']?>" placeholder="RGC">
+        <input type="text" class="form-control require" name="RFC" id="RFC" value="<?=$data[0]['RFC']?>" placeholder="RFC con homoclave">
     </div>
     <div class="form-group">
         <label>CURP</label>
         <input type="text" class="form-control " name="CURP" value="<?=$data[0]['CURP']?>" placeholder="CURP">
     </div>
+    <div class="form-group">
+        <label>Número de seguro social</label>
+        <input type="text" class="form-control numeric" name="NSS" value="<?=$data[0]['NSS']?>" placeholder="Número de seguro social">
+    </div>    
     <div class="form-group">
         <label>Dirección</label>
         <textarea class="form-control require" name="Direccion" placeholder="Dirección"><?=$data[0]['Direccion']?></textarea>

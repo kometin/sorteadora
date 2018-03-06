@@ -1,13 +1,14 @@
 
 <!DOCTYPE html>
-<html lang="es"> 
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
+
         <title>Ingenium Services Admin</title>
-        
+
         <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+        <link type="text/css" rel="stylesheet" href="css/awesome-bootstrap-checkbox.css"  />
         <?if($_SESSION[SORTUSER]){?>
         <link type="text/css" rel="stylesheet" href="css/jquery-ui.css">
         <link type="text/css" rel="stylesheet" href="css/menu/plugins.css">
@@ -20,18 +21,28 @@
         <link type="text/css" rel="stylesheet" href="js/dataTables/css/jquery.dataTables.min.css">
         <link type="text/css" rel="stylesheet" href="js/sweetalert/dist/sweetalert.css">
         <link type="text/css" rel="stylesheet" href="js/timepicker/jquery.timepicker.css">
+        <link type="text/css" rel="stylesheet" href="js/calendar/calendar.css">
         <?}else{?>
         <link type="text/css" rel="stylesheet" href="css/login.css">
         <?}?>
-        
+
         <style type="text/css">
             body, html {
                 height: 100%;
-                background-repeat: no-repeat;
-                background-image: linear-gradient(#27ACDD, #84BA55);
+                background: #444242;
+/*                background-repeat: no-repeat;
+                background-image: linear-gradient( #050608, #F7C854);*/
             }
-            #main-title {margin-top: 100px;}
-            div.gridbox {
+            #main-title {margin: 100px auto 20px; 
+                                 width: 50%; 
+                                 background-color: #B3933D !important; 
+                                 padding: 5px; 
+                                 border-radius: 5px; 
+                                 text-align: center; 
+                                 font-size: 20pt;
+                                 color: white;
+            }
+            div.gridbox {   
                 -webkit-box-sizing: content-box;
                 -moz-box-sizing: content-box;
                 box-sizing: content-box;
@@ -51,34 +62,40 @@
             .fa-download {color: #218DED; }
             .RowCount {float: right; padding: 10px 20px;}
             .fa-search-plus {color: #036;}
+            .tab-content {padding-top: 10px; }
             <?if($_SESSION[SORTUSER]){?>
-            #main-content {padding: 10px; border-radius: 5px; border: 2px solid #6d6767; background: white; }
+            #main-content {padding: 10px; border-radius: 5px; border: 2px solid #F7C854; background: white; }
             <?}?>
         </style>
-        
+
         <?Style($context)?>
-        
+
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/dhtmlx/dhtmlx.js"></script>
+        <script type="text/javascript" src="js/dhtmlx/dhtmlxgrid_export.js"></script>
         <script type="text/javascript" src="js/dataTables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/select2.js"></script>
         <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+        <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+        <script src="js/jquery.quicksearch.js" type="text/javascript"></script>
+
         <script type="text/javascript" src="js/sweetalert/dist/sweetalert2.all.js"></script>
         <script type="text/javascript" src="js/timepicker/jquery.timepicker.js"></script>
         <script type="text/javascript" src="js/moment-with-locales.js"></script>
+        <script type="text/javascript" src="js/calendar/calendar.js"></script>
         <script type="text/javascript" src="js/fn.js"></script>
-        
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $('.main-nav').find('li.has-child').removeClass('active');
                 $('.main-nav').find('a[href="<?=getModule()?>"]').parents('li.has-child').addClass('active');
             });
         </script>
-        
+
         <?Script($context)?>
-        
+
     </head>
     <body>
         <?if($_SESSION[SORTUSER]){?>
@@ -103,7 +120,7 @@
             </div>
         </div>
 
-        <h2 id ="main-title" class="text-center"><span class="label label-success"> <?=$context->title?> </span></h2><hr>
+        <h2 id ="main-title" class="text-center"> <?=$context->title?> </h2><hr>
 
         <?}?>
 
@@ -114,4 +131,3 @@
         </div>
     </body>
 </html>
-

@@ -28,6 +28,9 @@
                                             <li>
                                                 <a href="operadores.php">Operadores</a>
                                             </li>
+                                            <li>
+                                                <a href="servicios.php">Servicios</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -36,7 +39,7 @@
                                     <div class="dropdown left-indent">
                                         <ul class="dropdown-items">
                                             <li>
-                                                <a href="servicios.php">Seguimiento</a>
+                                                <a href="ordenes.php">Órdenes de servicio</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -55,7 +58,9 @@
                                     <a href="#">Reportes</a>
                                     <div class="dropdown left-indent">
                                         <ul class="dropdown-items">
-                                            
+                                            <li>
+                                                <a href="repnomina.php">Nómina</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -65,6 +70,9 @@
                                         <ul class="dropdown-items">
                                             <li>
                                                 <a href="config.php">Opciones</a>
+                                            </li>
+                                            <li>
+                                                <a href="calendar.php">Calendario</a>
                                             </li>
                                         </ul>
                                     </div>

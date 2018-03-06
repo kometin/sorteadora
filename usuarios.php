@@ -8,8 +8,7 @@ $context = new Context();
 $db = new DBConn();
 
 if(!$action){
-    $context->title = "Lista de usuarios";
-    
+    $context->title = "Lista de usuarios";    
     $context->params[] = array("Header" => "#", "Width" => "40", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Editar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Borrar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
@@ -17,6 +16,8 @@ if(!$action){
    // $context->params[] = array("Header" => "Tipo", "Width" => "100", "Attach" => "cmb", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Correo", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     
+    $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+
     RenderTemplate('templates/usuarios.tpl.php', $context, 'templates/base.php');
     
 }elseif($action == "form"){
@@ -32,7 +33,7 @@ if(!$action){
     
     if($id){
         if($Password)
-            $pwd="Password='".Encrypt($Password)."',";
+            $pwd="Password='".md5($Password)."',";
         $sql = "UPDATE usuarios set "
                 . "Nombre = '$name', "
                 . "Paterno = '$patern', "
@@ -42,10 +43,10 @@ if(!$action){
                 . "Correo = '$mail', "
                  . $pwd
                 . "updated_at = NOW(), "
-                . "updated_by = '{$_SESSION['ID_Usuario']}'"
+                . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";              
     }else{
-        $PWD= Encrypt($Password);        
+        $PWD= md5($Password);        
         $sql = "insert into usuarios set "
                 . "Nombre = '$name', "
                 . "Paterno = '$patern', "
@@ -62,7 +63,14 @@ if(!$action){
     sleep(1);
 }elseif($action == "del"){
     if($id)
-        $db->execute ("UPDATE usuarios SET Estatus=0 WHERE id=$id");
+        $db->execute ("UPDATE usuarios SET Estatus=0, updated_at=now(), updated_by='{$_SESSION[SORTUSER]}' WHERE id=$id");
     
+}elseif($action == "ckc"){   
+    if($id)
+        $and=" AND id!='$id'";    
+    if($cor)
+       $elemento=$db->getOne("SELECT * FROM usuarios WHERE Correo='$cor' AND Estatus=1 $and ");
+    if($elemento)
+        echo $elemento;    
 }
 

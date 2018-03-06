@@ -36,7 +36,8 @@
         $('#tbl-work').find('td, th').not('.fixed').hide();
         $('.timepicker').timepicker({timeFormat: 'G:i', scrollDefault: '06:30'}).on('changeTime', function(){
             if($(this).hasClass('time-in')){
-                var time = moment('2018-01-30 ' + $(this).val());
+                var time = moment('2018-01-01 ' + $(this).val());
+                console.log(time);
                 var out = $(this).parent().next().find('.time-out');
                 if(!$(out).val()){
                     $(out).timepicker('setTime', time.add(8, 'hours').format('HH:mm'));
@@ -52,7 +53,7 @@
         Navigate('+');
         
         $('#btnSaveAll').click(function(){
-            if(Full($('#tbl-work'), true) && Full($('#tbl-param'))){
+            if(Full($('#tbl-param'))){
                 Loading();
                 $.post('nomina.php?action=save' + getParamValues(), $('#jornadas').serialize(), function(data){
                     Ready();
@@ -63,7 +64,7 @@
                     }
                 });
             }else{
-                Error("Debe completar todos los campos vacíos para continuar");
+                Error("Debe completar todos los valores de nómina para continuar");
             }
         });
     });

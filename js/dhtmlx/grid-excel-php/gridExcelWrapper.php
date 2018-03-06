@@ -1,7 +1,6 @@
 <?php
 
 error_reporting(0);
-
 require_once './lib/PHPExcel.php';
 require_once './lib/PHPExcel/IOFactory.php';
 
@@ -284,7 +283,7 @@ class gridExcelWrapper {
 				$c = $length - 1;
 				$index--;
 			}
-			$ch = $c + $ch;
+			//$ch = $c + $ch;
 			$name = $letters[$c].$name;
 			if ($index <= 0)
 				$ready = true;
