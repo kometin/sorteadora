@@ -32,6 +32,11 @@ function Edit(id){
     Modal('ordenes.php?action=form&id=' + id, 'Editar orden de servicio', 700, function () {
     });
 }
+function Factores(id){
+    Modal('ordenes.php?action=fac&id=' + id, 'Factores de la orden', 700, function () {});
+}function Resultados(id,tipo){
+    Modal('ordenes.php?action=res&id=' + id+"&tipo="+tipo, 'Resultados', 1000, function () {});
+}
 function Ver(id){
     Modal('ordenes.php?action=ver&id=' + id, 'Editar usuario', 700, function () {
     });
