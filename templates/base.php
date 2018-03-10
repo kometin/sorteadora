@@ -14,7 +14,7 @@
         <link type="text/css" rel="stylesheet" href="css/menu/plugins.css">
         <link type="text/css" rel="stylesheet" href="css/menu/style.css">
         <link type="text/css" rel="stylesheet" href="css/menu/presets/preset-gradient.css">
-        <link type="text/css" rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.css">
+        <link type="text/css" rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
         <link type="text/css" rel="stylesheet" href="css/select2/select2.css">
         <link type="text/css" rel="stylesheet" href="css/multiselect/css/multi-select.css">
         <link type="text/css" rel="stylesheet" href="js/dhtmlx/dhtmlx.css">
@@ -22,7 +22,7 @@
         <link type="text/css" rel="stylesheet" href="js/sweetalert/dist/sweetalert.css">
         <link type="text/css" rel="stylesheet" href="js/timepicker/jquery.timepicker.css">
         <link type="text/css" rel="stylesheet" href="js/calendar/calendar.css">
-        <link type="text/css" rel="stylesheet" href="css/summernote.css">
+        <link type="text/css" rel="stylesheet" href="js/summernote/summernote.css">
         <?}else{?>
         <link type="text/css" rel="stylesheet" href="css/login.css">
         <?}?>
@@ -80,7 +80,7 @@
         <script type="text/javascript" src="js/select2.js"></script>
         <script type="text/javascript" src="js/jquery.multi-select.js"></script>
         <script src="js/jquery.quicksearch.js" type="text/javascript"></script>
-        <script src="js/summernote.js" type="text/javascript"></script>
+        <script src="js/summernote/summernote.js" type="text/javascript"></script>
 
         <script type="text/javascript" src="js/sweetalert/dist/sweetalert2.all.js"></script>
         <script type="text/javascript" src="js/timepicker/jquery.timepicker.js"></script>

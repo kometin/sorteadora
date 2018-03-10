@@ -26,7 +26,7 @@ if(!$action){
     $context->params[] = array("Header" => "Contactos", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     
     $context->params[] = array("Header" => "Cuentas", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
-    $context->params[] = array("Header" => "Correo", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
+    
     RenderTemplate('templates/clientes.tpl.php', $context, 'templates/base.php');
     
 }elseif($action == "contact"){
@@ -208,10 +208,23 @@ if(!$action){
         }        
     }
 }elseif($action == "mail"){
-    $sql = "select Tipo, Nombre, Correo, Password from contactos where Activo = 1 and cliente_id = $id";
-    $context->contacts = $db->getArray($sql);
-    
-    RenderTemplate('templates/clientes.mail.php', $context);
+    if(empty($_POST)){
+        $sql = "select Tipo, Nombre, Correo, Password from contactos where Activo = 1 and cliente_id = $id";
+        $context->contacts = $db->getArray($sql);
+
+        $context->mails = getMails();
+
+        RenderTemplate('templates/clientes.mail.php', $context);
+    }else{
+        $fields = array(
+            "es" => "Spanish", 
+            "en" => "English"
+        );
+        foreach($language as $lan){
+            $sql = "update correos set $fields[$lan] = '".$_POST['message-'.$lan]."' where Tipo = '$type'";
+            $db->execute($sql);
+        }
+    }
     
 }
 

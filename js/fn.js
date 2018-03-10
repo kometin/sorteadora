@@ -80,7 +80,7 @@ function Modal(url, title, width, fn){
         Ready();
     });
     $('#myModal').on('hidden.bs.modal', function (e) {
-//        $('.summernote').destroy();
+        if($('#myModal').find('.summernote').length) $('.summernote').summernote('destroy');
         $('.modal-body').empty();
         $(this).removeAttr('closing');
         Dismiss();
@@ -99,6 +99,24 @@ function Modal(url, title, width, fn){
             $('#myModal').modal('show');
         });
     }    
+}
+
+function Summernote(obj){
+     $(obj).summernote({
+//                width: 600,
+                minHeight: 100,  
+                height: 200, 
+                maxHeight: 300, 
+                toolbar: [
+                     //[groupname, [button list]]
+                     ['style', ['bold', 'italic', 'underline', 'clear']],
+                     ['font', ['strikethrough']],
+                     ['fontsize', ['fontsize']],
+                     ['color', ['color']],
+                     ['para', ['ul', 'ol', 'paragraph']],
+                     ['height', ['height']]
+                   ]
+         });
 }
 
 function CloseModal(){

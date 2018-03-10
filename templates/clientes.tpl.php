@@ -1,6 +1,6 @@
 <?function Style($context){?>
 <style type="text/css">
-   
+   .summernote {min-height: 250px;}
 </style>
 <?}?>
 
