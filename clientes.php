@@ -26,6 +26,7 @@ if(!$action){
     $context->params[] = array("Header" => "Contactos", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     
     $context->params[] = array("Header" => "Cuentas", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
+    $context->params[] = array("Header" => "Correo", "Width" => "80", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     RenderTemplate('templates/clientes.tpl.php', $context, 'templates/base.php');
     
 }elseif($action == "contact"){
@@ -206,7 +207,14 @@ if(!$action){
 
         }        
     }
+}elseif($action == "mail"){
+    $sql = "select Tipo, Nombre, Correo, Password from contactos where Activo = 1 and cliente_id = $id";
+    $context->contacts = $db->getArray($sql);
+    
+    RenderTemplate('templates/clientes.mail.php', $context);
+    
 }
+
 function contar_valores($a,$buscado)
  {
   if(!is_array($a)) return NULL;

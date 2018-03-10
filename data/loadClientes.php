@@ -43,6 +43,7 @@
         //print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
             print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-address-card" onclick="Contact(\'' . $d['id'] . '\')"></li>') . "</cell>";          
             print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-money" onclick="Cuentas(\'' . $d['id'] . '\')"></li>') . "</cell>";          
+            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-envelope-o" onclick="Email(\'' . $d['id'] . '\')"></li>') . "</cell>";          
          
        print "</row>";
     }
