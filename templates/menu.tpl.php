@@ -15,6 +15,38 @@
                 <div class="col-sm-10 col-xs-8">
                         <nav class="main-nav pull-right">
                             <ul>
+                                <?if($_SESSION[SORTCLIENT]){?>
+                                <li class="has-child ">
+                                    <a href="#">Órdenes</a>
+                                    <div class="dropdown left-indent">
+                                        <ul class="dropdown-items">
+                                            <li>
+                                                <a href="misordenes.php">Órdenes de servicio</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="has-child ">
+                                    <a href="#">Reportes</a>
+                                    <div class="dropdown left-indent">
+                                        <ul class="dropdown-items">
+                                            <li>
+                                                <a href="misreportes.php">Reporte de servicios</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="has-child ">
+                                    <a href="#">Mi cuenta</a>
+                                    <div class="dropdown left-indent">
+                                        <ul class="dropdown-items">
+                                            <li>
+                                                <a href="generales.php">Datos generales</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <?}else{?>
                                 <li class="has-child ">
                                     <a href="#">Catálogos</a>
                                     <div class="dropdown left-indent">
@@ -77,10 +109,10 @@
                                         </ul>
                                     </div>
                                 </li>
+                                <?}?>
                                 <li>
                                     <a href="login.php?action=logout">Salir</a>
                                 </li>
-
                             </ul>
                         </nav>
 
