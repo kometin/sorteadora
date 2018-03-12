@@ -34,9 +34,10 @@
                                     if(data)
                                          Error(data);
                                     else{
-                                        CloseModal();
-                                        ReloadGrid(grid, 'data/loadClientes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+//                                        CloseModal();
+//                                        ReloadGrid(grid, 'data/loadClientes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
                                         OK("Guardado");                                        
+                                        Modal('clientes.php?action=mail&id=<?=$context->id?>', 'Envio de correos', 900);
                                     }                      
                                 });      
                             }

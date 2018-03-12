@@ -15,7 +15,11 @@
 <?function Body($context){?>
 <div class="jumbotron text-center">
     <h1>Sistema Ingenium Services</h1> 
-    <p></p> 
+    <p>
+        Logged as: <?=$_SESSION[SORTNAME]?>
+    </p> 
+    <small><?=$_SESSION[SORTCOMP]?></small>
+    <small><?=$_SESSION[SORTROLE]?></small>
 </div>
 <?}?>
 

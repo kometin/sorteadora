@@ -30,7 +30,7 @@ if(!$action){
     RenderTemplate('templates/usuarios.form.php', $context);
     
 }elseif($action == "save"){
-    
+    $rol = "ADMIN";
     if($id){
         if($Password)
             $pwd="Password='".md5($Password)."',";

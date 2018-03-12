@@ -26,6 +26,16 @@
             return $params;
     }
     
+    function getMails() {
+        $db = new DBConn();
+        $sql = "select * from correos";
+        foreach($db->getArray($sql) as $a){
+            $mails[ $a[Tipo] ]['es'] = $a[Spanish];
+            $mails[ $a[Tipo] ]['en'] = $a[English];
+        }
+        return $mails;
+    }
+    
     function CanBeHere(){
         foreach($_SESSION['TYSMENU'] as $m)
             if($m['link'] == getModule()) return true;
