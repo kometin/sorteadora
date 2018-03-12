@@ -33,6 +33,8 @@
             print "<cell></cell><cell></cell>";
         }
         print "<cell>" . htmlspecialchars($d["Servicio"])."</cell>";		
+        print "<cell>" . htmlspecialchars($d["Tipo_Medicion"])."</cell>";		
+
         print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
         
        print "</row>";

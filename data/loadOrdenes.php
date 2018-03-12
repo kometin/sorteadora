@@ -13,7 +13,7 @@
     else
         $and=" AND o.Estatus = 1";   
     $db = new DBConn();
-    $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio, of.orden_id,of.id as id_orden_factor
+    $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio, of.orden_id,of.id as id_orden_factor,s.Tipo_Medicion
                 FROM ordenes o
                 INNER JOIN clientes c ON c.id=o.cliente_id 
                 INNER JOIN servicios s on o.ID_Servicio=s.id
@@ -47,9 +47,9 @@
 
         print "<cell>" . htmlspecialchars(strtoupper(substr($d['Empresa'],0,3)).$Folio)."</cell>";	
         print "<cell>" . htmlspecialchars($d["Total_Partes"])."</cell>";	
-        print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Factores(\'' . $d['id'] . '\')"></li>') . "</cell>";        
+        print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Factores(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
         if($d['orden_id']!='')
-            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Resultados(\'' . $d['id_orden_factor'] . '\','.$tipo.')"></li>') . "</cell>";        
+            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['orden_id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
         else
             print "<cell></cell>";
             

@@ -29,7 +29,7 @@ $(function(){
 });
 function DelFac(id){
 
-    Question( "¿Desea eliminar este factor?", function(){
+    Question( "¿Desea eliminar este defecto?", function(){
         Loading();
         $.get('ordenes.php?action=delfac&id=' + id, function (data) {
         Ready();
@@ -57,7 +57,7 @@ $data=$context->data;
 <form id="op"  autocomplete="off">
     <table id="tblfactores" class="table table-striped">
         <tr>
-            <td >Factor</td>
+            <td >Defecto</td>
             <td><a class="btn btn-primary" id ="btnNewFac"><i class="fa fa-plus"></i></a></td>
         </tr>
         <? if(count($context->Factores )>0){

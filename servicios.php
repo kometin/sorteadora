@@ -15,6 +15,8 @@ if(!$action){
     $context->params[] = array("Header" => "Editar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Borrar", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Servicio", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Tipo medición", "Width" => "120", "Attach" => "cmb", "Align" => "left", "Sort" => "str", "Type" => "ed");
+
     $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     
     RenderTemplate('templates/servicios.tpl.php', $context, 'templates/base.php');
@@ -35,12 +37,14 @@ if(!$action){
     if($id){
         $sql = "UPDATE servicios set "
                 . "Servicio = '$Servicio', "
+                . "Tipo_Medicion  = '$Tipo_Medicion', "
                 . "updated_at = NOW(), "
                 . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";        
     }else{
         $sql = "insert into servicios set "
                 . "Servicio = '$Servicio', "
+                . "Tipo_Medicion  = '$Tipo_Medicion', "
                 . "updated_at = NOW(), "
                 . "updated_by = '{$_SESSION['SORTUSER']}' ";
     }

@@ -3,12 +3,19 @@ $(function(){
     var error=0;
     DoSelect($('.select2'));
     DatePicker($('.date'));
+    $( ".accordion" ).accordion({
+        heightStyle: "content",
+              collapsible: true
+
+        
+
+    });
 
     $('#btnSave').click(function(){ 
         if(Full($('#op'))) {
             if(error==0){
                 LoadButton($('#btnSave'));                                                                              
-                $.post('ordenes.php?action=savefacres', $('#op').serialize(), function(data){
+                $.post('ordenes.php?action=savefacres2', $('#op').serialize(), function(data){
                     Ready();
                     if(data)
                         Error(data);
@@ -99,6 +106,20 @@ function DelFac(id){
         error=1;
    }
  }
+ function agregaRenglones(id,max){
+
+    <? foreach($context->Factores as $row){?>
+        table='';
+        for(z=0;z<max;z++){
+            table+='<tr>'; 
+            table+='<td>';
+            table+='<input type="text" name="Resultados<?=$row['id']?>[]"  id="Resultados"  class="form-control numeric " placeholder="Resultado"  value="">'; 
+            table+='</td>';
+            table+='</tr>'; 
+        }            
+        $("#tbresultados"+<?=$row['id']?>).append(table);
+    <? }?>
+ }
 </script>
 <style>
     <? if($context->ver==1){?>
@@ -119,12 +140,8 @@ $data=$context->data;
         <tr>
             <td>Lote</td>
             <td>Fecha</td>
-            <td>Cantidad</td>
-            <?foreach($context->Factores as $row){?>
-            <td>Defecto (<?=$row['Factor']?>)</td>
-            <? }?>
-            <td>Rechazadas</td>
-            <td>Total OK</td>            
+            <td>Muestra</td>
+            <td>Caracteristica / Especificación </td>            
         </tr>
         <? $TotalCan=0;
             if(count($context->Resultados )>0){
@@ -134,44 +151,65 @@ $data=$context->data;
             <td><input type="hidden" name="id[]" id="id" value="<?=$row['id']?>">
                 <input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value="<?=$row['Lote']?>"></td>  
             <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?= SimpleDate($row['Fecha_Lote'])?>"></td>            
-            <td><input type="text" name="Cantidad[]" onchange="calcula(<?=$row['id']?>);" id="Cantidad<?=$row['id']?>" class="TotalCol form-control numeric require" style="width:90px" placeholder="Cantidad"  value="<?=$row['Cantidad']?>"></td>
-
-            <? $totalRecha=0;
-                foreach($context->Factores as $rowF){
-                $totalRecha+=$context->ResultadosFac[$row['id']][$rowF['id']]?>
-            <td><input type="hidden" name="idFactor[]" value="<?=$context->idsFac[$row['id']][$rowF['id']]?>">
-                <input type="text" name="Factor[]" onchange="calcula(<?=$row['id']?>);" class="form-control require Factor<?=$row['id']?>" placeholder="Cantidad <?=$rowF['Factor']?>"  value="<?=$context->ResultadosFac[$row['id']][$rowF['id']]?>"></td>
-            <? }?>
-            <td><input type="text" name="Rechazadas[]" id="Rechazadas<?=$row['id']?>" readonly="" class="form-control " placeholder="Rechazadas"  value="<?=$totalRecha?>"></td>  
-            <td><input type="text" name="Total[]" id="Total<?=$row['id']?>" readonly="" class="form-control require" placeholder="Total"  value="<?=($row['Cantidad']-$totalRecha)?>"></td>  
-
+            <td><input type="text" name="Muestra[]" id="Muestra<?=$row['id']?>" class=" form-control numeric require" style="width:90px" placeholder="Cantidad"  value="<?=$row['Muestra']?>"></td>          
             <td>
-                <i class="fa fa-2x fa-trash-o" onclick="DelFacRes('<?=$row[idFactor]?>')">
-                    
-                </li>
+                <table  class="table table-striped">
+                    <tr>
+                        <td>
+                        <div class="accordion">
+                        <? $z=0; foreach($context->Factores as $fac){?>                                                        
+                            <h3><input type="hidden" name="idFactor[]" value="<?=$fac['id']?>">
+                                <?=$fac['Factor']?><?=$fac['Especificacion']?>
+                            </h3>
+                            <div>
+                               <table id="tbresultados<?=$row['id'].$fac['id']?>" class="table table-striped">
+                                   <? for($z=0;$z<$row['Muestra']; $z++){?>
+                                   <tr>
+                                       <td>
+                                           <input type="text" name="Resultados<?=$fac['id']?>[]"  class="form-control numeric " placeholder="Resultado"  value="<?=$context->ResultadosFac[$row['id']][$fac['id']][$z]?>">
+                                       </td>
+                                   </tr>
+                                   <? }?>
+                               </table>
+                            </div>
+                        <? $z++;}?>
+                        </div>                            
+                        </td>                       
+                    </tr>   
+                </table>
             </td>
         </tr>
         <? }}else{?>
         <tr id="tra">
             <td><input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value=""></td>  
             <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?=$row['Fecha']?>"></td>
-            <td><input type="text" onchange="calcula(0);" id="Cantidad0" name="Cantidad[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Cantidad"  value="<?=$row['Cantidad']?>"></td>
-            <? $z=0; foreach($context->Factores as $row){?>
             <td>
-                <input type="hidden" name="idFactor[]" value="<?=$row['id']?>">
-                <input type="text" name="Factor[]" onchange="calcula(0);" id="" class="form-control numeric require Factor0" placeholder="Cantidad <?=$row['Factor']?>"  value="<?=$row['Respuesta']?>">
+                <input type="text" onchange="" id="Muestra0" name="Muestra[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Muestra"  value="<?=$row['Muestra']?>">
+                <i class="fa fa-share" onclick="agregaRenglones(0,$('#Muestra0').val())"></i>
             </td>
-            <? $z++;}?>
-            <td><input type="text" name="Rechazadas[]"  id="Rechazadas0" readonly="" class="form-control numeric " placeholder="Rechazadas"  value=""></td>  
-            <td><input type="text" name="Total[]" id="Total0" readonly="" class="form-control numeric " placeholder="Total"  value=""></td>  
-            <td>             </td>
+            <td>
+                <table  class="table table-striped">
+                    <tr><td>
+                    <div class="accordion">
+                    <? $z=0; foreach($context->Factores as $row){?>
+
+                                                        
+                                <h3><input type="hidden" name="idFactor[]" value="<?=$row['id']?>">
+                                    <?=$row['Factor']?><?=$row['Especificacion']?>
+                                </h3>
+                            <div>
+                               <table id="tbresultados<?=$row['id']?>" class="table table-striped"></table>
+                            </div>
+
+                    <? $z++;}?>
+                    </div>                            
+                        </td>                       
+                    </tr>   
+                </table>
+            </td>     
+
         </tr>        
         <? }?>
-    </table>
-    <table  class="table table-striped">
-        <tr>
-            <td style="width:145px "></td><td  style="width:125px " align="right">Total</td><td  style="width:125px "><input  style="width:90px " id="totalCan" class="form-control" type="text" value="<?=$TotalCan?>" readonly=""></td><td></td><td></td><td></td><td></td><td></td>
-        </tr> 
     </table>
     <input type="hidden" name="idOrden" id="idOrden" value="<?=$context->idOrden?>">
     <br></br>
