@@ -157,14 +157,25 @@ if(!$action){
 }elseif($action == "delfac"){
     if($id)
         $db->execute ("UPDATE orden_factores SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+}elseif($action == "delres3"){
+    if($id)
+        $db->execute ("UPDATE resultados SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+       
 }elseif($action == "res"){
-    
-    $context->idOrden=$id;
-    $context->Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$id." AND Activo=1");
-    $context->Resultados=$db->getArray("SELECT *
-                                        FROM resultados 
-                                        WHERE orden_id=".$id);
-    $context->Total_Partes=$db->getOne("SELECT Total_Partes FROM ordenes WHERE id=".$id);
+    if($tipo==3){
+        $context->idOrden=$id;
+        if($id)
+        $context->Resultados=$db->getArray("SELECT *
+                                            FROM resultados 
+                                            WHERE orden_id=".$id." AND Activo=1");
+        RenderTemplate('templates/ordenes.res3.php', $context);    
+    }else{
+        $context->idOrden=$id;
+        $context->Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$id." AND Activo=1");
+        $context->Resultados=$db->getArray("SELECT *
+                                            FROM resultados 
+                                            WHERE orden_id=".$id." AND Activo=1");
+        $context->Total_Partes=$db->getOne("SELECT Total_Partes FROM ordenes WHERE id=".$id);
 
  
         $ResFac=$db->getArray("SELECT RF.factor_id, Valor,  RF.id, RES.id as resultado_id
@@ -181,6 +192,7 @@ if(!$action){
         $context->idsFac=$idsFac;
         $context->ResultadosFac=$ResultadosFac;
         $context->idsFac=$idsFac;
+    }
     if($tipo==1){          
         RenderTemplate('templates/ordenes.res1.php', $context);
     }elseif ($tipo==2)
@@ -331,4 +343,31 @@ if(!$action){
     }
     sleep(1);      
     
+}elseif($action == "saveres3"){
+    $x=0;
+    foreach($Locacion as $Loc){
+        if($id[$x]!='' && $idOrden!=''){
+            $sql = "update resultados SET "                   
+                   . "orden_id=$idOrden, "
+                   ." Locacion='$Loc',"
+                   ." Dia='$Dia[$x]'," 
+                   ." Informacion='$Informacion[$x]',"                                       
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' "
+            . " WHERE id=$id[$x]";        
+            $db->execute($sql);
+        }elseif($Loc!='' && $idOrden!=''){
+           $sql = "insert into resultados SET "
+                   . "orden_id=$idOrden, "
+                   ." Locacion='$Loc',"
+                   ." Dia='$Dia[$x]'," 
+                   ." Informacion='$Informacion[$x]',"                    
+                   ." Activo=1,"            
+            . "updated_at = NOW(), "
+            . "updated_by = '{$_SESSION['SORTUSER']}' ";        
+            $db->execute($sql);
+        }
+        $x++;
+    }
+    sleep(1);     
 }

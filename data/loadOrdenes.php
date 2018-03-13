@@ -46,13 +46,18 @@
             $Folio="0".$d["Folio"];
 
         print "<cell>" . htmlspecialchars(strtoupper(substr($d['Empresa'],0,3)).$Folio)."</cell>";	
-        print "<cell>" . htmlspecialchars($d["Total_Partes"])."</cell>";	
-        print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Factores(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
-        if($d['orden_id']!='')
-            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['orden_id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
-        else
-            print "<cell></cell>";
-            
+        print "<cell>" . htmlspecialchars($d["Total_Partes"])."</cell>";
+        if($d['Tipo_Medicion']==1 || $d['Tipo_Medicion']==2){    
+            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Factores(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
+            if($d['orden_id']!='')
+                print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['orden_id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
+            else
+                print "<cell></cell>";
+        }else{
+            print "<cell></cell>";        
+            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
+
+        }
                 
     //    print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_Cierre"]))."</cell>";		
     //    print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
