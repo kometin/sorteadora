@@ -60,7 +60,8 @@
             table+='    </td>';
             table+='    <td><input type="text" name="Nombre[]" class="form-control require" id="Nombre" value=""></td>';  
             table+='    <td><input type="text" name="Correo[]" class="form-control require mail" id="Correo" value=""></td>';
-            table+='    <td><input type="password" name="Password[]" class="form-control" id="Password"></td>';  
+            table+='    <td><a class = "btn btn-danger btn-access">NO</a><input type ="hidden" name = "access[]" value="-1"></td>'
+//            table+='    <td><input type="password" name="Password[]" class="form-control" id="Password"></td>';  
             table+='    <td align="center" style="text-align:center !important;"><center><input type="checkbox" name="Principal[]"  id="Principal" class="checado" value="1"></center></td>';
             table+='    <td><input type="hidden" name="id[]" id="id" value=""><i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>';
             table+='</tr>'; 
@@ -76,11 +77,20 @@
         $('.checado').not(this).prop('checked', false);  
         $(this).prop("checked", true); 
     });
-       
+    
+        $('#contact').on('click', '.btn-access', function(){
+           if($(this).hasClass('btn-success')){
+               $(this).removeClass('btn-success').addClass('btn-danger').text('NO');
+               $(this).parent().find('input').val("-1");
+           }else{
+               $(this).removeClass('btn-danger').addClass('btn-success').text('SI');
+               $(this).parent().find('input').val("1");
+           }
+        });
     });
 
 
-        function DelContacto(id){
+    function DelContacto(id){
 
         Question( "¿Desea dar de baja este contacto?", function(){
            Loading();
@@ -115,7 +125,7 @@ $data=$context->data;
             <th>Tipo</th>
             <th>Nombre</th>
             <th>Correo</th>
-            <th>Password</th>
+            <th>Acceso</th>
             <th>Principal</th>
             <th>Borrar</th>
         </tr>
@@ -129,14 +139,17 @@ $data=$context->data;
             </td>
             <td><input type="text" name="Nombre[]" class="form-control require" id="Nombre" value="<?=$row['Nombre']?>"></td>  
             <td><input type="text" name="Correo[]" class="form-control require mail" id="Correo" value="<?=$row['Correo']?>"></td>  
-            <td>
+<!--            <td>
                 <a class=" btn btn-info btn-lg" id="chg1"  style="display:<?=($row['id']?"":"none")?>"  onclick="$(this).hide();$('#Password<?=$row['id']?>').val(''); $('#Password<?=$row['id']?>').show(); " >Cambiar password</a>
                 <input type="password" name="Password[]" style="display:none" class="form-control" id="Password<?=$row['id']?>" value='0'>
-            </td>  
+            </td>  -->
+            <td width = "50">
+                <a class="btn btn-<?=($row[Password]?"success":"danger")?> btn-access"><?=($row[Password]?"SI":"NO")?></a>
+                <input type="hidden" name="access[]" value="<?=($row[Password]?"1":"0")?>">
+            </td>
             <td  align="center">
                 <input type="hidden" value="">
                 <input type="checkbox" name="Principal[]" id="Principal" class="checado" value="1" <? if($row['Principal']==1)echo "checked";?>>
-            
             </td>
             <td>
                 <i class="fa fa-2x fa-trash-o" onclick="DelContacto('<?=$row[id]?>')">
