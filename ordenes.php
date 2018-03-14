@@ -79,7 +79,6 @@ if(!$action){
                 . "Otros='$Otros', " 
                 . "Tiempo_x_Parte='$Tiempo_x_parte'," 
                 . "Total_Partes='$Total_partes',"
-                . "Fecha_Cierre='".SimpleDate($Fecha_Cierre)."',"                                     
                 . "updated_at = NOW(), "
                 . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";        
@@ -111,7 +110,6 @@ if(!$action){
                 . "Otros='$Otros', " 
                 . "Tiempo_x_Parte='$Tiempo_x_parte'," 
                 . "Total_Partes='$Total_partes',"
-                . "Fecha_Cierre='".SimpleDate($Fecha_Cierre)."',"     
                 . "updated_at = NOW(), "
                 . "Estatus=1, "
                 . "updated_by = '{$_SESSION['SORTUSER']}' ";
