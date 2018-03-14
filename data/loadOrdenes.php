@@ -16,7 +16,7 @@
     $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio, of.orden_id,of.id as id_orden_factor,s.Tipo_Medicion
                 FROM ordenes o
                 INNER JOIN clientes c ON c.id=o.cliente_id 
-                INNER JOIN servicios s on o.ID_Servicio=s.id
+                INNER JOIN servicios s on o.servicio_id=s.id
                 left join orden_factores of ON of.orden_id=o.id
             where o.id is not null   $and";
     $data = $db->getArray($sql);

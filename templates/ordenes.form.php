@@ -98,10 +98,10 @@ $data=$context->data;
     */?>
     <label>Servicio</label>
     </br>
-    <select  placeholder="Servicios" name="ID_Servicio"  style="width:500px" id="ID_Servicio" class="require select2" >
+    <select  placeholder="Servicios" name="servicio_id"  style="width:500px" id="servicio_id" class="require select2" >
         <option value=""></option>
                     <? foreach($context->servicios as $un){?>
-                    <option value="<?= $un['id'] ?>" <? if($data[0]['ID_Servicio'] ==$un['id']) echo "SELECTED";?> ><?= $un['Servicio'] ?></option>
+                    <option value="<?= $un['id'] ?>" <? if($data[0]['servicio_id'] ==$un['id']) echo "SELECTED";?> ><?= $un['Servicio'] ?></option>
                     <? }?>
     </select>   
     <input type="hidden" name="id" id="id" value="<?=$context->id?>">
