@@ -18,7 +18,9 @@
                 INNER JOIN clientes c ON c.id=o.cliente_id 
                 INNER JOIN servicios s on o.servicio_id=s.id
                 left join orden_factores of ON of.orden_id=o.id
-            where o.id is not null   $and";
+                join ordenes_estatus e on e.id = o.Estatus 
+                
+            where o.id is not null   $and ORDER by o.id DESC";
     $data = $db->getArray($sql);
     
     print  "<?xml version='1.0' encoding='UTF-8'?>\n";
@@ -58,6 +60,22 @@
             print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
 
         }
+        switch($d[Estatus]){
+            case 1: $class = "default"; break;
+            case 2: $class = "warning"; break;
+            case 2: $class = "info"; break;
+            case 4: $class = "success"; break;
+            default: $class = "danger"; break;
+        }
+        print "<cell>" . htmlspecialchars("<div class = 'label label-$class label-grid'>" . $d["Stage"] . "</div>") . "</cell>";
+        
+        /*
+        $estatus=
+         clas label 
+         * <div class="label">
+         * 1 default
+         * 2 
+         */
                 
     //    print "<cell>" . htmlspecialchars(SimpleDate($d["Fecha_Cierre"]))."</cell>";		
     //    print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";

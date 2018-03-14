@@ -24,6 +24,8 @@ if(!$action){
     $context->params[] = array("Header" => "Configuración", "Width" => "80", "Attach" => "", "Align" => "right", "Sort" => "str", "Type" => "ed");
    
     $context->params[] = array("Header" => "Resultados", "Width" => "80", "Attach" => "", "Align" => "right", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Estatus", "Width" => "100", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
+
 // $context->params[] = array("Header" => "Fecha cierre", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
 
    // $context->params[] = array("Header" => "Alta/Baja", "Width" => "120*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");

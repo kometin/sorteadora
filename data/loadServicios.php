@@ -37,11 +37,11 @@
         //2 especificación técnica
         //3 Información general
         if($d["Tipo_Medicion"]==1)
-            $tipoMeciion='Conteo de defectos';
+            $tipoMedicion='Conteo de defectos';
         if($d["Tipo_Medicion"]==2)
-            $tipoMeciion='Especificación técnica';
+            $tipoMedicion='Especificación técnica';
         if($d["Tipo_Medicion"]==3)
-            $tipoMeciion='Información general';
+            $tipoMedicion='Información general';
         print "<cell>" . htmlspecialchars($tipoMedicion)."</cell>";		
 
         print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
