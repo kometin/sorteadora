@@ -86,13 +86,13 @@ if(!$action){
 
 }elseif($action == "savecontact"){
     $x=0;
-    foreach($Nombre as $Nom){
+    foreach($Nombre as  $Nom){
         
         $PWD='';
-        if($Password[$x]=='')       
+        if($access[$x]=='1')       
+            $PWD="Password = 'NEW', ";
+        elseif($access[$x] == '-1')       
             $PWD="Password = NULL, ";
-        elseif($Password[$x]!=0)       
-            $PWD="Password = '". md5($Password[$x])."' , ";
         
         if($id[$x]!=''){
             $sql = "update contactos set "
@@ -110,7 +110,7 @@ if(!$action){
             . "Tipo = '$Tipo[$x]', "
              . "Nombre = '$Nom', "
             . "Correo = '$Correo[$x]', " 
-            .$PWD
+            . $PWD
              . " Principal = '$Principal[$x]', " 
              . "cliente_id=$cid, "
 
@@ -209,7 +209,7 @@ if(!$action){
     }
 }elseif($action == "mail"){
     if(empty($_POST)){
-        $sql = "select Tipo, Nombre, Correo, Password from contactos where Activo = 1 and cliente_id = $id";
+        $sql = "select id, Tipo, Nombre, Correo, Password from contactos where Activo = 1 and cliente_id = $id";
         $context->contacts = $db->getArray($sql);
 
         $context->mails = getMails();
@@ -224,8 +224,26 @@ if(!$action){
             $sql = "update correos set $fields[$lan] = '".$_POST['message-'.$lan]."' where Tipo = '$type'";
             $db->execute($sql);
         }
+        foreach($address as $a){
+            $mail = $db->getOne("select Correo from contactos where id = $a");
+            echo $pwd =  generateRandomString();
+            if(true){
+                $sql = "update contactos set Password = MD5('" . $pwd . "') where id = $a";
+                $db->execute($sql);
+            }
+        }
     }
     
+}
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
 }
 
 function contar_valores($a,$buscado)

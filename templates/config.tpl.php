@@ -46,6 +46,15 @@
         <label>Pago Hora Triple</label>
         <input type="number" class="form-control numeric require" name="param[]" placeholder="Cuota $" value="<?=$context->params[5]?>"> 
     </div>
+    <div class="form-group">
+        <label>Información financiera de la empresa</label>
+        <?if($context->params[5]){?>
+            <a href="<?=$context->params[5]?>" target="_blank" class="btn btn-default"><i class="fa fa-download"></i> Descargar</a>
+            <a class="btn btn-danger"><i class="fa fa-times"></i> Cambiar</a>
+        <?}else{?>
+            <input type="file" name="param[]"  accept=".docx,.pdf">
+        <?}?>
+    </div>
     <p><a class="btn btn-success btn-lg" id ="btnSave"><i class="fa fa-save"></i> Guardar</a></p>
 </form>
 <?}?>

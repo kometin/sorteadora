@@ -17,6 +17,10 @@ if(!$action){
     
 }elseif ($action == "save") {
     
+    if(!empty($_FILES)){
+        
+    }
+    
     foreach($param as $i => $p){
         $sql = "update parametros set Valor = '$p' where ID_Param = " . ($i + 1);
         $db->execute($sql);

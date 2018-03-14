@@ -16,36 +16,12 @@
                         <nav class="main-nav pull-right">
                             <ul>
                                 <?if($_SESSION[SORTCLIENT]){?>
-                                <li class="has-child ">
-                                    <a href="#">Órdenes</a>
-                                    <div class="dropdown left-indent">
-                                        <ul class="dropdown-items">
-                                            <li>
-                                                <a href="misordenes.php">Órdenes de servicio</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="has-child ">
-                                    <a href="#">Reportes</a>
-                                    <div class="dropdown left-indent">
-                                        <ul class="dropdown-items">
-                                            <li>
-                                                <a href="misreportes.php">Reporte de servicios</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="has-child ">
-                                    <a href="#">Mi cuenta</a>
-                                    <div class="dropdown left-indent">
-                                        <ul class="dropdown-items">
-                                            <li>
-                                                <a href="generales.php">Datos generales</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
+                                    <li>
+                                        <a href="myorders.php">Servicios / Orders</a>
+                                    </li>
+                                    <li>
+                                        <a href="account.php">Datos generales / General information</a>
+                                    </li>
                                 <?}else{?>
                                 <li class="has-child ">
                                     <a href="#">Catálogos</a>
@@ -111,7 +87,7 @@
                                 </li>
                                 <?}?>
                                 <li>
-                                    <a href="login.php?action=logout">Salir</a>
+                                    <a href="login.php?action=logout">Logout</a>
                                 </li>
                             </ul>
                         </nav>

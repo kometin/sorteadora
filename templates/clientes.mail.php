@@ -48,7 +48,7 @@
                         <option></option>
                         <?foreach($context->contacts as $c){?>
                             <?if($c[Password]){?>
-                                <option value="<?=$c[Correo]?>" selected> <?=$c[Nombre]?> </option>
+                                <option value="<?=$c[id]?>" selected> <?=$c[Nombre]?> </option>
                             <?}?>
                         <?}?>
                     </select>
@@ -68,6 +68,9 @@
                         </label>
                         <div class="summernote mail-english"><?= htmlspecialchars_decode($context->mails[CUSTOMER][en])?></div>
                     </div>
+                </div>
+                <div class="alert alert-info">
+                    La información de acceso será adjuntada automáticamente en este correo
                 </div>
                 <p>
                     <a class="btn btn-success btn-lg btn-send-mail" ><i class="fa fa-send-o"></i> Enviar</a>
@@ -107,6 +110,9 @@
                         </label>
                         <div class="summernote mail-english" ><?= htmlspecialchars_decode($context->mails[SUPPLIER][en])?></div>
                     </div>
+                </div>
+                <div class="alert alert-info">
+                    El archivo de información de la empresa será adjuntado automáticamente
                 </div>
                 <p>
                     <a class="btn btn-success btn-lg btn-send-mail" ><i class="fa fa-send-o"></i> Enviar</a>
