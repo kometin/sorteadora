@@ -1,6 +1,11 @@
 <script>
 $(function(){
     var error=0;
+    <?  if(count($context->Resultados )>0){?>
+        haymuestras=1;
+    <? }else{?>
+        haymuestras=0;
+    <?}?>
     DoSelect($('.select2'));
     DatePicker($('.date'));
     $( ".accordion" ).accordion({
@@ -13,44 +18,61 @@ $(function(){
 
     $('#btnSave').click(function(){ 
         if(Full($('#op'))) {
-            if(error==0){
-                LoadButton($('#btnSave'));                                                                              
-                $.post('ordenes.php?action=savefacres2', $('#op').serialize(), function(data){
-                    Ready();
-                    if(data)
-                        Error(data);
-                    else{
-                        ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
-                        OK("Guardado");
-                        CloseModal();
-                    }                                       
-                });
+            if(haymuestras==0){
+                 Error("Es necesario indicar la cantidad de la muestra y dar clic en el ícono");
             }else{
-                Error("Es necesario corregir primero las cantidades");
+                if(error==0){
+                    LoadButton($('#btnSave'));                                                                              
+                    $.post('ordenes.php?action=savefacres2', $('#op').serialize(), function(data){
+                        Ready();
+                        if(data)
+                            Error(data);
+                        else{
+                            ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+                            OK("Guardado");
+                            CloseModal();
+                        }                                       
+                    });
+                }else{
+                    Error("Es necesario corregir primero las cantidades");
 
+                }
             }
         }
     }); 
     var z=100;
     $('#btnNewRes').click(function(){
         z++;
-        table='<tr id="tra">'; 
-         table+='<td><input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value=""></td>';   
-         table+='<td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value=""></td>'; 
-         table+='<td><input type="text" onchange="calcula('+z+');" id="Cantidad'+z+'" name="Cantidad[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Cantidad"  value=""></td>'; 
-         <? $z=0; foreach($context->Factores as $row){?>
-            table+='<td>';
-            table+='<input type="hidden" name="idFactor[]" value="">';
-            table+='<input type="text" name="Factor[]" onchange="calcula('+z+');" id="" class="form-control numeric require Factor'+z+'" placeholder="Cantidad <?=$row['Factor']?>"  value="">'; 
-            table+='</td>';
-         <? $z++;}?>
-         table+='<td><input type="text" name="Rechazadas[]"  id="Rechazadas'+z+'" readonly="" class="form-control numeric " placeholder="Rechazadas"  value=""></td>  '; 
-         table+='<td><input type="text" name="Total[]" id="Total'+z+'" readonly="" class="form-control numeric " placeholder="Total"  value=""></td>  '; 
-         table+=' <td>';  
-         table+='<i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>'; 
-         table+=' </tr>  ';            
+        table='';
+        table+='<tr id="tra">'; 
+        table+='    <td><input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value=""></td>  ';
+        table+='    <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?=$row['Fecha']?>"></td>';
+        table+='    <td>';
+        table+='        <input type="text" onchange="" id="Muestra0" name="Muestra[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Muestra"  value="<?=$row['Muestra']?>">';
+        table+='        <i class="fa fa-share" onclick="agregaRenglones('+z+',$(\'#Muestra'+z+'\').val())"></i>';
+        table+='    </td>';
+        table+='    <td>';
+        table+='        <table  class="table table-striped">';
+        table+='            <tr><td>';
+       table+='             <div class="accordion">';
+                    <? $z=0; foreach($context->Factores as $row){?>
+
+                                                        
+        table+='                        <h3><input type="hidden" name="idFactor[]" value="<?=$row['id']?>">';
+        table+='                            <?=$row['Factor']?><?=$row['Especificacion']?>';
+        table+='                        </h3>';
+        table+='                    <div>';
+        table+='                       <table id="tbresultados<?=$row['id']?>" class="table table-striped"></table>';
+        table+='                    </div>';
+                    <? $z++;}?>
+        table+='            </div>';                            
+        table+='                </td>';                       
+        table+='            </tr>';   
+        table+='        </table>';
+        table+='    </td>';     
+        table+='</tr>';           
          $("#tblress").append(table);
-    DatePicker($('.date'));         
+        DatePicker($('.date'));         
      });        
 });
 
@@ -107,7 +129,7 @@ function DelFac(id){
    }
  }
  function agregaRenglones(id,max){
-
+haymuestras=1;
     <? foreach($context->Factores as $row){?>
         table='';
         for(z=0;z<max;z++){
@@ -134,7 +156,7 @@ $data=$context->data;
 <form id="op"  autocomplete="off">
     <table id="tblress" class="table table-striped">
         <tr>
-            <td >Agrerar resultado</td>
+            <td colspan="3  " >Agrerar resultado</td>
             <td><a class="btn btn-primary" id ="btnNewRes"><i class="fa fa-plus"></i></a></td>
         </tr>        
         <tr>
@@ -159,7 +181,7 @@ $data=$context->data;
                         <div class="accordion">
                         <? $z=0; foreach($context->Factores as $fac){?>                                                        
                             <h3><input type="hidden" name="idFactor[]" value="<?=$fac['id']?>">
-                                <?=$fac['Factor']?><?=$fac['Especificacion']?>
+                                <?=$fac['Factor']?> &nbsp; / &nbsp;<?=$fac['Especificacion']?>
                             </h3>
                             <div>
                                <table id="tbresultados<?=$row['id'].$fac['id']?>" class="table table-striped">
