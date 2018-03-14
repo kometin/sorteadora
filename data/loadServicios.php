@@ -32,8 +32,17 @@
         }else {
             print "<cell></cell><cell></cell>";
         }
-        print "<cell>" . htmlspecialchars($d["Servicio"])."</cell>";		
-        print "<cell>" . htmlspecialchars($d["Tipo_Medicion"])."</cell>";		
+        print "<cell>" . htmlspecialchars($d["Servicio"])."</cell>";
+        //1 conteo de defectos
+        //2 especificación técnica
+        //3 Información general
+        if($d["Tipo_Medicion"]==1)
+            $tipoMeciion='Conteo de defectos';
+        if($d["Tipo_Medicion"]==2)
+            $tipoMeciion='Especificación técnica';
+        if($d["Tipo_Medicion"]==3)
+            $tipoMeciion='Información general';
+        print "<cell>" . htmlspecialchars($tipoMedicion)."</cell>";		
 
         print "<cell>" . SimpleDate($d["updated_at"]) . "</cell>";
         

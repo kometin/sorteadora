@@ -96,6 +96,7 @@ $data=$context->data;
         <input type="text" class="form-control date require"  style="width:120px" name="Fecha_Cierre" value="<?= SimpleDate($data[0]['Fecha_Cierre'])?>" placeholder="Fecha de cierre">
     </div>
     */?>
+    
     <label>Servicio</label>
     </br>
     <select  placeholder="Servicios" name="servicio_id"  style="width:500px" id="servicio_id" class="require select2" >

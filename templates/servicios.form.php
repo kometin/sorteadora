@@ -41,6 +41,8 @@ $data=$context->data;
         <label>Servicio</label>
         <input type="text" class="form-control require" name="Servicio" value="<?=$data[0]['Servicio']?>" placeholder="Servicio">
     </div>
+    <? if($context->id==''){?>
+
     <div class="form-group">
         <label>Tipo de medición del servicio</label>
         <select name="Tipo_Medicion" class="form-control require">
@@ -49,7 +51,7 @@ $data=$context->data;
             <option value="3" <? if($data[0]['Tipo_Medicion']==3) echo "Selected";?>>Tres</option>
         </select>
     </div>    
-    
+    <? }?>
     <? if($context->ver!=1){?>
     
     <input type="hidden" name="id" id="id" value="<?=$context->id?>">

@@ -37,7 +37,6 @@ if(!$action){
     if($id){
         $sql = "UPDATE servicios set "
                 . "Servicio = '$Servicio', "
-                . "Tipo_Medicion  = '$Tipo_Medicion', "
                 . "updated_at = NOW(), "
                 . "updated_by = '{$_SESSION['SORTUSER']}'"
                 . " WHERE id=$id ";        
