@@ -81,7 +81,7 @@ function DelFac(id){
             totalCol=totalCol+parseInt($(this).val());
         }
     });    
-    if(($('#Cantidad'+i).val()-total)>0){
+    if(($('#Cantidad'+i).val()-total)>=0){
         if(Total_Partes>=totalCol){
             $('#Rechazadas'+i).val(total);
             $('#Total'+i).val($('#Cantidad'+i).val()-total);
