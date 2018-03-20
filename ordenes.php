@@ -151,16 +151,26 @@ if(!$action){
     }
     sleep(1);     
 }elseif($action == "del"){
-    if($id)
+    if($id){
         $db->execute ("UPDATE ordenes SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
-    
+        $db->execute ("UPDATE orden_factores SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE orden_id=$id");
+        $db->execute ("UPDATE resultados SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE orden_id=$id");
+
+    }
 }elseif($action == "delfac"){
-    if($id)
+    if($id){
         $db->execute ("UPDATE orden_factores SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+        $db->execute ("UPDATE resultados SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE orden_id=(SELECT orden_id FROM orden_factores WHERE id=$id)");
+  
+    }
 }elseif($action == "delres3"){
     if($id)
         $db->execute ("UPDATE resultados SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
-       
+}elseif($action == "DelFacRes1"){
+    if($id){
+        $db->execute ("UPDATE resultados SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
+        $db->execute ("UPDATE resultado_factores SET Activo=0 WHERE resultado_id=$id");
+    }
 }elseif($action == "res"){
     if($tipo==3){
         $context->idOrden=$id;
@@ -174,14 +184,14 @@ if(!$action){
         $context->Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$id." AND Activo=1");
         $context->Resultados=$db->getArray("SELECT *
                                             FROM resultados 
-                                            WHERE orden_id=".$id." AND Activo=1");
+                                            WHERE orden_id=".$id." AND Activo=1 ");
         $context->Total_Partes=$db->getOne("SELECT Total_Partes FROM ordenes WHERE id=".$id);
 
  
         $ResFac=$db->getArray("SELECT RF.factor_id, Valor,  RF.id, RES.id as resultado_id
                             FROM resultado_factores RF
                             INNER JOIN resultados RES on RES.id=RF.resultado_id
-                            WHERE orden_id=".$id);
+                            WHERE orden_id=".$id. " AND RES.Activo=1 AND RF.Activo=1");
         if(count($ResFac)>0){
             foreach($ResFac as $res){
                 $ResultadosFac[$res['resultado_id']][$res['factor_id']][]=$res['Valor'];
@@ -193,7 +203,7 @@ if(!$action){
         $context->ResultadosFac=$ResultadosFac;
         $context->idsFac=$idsFac;
     }
-    if($tipo==1){          
+    if($tipo==1){        
         RenderTemplate('templates/ordenes.res1.php', $context);
     }elseif ($tipo==2)
         RenderTemplate('templates/ordenes.res2.php', $context);
@@ -221,14 +231,14 @@ if(!$action){
                             . "WHERE id=".$idd;        
                      $db->execute($sql);   
                      $xx++;
-                }/*else{                    
+                }else{                    
                     $sql = "insert into resultado_factores SET "
                         . "resultado_id=$id[$x], "
-                        ." factor_id='".$idFactor[$xx]."',"
+                        ." factor_id='".$Factores[$xx]['id']."',"
                         . "Valor ='".$Factor[$xx]."'";        
                     $db->execute($sql);  
                     
-                }*/
+                }
                 
             }            
         }elseif($L!='' && $idOrden!=''){
@@ -287,26 +297,36 @@ if(!$action){
 }elseif($action=='savefacres2'){
     $x=0;
     $xx=0;
+    $IDD='';
     $Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$idOrden." AND Activo=1");
     foreach($Lote as $L){
+
         if($id[$x]!=''&& $idOrden!=''){
             $sql = "update resultados SET "
                    ." Lote='$L',"
                    . "Fecha_Lote ='".SimpleDate($Fecha[$x])."',"
-                   . "Cantidad ='".$Cantidad[$x]."',"                       
+                   . "Muestra ='".$Muestra[$x]."',"                    
             . "updated_at = NOW(), "
             . "updated_by = '{$_SESSION['SORTUSER']}' "
             . " WHERE id=$id[$x]";        
             $db->execute($sql);
-            
-            foreach($idFactor as $idd){                
+            $db->execute("update resultado_factores SET Activo=0 WHERE resultado_id=".$id[$x]);
+            foreach($Factores as $Fac){
+                $IDD=$idd[$Muestra[$x]*count($Factores )-1];
+                if($IDD==0)               
+                    $Elem=$_POST['Resultados'.$Fac['id']];
+                else
+                    $Elem=$_POST['Resultados'.$IDD.$Fac['id']];
+                    foreach($Elem as $Res){
+                         $sql = "insert into resultado_factores SET "
+                                . "resultado_id=$id[$x], "
+                                ." factor_id='".$Fac['id']."',"
+                                . "Valor ='".$Res."'";        
+                        $db->execute($sql);                
+                }                
+            }
                 if($idd && $Factor[$xx]!=''){
-                     $sql = "UPDATE  resultado_factores SET "
-                            . "Valor ='".$Factor[$xx]."' "
-                            . "WHERE id=".$idd;        
-                     $db->execute($sql);   
-                     $xx++;
-                }/*else{                    
+                /*else{                    
                     $sql = "insert into resultado_factores SET "
                         . "resultado_id=$id[$x], "
                         ." factor_id='".$idFactor[$xx]."',"
@@ -329,13 +349,17 @@ if(!$action){
             $resultado_id=$db->getOne("SELECT id from resultados ORDER BY id DESC LIMIT 1");
             
             foreach($Factores as $Fac){
-                $Elem=$_POST['Resultados'.$Fac['id']];
-                foreach($Elem as $Res){
-                     $sql = "insert into resultado_factores SET "
-                            . "resultado_id=$resultado_id, "
-                            ." factor_id='".$Fac['id']."',"
-                            . "Valor ='".$Res."'";        
-                     $db->execute($sql);                
+                $IDD=$idd[$Muestra[$x]*count($Factores )-1];
+                if($IDD==0)               
+                    $Elem=$_POST['Resultados'.$Fac['id']];
+                else
+                    $Elem=$_POST['Resultados'.$IDD.$Fac['id']];
+                    foreach($Elem as $Res){
+                         $sql = "insert into resultado_factores SET "
+                                . "resultado_id=$resultado_id, "
+                                ." factor_id='".$Fac['id']."',"
+                                . "Valor ='".$Res."'";        
+                         $db->execute($sql);                
                 }
             }
         }

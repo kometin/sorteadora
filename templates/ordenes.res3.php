@@ -60,7 +60,7 @@ $data=$context->data;
 <form id="op"  autocomplete="off">
     <table id="tblfactores" class="table table-striped">
         <tr>
-            <td >Locacion</td>
+            <td >Locación</td>
             <td >Día</td>
             <td >Información general</td>
             <td><a class="btn btn-primary" id ="btnNewFac"><i class="fa fa-plus"></i></a></td>

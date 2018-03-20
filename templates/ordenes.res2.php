@@ -44,12 +44,12 @@ $(function(){
     $('#btnNewRes').click(function(){
         z++;
         table='';
-        table+='<tr id="tra">'; 
+        table+='<tr id="tra'+z+'">'; 
         table+='    <td><input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value=""></td>  ';
         table+='    <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?=$row['Fecha']?>"></td>';
         table+='    <td>';
-        table+='        <input type="text" onchange="" id="Muestra0" name="Muestra[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Muestra"  value="<?=$row['Muestra']?>">';
-        table+='        <i class="fa fa-share" onclick="agregaRenglones('+z+',$(\'#Muestra'+z+'\').val())"></i>';
+        table+='        <input type="text" onchange="" id="Muestra'+z+'" name="Muestra[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Muestra"  value="<?=$row['Muestra']?>">';
+        table+='        <i class="fa fa-share" onclick="agregaRenglones('+z+',$(\'#Muestra'+z+'\').val(),'+z+')"></i>';
         table+='    </td>';
         table+='    <td>';
         table+='        <table  class="table table-striped">';
@@ -62,17 +62,26 @@ $(function(){
         table+='                            <?=$row['Factor']?><?=$row['Especificacion']?>';
         table+='                        </h3>';
         table+='                    <div>';
-        table+='                       <table id="tbresultados<?=$row['id']?>" class="table table-striped"></table>';
+        table+='                       <table id="tbresultados'+z+'<?=$row['id']?>" class="table table-striped"></table>';
         table+='                    </div>';
                     <? $z++;}?>
         table+='            </div>';                            
         table+='                </td>';                       
         table+='            </tr>';   
         table+='        </table>';
+        table+='<td><i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>'; 
+        
         table+='    </td>';     
         table+='</tr>';           
          $("#tblress").append(table);
-        DatePicker($('.date'));         
+        DatePicker($('.date'));      
+$( ".accordion" ).accordion({
+        heightStyle: "content",
+              collapsible: true
+
+        
+
+    });     
      });        
 });
 
@@ -128,19 +137,51 @@ function DelFac(id){
         error=1;
    }
  }
- function agregaRenglones(id,max){
-haymuestras=1;
+ function DelFacRes1(id){
+
+    Question( "¿Desea eliminar este factor?", function(){
+        Loading();
+        $.get('ordenes.php?action=DelFacRes1&id=' + id, function (data) {
+        Ready();
+        if(data)
+              Error(data);
+        else{
+            $('#tr'+id).remove();
+            OK("Borrado");
+
+        }
+       });
+    });
+} 
+ function agregaRenglones(id,max,idd){
+    haymuestras=1;
     <? foreach($context->Factores as $row){?>
         table='';
         for(z=0;z<max;z++){
             table+='<tr>'; 
             table+='<td>';
-            table+='<input type="text" name="Resultados<?=$row['id']?>[]"  id="Resultados"  class="form-control numeric " placeholder="Resultado"  value="">'; 
+            if(idd=='')
+                table+='<input type="hidden" name="idd[]"   value="0">'; 
+            else
+                table+='<input type="hidden" name="idd[]"   value="'+idd+'">'; 
+                
+            table+='<input type="text" name="Resultados'+idd+'<?=$row['id']?>[]"  id="Resultados"  class="form-control numeric " placeholder="Resultado"  value="">'; 
+            
             table+='</td>';
             table+='</tr>'; 
-        }            
-        $("#tbresultados"+<?=$row['id']?>).append(table);
+        }   
+     //      $('#tra'+idd).find($("#tbresultados"+idd+<?=$row['id']?>)).append(table);
+          $("#tbresultados"+idd+<?=$row['id']?>).append(table);
+
+        
     <? }?>
+                    $( ".accordion" ).accordion({
+        heightStyle: "content",
+              collapsible: true
+
+        
+
+    });
  }
 </script>
 <style>
@@ -188,7 +229,8 @@ $data=$context->data;
                                    <? for($z=0;$z<$row['Muestra']; $z++){?>
                                    <tr>
                                        <td>
-                                           <input type="text" name="Resultados<?=$fac['id']?>[]"  class="form-control numeric " placeholder="Resultado"  value="<?=$context->ResultadosFac[$row['id']][$fac['id']][$z]?>">
+                                           <input type="hidden" name="idd[]"   value="<?=$row['id']?>">
+                                           <input type="text" name="Resultados<?=$row['id'].$fac['id']?>[]"  class="form-control numeric " placeholder="Resultado"  value="<?=$context->ResultadosFac[$row['id']][$fac['id']][$z]?>">
                                        </td>
                                    </tr>
                                    <? }?>
@@ -196,7 +238,11 @@ $data=$context->data;
                             </div>
                         <? $z++;}?>
                         </div>                            
-                        </td>                       
+                        </td>   
+                        <td>
+                            <i class="fa fa-2x fa-trash-o" onclick="DelFacRes1('<?=$row['id']?>')">
+                            
+                        </td>
                     </tr>   
                 </table>
             </td>
@@ -207,7 +253,7 @@ $data=$context->data;
             <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?=$row['Fecha']?>"></td>
             <td>
                 <input type="text" onchange="" id="Muestra0" name="Muestra[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Muestra"  value="<?=$row['Muestra']?>">
-                <i class="fa fa-share" onclick="agregaRenglones(0,$('#Muestra0').val())"></i>
+                <i class="fa fa-share" onclick="agregaRenglones(0,$('#Muestra0').val(),'')"></i>
             </td>
             <td>
                 <table  class="table table-striped">
