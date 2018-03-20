@@ -68,6 +68,8 @@
             <?if($_SESSION[SORTUSER]){?>
             #main-content {padding: 10px; border-radius: 5px; border: 2px solid #F7C854; background: white; }
             .label-grid {font-size: 10pt; margin: 5px 2px;}
+            .fa-cogs {color: #666666; }
+            .fa-list {color: #6666ff; }
             <?}?>
         </style>
 

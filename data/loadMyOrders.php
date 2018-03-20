@@ -43,7 +43,7 @@
         print "<cell>" . ($d["Total_Partes"]) . "</cell>";
         print "<cell>" . htmlspecialchars("<div class = 'label label-$class label-grid'>" . $d["Stage"] . "</div>") . "</cell>";
         
-        print "<cell align=\"center\" >" . htmlentities('<i class="fa fa-2x fa-line-chart " onclick="View(\'' .$d['id'] . '\')"></li>') . "</cell>";        
+        print "<cell align=\"center\" >" . htmlentities('<a href = "results.php?order=' . Cipher($d[id], "enc") . '" target = "_blank"><i class="fa fa-2x fa-line-chart"></a>') . "</cell>";        
        print "</row>";
     }
     print "</rows>";    

@@ -36,6 +36,27 @@
         return $mails;
     }
     
+    function Cipher($str, $mode){
+        if($mode == "enc"){
+            $punt = array(".", ":", ";", "-", "(", ")", "$", "#", "@", "!");
+            $p1 = rand(0, count($punt)-1);
+            $p2 = rand(0, count($punt)-1);
+            $r1 = rand(100, 999);
+            $r2 = rand(100, 999);
+            return $punt[$p1] . $r1 . base64_encode($str) . $r2 . $punt[$p2];
+        }elseif($mode == "dec"){
+            $p1 = substr($str, 0, 1);
+            $p2 = substr($str, -1);
+            $r1 = substr($str, 1, 3);
+            $r2 = substr($str, strlen($str)-4, 3);
+
+            if(is_numeric($r1) && is_numeric($r2) && $r1 >= 100 && $r2 <= 999 && ctype_punct($p1) && ctype_punct($p2)){
+               return base64_decode(substr($str, 4, strlen($str) - 8));
+            }
+        }
+        return null;
+    }
+    
     function CanBeHere(){
         foreach($_SESSION['TYSMENU'] as $m)
             if($m['link'] == getModule()) return true;

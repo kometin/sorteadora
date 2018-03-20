@@ -66,7 +66,7 @@
                 <?}?>
                 <?break; 
                 case "3":?>
-                <td><label>Defecto / Defect</label></td>
+                <td><label>Locación / Location</label></td>
                 <tD><?=$d[Factor]?></tD>
                 <?break;?>
             <?}?>
