@@ -47,7 +47,7 @@
                     <select class="select2 address" multiple name ="address[]" style ="width: 700px">
                         <option></option>
                         <?foreach($context->contacts as $c){?>
-                            <?if($c[Password]){?>
+                            <?if($c[Password] == "NEW"){?>
                                 <option value="<?=$c[id]?>" selected> <?=$c[Nombre]?> </option>
                             <?}?>
                         <?}?>

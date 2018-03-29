@@ -10,9 +10,10 @@
         header("Content-type: text/xml");
     
     $db = new DBConn();
-    $sql = "select o.id, Fecha_Orden, Empresa, Numero_Parte, Folio, Descripcion, "
-            . "Total_Partes, o.Estatus, e.Estatus as Stage "
+    $sql = "select o.id, Fecha_Orden, Servicio, Empresa, Numero_Parte, Folio, Descripcion, "
+            . "Total_Partes, o.Estatus, e.Estatus as Stage, Clave "
             . "from ordenes o "
+            . "join servicios s on s.id = o.servicio_id "
             . "join clientes c on c.id = o.cliente_id "
             . "join ordenes_estatus e on e.id = o.Estatus "
             . "where cliente_id = $_SESSION[SORTCLIENT] "
@@ -37,13 +38,15 @@
         print "<cell align=\"center\" >" . htmlentities('<i class="fa fa-2x fa-search-plus" onclick="Details(\'' .$d['id'] . '\')"></li>') . "</cell>";        
         
         print "<cell>" . SimpleDate($d["Fecha_Orden"])."</cell>";		
-        print "<cell>" . ($d["Numero_Parte"])."</cell>";		
         print "<cell>" . substr($d['Empresa'], 0, 3) . format($d["Folio"], 3, "0") . "</cell>";
+        print "<cell>" . ($d["Servicio"])."</cell>";		
+        
+        print "<cell>" . ($d["Numero_Parte"])."</cell>";		
         print "<cell>" . ($d["Descripcion"]) . "</cell>";
         print "<cell>" . ($d["Total_Partes"]) . "</cell>";
         print "<cell>" . htmlspecialchars("<div class = 'label label-$class label-grid'>" . $d["Stage"] . "</div>") . "</cell>";
         
-        print "<cell align=\"center\" >" . htmlentities('<a href = "results.php?order=' . Cipher($d[id], "enc") . '" target = "_blank"><i class="fa fa-2x fa-line-chart"></a>') . "</cell>";        
+        print "<cell align=\"center\" >" . htmlentities('<a href = "results.php?order=' . $d[Clave]. '"><i class="fa fa-2x fa-line-chart"></a>') . "</cell>";        
        print "</row>";
     }
     print "</rows>";    

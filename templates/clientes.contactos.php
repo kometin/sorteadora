@@ -144,8 +144,8 @@ $data=$context->data;
                 <input type="password" name="Password[]" style="display:none" class="form-control" id="Password<?=$row['id']?>" value='0'>
             </td>  -->
             <td width = "50">
-                <a class="btn btn-<?=($row[Password]?"success":"danger")?> btn-access"><?=($row[Password]?"SI":"NO")?></a>
-                <input type="hidden" name="access[]" value="<?=($row[Password]?"1":"0")?>">
+                <a class="btn btn-<?=($row[Password] && $row[Password] != "NEW"?"success":"danger")?> btn-access"><?=($row[Password] && $row[Password] != "NEW"?"SI":"NO")?></a>
+                <input type="hidden" name="access[]" value="<?=($row[Password] && $row[Password] != "NEW" ? "0" : "-1")?>">
             </td>
             <td  align="center">
                 <input type="hidden" value="">

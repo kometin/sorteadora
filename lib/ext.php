@@ -6,13 +6,17 @@
     require_once ('DBConn.php');
     
     date_default_timezone_set('America/Mexico_City');
-    
-    DEFINE('MAIL', 'info@ingeniumservices.com.mx');
+//   $mail->Host = 'ssl://mail.grupokaffe.com'; 
+//    $mail->Port = 465;
+//    $mail->SMTPAuth = true;
+//    $mail->Username = "info@grupokaffe.com";
+//    $mail->Password = "kaffemail";
+    DEFINE('MAIL', 'admin@ingeniumservices.com.mx');
     DEFINE('MAIL_NAME', 'Ingenium Services');
-    DEFINE('MAIL_HOST', 'email-smtp.us-east-1.amazonaws.com');
-    DEFINE('MAIL_PORT', 587);
-    DEFINE('MAIL_USER', 'AKIAJ3DAYPV74ZGCRNAA');
-    DEFINE('MAIL_PWD', ' Agc7yTwGjyc+jhPn1g/+1G2Er71vE088NYZpCkeBzJZX');
+    DEFINE('MAIL_HOST', 'ssl://mail.ingeniumservices.com.mx');
+    DEFINE('MAIL_PORT', 465);
+    DEFINE('MAIL_USER', MAIL);
+    DEFINE('MAIL_PWD', 'Ingenium123');
     DEFINE('DOMAIN', 'ingeniumservices.com.mx');
     
     function getParams($id = null) {
@@ -407,7 +411,7 @@
                 $mail->AddAttachment($attach, $file);
             $mail->IsSMTP();
             $mail->SMTPDebug  = 1;  //---->Esta linea es para hacer debug y ver los errores que se generan en el envio del mail.
-            $mail->SMTPSecure = "tls";
+//            $mail->SMTPSecure = "tls";
 //            $mail->Host = 'ssl://p3plcpnl0438.prod.phx3.secureserver.net'; 
 //            $mail->Host = 'ssl://mail.techgto.com'; 
             $mail->Host = MAIL_HOST; 
@@ -416,6 +420,34 @@
             $mail->SMTPAuth = true;
             $mail->Username = MAIL_USER;
             $mail->Password = MAIL_PWD;
+
+            //Se verifica que se haya enviado el correo con el metodo Send().
+            return $mail->Send();	
+     }
+     
+     function SendMail2($send, $subject, $text, $attach = null, $file = null){
+            $mail = new PHPMailer();
+            if(is_array($send)){
+                foreach($send as $s)
+                    $mail -> AddAddress ($s);
+            }else
+                $mail -> AddAddress ($send);
+            $mail -> From = "info@grupokaffe.com";
+            $mail -> FromName = "GRUPO KAFFE";		
+            $mail -> Subject = utf8_decode($subject);
+            $mail -> Body = utf8_decode($text);
+            $mail -> IsHTML(true);
+            if($attach)
+                $mail->AddAttachment($attach, $file);
+            $mail->IsSMTP();
+//            $mail->SMTPDebug  = 2;  //---->Esta linea es para hacer debug y ver los errores que se generan en el envio del mail.
+//            $mail->SMTPSecure = "tls";
+//            $mail->Host = 'ssl://p3plcpnl0438.prod.phx3.secureserver.net'; 
+            $mail->Host = 'ssl://mail.grupokaffe.com'; 
+            $mail->Port = 465;
+            $mail->SMTPAuth = true;
+            $mail->Username = "info@grupokaffe.com";
+            $mail->Password = "kaffemail";
 
             //Se verifica que se haya enviado el correo con el metodo Send().
             return $mail->Send();	

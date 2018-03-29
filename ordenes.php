@@ -97,8 +97,6 @@ if(!$action){
     }else{
         $Folio=$db->getOne("SELECT IFNULL(MAX(Folio),0)+1 from ordenes  order by id DESC limit 1");
         
-     
-        
         $sql = "insert into ordenes set "
                 . "cliente_id = '$cliente_id'," 
                 . "Fecha_Orden=now(), "                
@@ -115,6 +113,9 @@ if(!$action){
                 . "updated_at = NOW(), "
                 . "Estatus=1, "
                 . "updated_by = '{$_SESSION['SORTUSER']}' ";
+        $db->execute($sql);
+        
+        $sql = "update ordenes set Clave = MD5(CONCAT_WS('+', id, cliente_id)) where Clave is null and cliente_id = $cliente_id";
         $db->execute($sql);
      /*   $idOrden=$db->getOne("SELECT id from ordenes  order by id DESC limit 1");
        foreach($Servicios as $ser){
