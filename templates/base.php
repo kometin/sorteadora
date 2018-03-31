@@ -23,6 +23,7 @@
         <link type="text/css" rel="stylesheet" href="js/timepicker/jquery.timepicker.css">
         <link type="text/css" rel="stylesheet" href="js/calendar/calendar.css">
         <link type="text/css" rel="stylesheet" href="js/summernote/summernote.css">
+        <link rel="stylesheet" href="js/amcharts/plugins/export/export.css" type="text/css" media="all" />
         <?}else{?>
         <link type="text/css" rel="stylesheet" href="css/login.css">
         <?}?>
@@ -90,6 +91,11 @@
         <script type="text/javascript" src="js/timepicker/jquery.timepicker.js"></script>
         <script type="text/javascript" src="js/moment-with-locales.js"></script>
         <script type="text/javascript" src="js/calendar/calendar.js"></script>
+        <script type="text/javascript" src="js/amcharts/amcharts.js"></script>
+        <script type="text/javascript" src="js/amcharts/pie.js"></script>
+        <script type="text/javascript" src="js/amcharts/serial.js"></script>
+        <script type="text/javascript" src="js/amcharts/themes/light.js"></script>
+        <script src="js/amcharts//plugins/export/export.min.js"></script>
         <script type="text/javascript" src="js/fn.js"></script>
 
         <script type="text/javascript">
