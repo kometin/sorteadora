@@ -8,9 +8,9 @@
         <table class="table table-striped table-condensed">
             <tr>
                 <td><label>Fecha / Order date</label></td>
-                <tD><?=SimpleDate($info->Fecha_Orden)?></tD>
+                <tD width = "150"><?=SimpleDate($info->Fecha_Orden)?></tD>
                 <td><label>Servicio / Service</label></td>
-                <tD><?=($info->Servicio)?></tD>
+                <tD width = "150"><?=($info->Servicio)?></tD>
             </tr>
             <tr>
                 <td><label>Parte / Part Number</label></td>
@@ -24,21 +24,24 @@
             </tr>
             <tr>
                 <td><label>Herramientas / Special Tools</label></td>
-                <tD><?=($info->Herramientas)?></tD>
-                <td><label>Equipo especial medición / Special Measurement Equipment</label></td>
-                <tD><?=$info->Medidores?></tD>
+                <tD colspan="3"><?=($info->Herramientas)?></tD>
             </tr>
             <tr>
+                <td><label>Equipo especial medición / Special Measurement Equipment</label></td>
+                <tD colspan="3"><?=$info->Medidores?></tD>
+            <tr>
                 <td><label>Químicos especiales / Special Chemical</label></td>
-                <tD><?=($info->Quimicos)?></tD>
+                <tD colspan="3"><?=($info->Quimicos)?></tD>
+            </tr>
+            <tr>
                 <td><label>Otros / Others</label></td>
-                <tD><?=($info->Otros)?></tD>
+                <tD colspan="3"><?=($info->Otros)?></tD>
             </tr>
             <tr>
                 <td><label>Total / Total pieces</label></td>
                 <tD><?=number_format($info->Total_Partes)?></tD>
                 <td><label>Tiempo / Rate per part</label></td>
-                <tD><?=($info->Tiempo_x_Parte)?></tD>
+                <tD><?=($info->Tiempo_x_Parte)?> min.</tD>
             </tr>
         </table>
     </div>
@@ -64,10 +67,6 @@
                 <td><label>Especificación / Especification</label></td>
                 <tD><?=$d[Especificacion]?></tD>
                 <?}?>
-                <?break; 
-                case "3":?>
-                <td><label>Locación / Location</label></td>
-                <tD><?=$d[Factor]?></tD>
                 <?break;?>
             <?}?>
             </tr>

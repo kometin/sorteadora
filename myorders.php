@@ -14,10 +14,11 @@ if(!$action){
     $context->params[] = array("Header" => "#", "Width" => "40", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Details", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     $context->params[] = array("Header" => "Fecha/Date", "Width" => "100", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Numero parte/Part Number", "Width" => "100", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Folio/Order ID", "Width" => "100", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Servicio/Service", "Width" => "100", "Attach" => "cmb", "Align" => "left", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Numero parte/Part Number", "Width" => "100", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Descripción/Description", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Total partes/Total pieces", "Width" => "120", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Total partes/pieces", "Width" => "120", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Estatus", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Show", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
     
@@ -28,7 +29,7 @@ if(!$action){
     $sql = "select * from ordenes o "
             . "join clientes c on c.id = o.cliente_id "
             . "join servicios s on s.id = o.servicio_id "
-            . "join orden_factores f on f.orden_id = o.id "
+            . "left join orden_factores f on f.orden_id = o.id and f.Activo = 1 "
             . "where o.id = $id";
     $context->data = $db->getArray($sql);
     
