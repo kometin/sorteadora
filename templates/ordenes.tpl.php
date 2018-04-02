@@ -33,7 +33,7 @@ function Edit(id){
     });
 }
 function Factores(id, tipo){
-    Modal('ordenes.php?action=fac&id=' + id+'&tipo='+tipo, 'Configuración de la orden', 700, function () {});
+    Modal('ordenes.php?action=fac&id=' + id+'&tipo='+tipo, 'Configuración de la orden', 800, function () {});
 }function Resultados(id,tipo){
     Modal('ordenes.php?action=res&id=' + id+"&tipo="+tipo, 'Resultados', 1000, function () {});
 }

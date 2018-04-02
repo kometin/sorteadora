@@ -299,7 +299,8 @@ if(!$action){
     $xx=0;
     $IDD='';
     $Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$idOrden." AND Activo=1");
-    foreach($Lote as $L){
+    foreach($Lote as $L){   
+        $db->execute("DELETE FROM resultado_factores WHERE resultado_id=".$id[$x]);
 
         if($id[$x]!=''&& $idOrden!=''){
             $sql = "update resultados SET "
@@ -310,13 +311,13 @@ if(!$action){
             . "updated_by = '{$_SESSION['SORTUSER']}' "
             . " WHERE id=$id[$x]";        
             $db->execute($sql);
-            $db->execute("update resultado_factores SET Activo=0 WHERE resultado_id=".$id[$x]);
+          //  $db->execute("update resultado_factores SET Activo=0 WHERE resultado_id=".$id[$x]);
             foreach($Factores as $Fac){
                 $IDD=$idd[$Muestra[$x]*count($Factores )-1];
                 if($IDD==0)               
                     $Elem=$_POST['Resultados'.$Fac['id']];
                 else
-                    $Elem=$_POST['Resultados'.$IDD.$Fac['id']];
+                    $Elem=$_POST['Resultados'.$id[$x].$Fac['id']];
                     foreach($Elem as $Res){
                          $sql = "insert into resultado_factores SET "
                                 . "resultado_id=$id[$x], "

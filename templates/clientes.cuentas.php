@@ -31,7 +31,7 @@
             table+='<td>';
             table+='<select name="Moneda[]" class="require form-control">';
             table+='        <option value=""></option>';
-            table+='        <option value="MXP" >MXP</option>';
+            table+='        <option value="MXN" >MXN</option>';
             table+='        <option value="USD" >USD</option>';
             table+='        <option value="EUR" >EUR</option>';
              table+='       <option value="GBP" >GBP</option>';
@@ -86,7 +86,7 @@ $data=$context->data;
             <td><input type="text" name="Cuenta[]" class="form-control require" placeholder="Cuenta" id="Cuenta" value="<?=$row['Cuenta']?>"></td>  
             <td><select name="Moneda[]" class="require form-control">
                     <option value=""></option>
-                    <option value="MXP" <? if($row['Moneda']=='MXP')echo "SELECTED";?>>MXP</option>
+                    <option value="MXN" <? if($row['Moneda']=='MXN')echo "SELECTED";?>>MXP</option>
                     <option value="USD" <? if($row['Moneda']=='USD')echo "SELECTED";?>>USD</option>
                     <option value="EUR" <? if($row['Moneda']=='EUR')echo "SELECTED";?>>EUR</option>
                     <option value="GBP" <? if($row['Moneda']=='GBP')echo "SELECTED";?>>GBP</option>

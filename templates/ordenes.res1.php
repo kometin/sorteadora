@@ -141,7 +141,7 @@ $data=$context->data;
                     if($context->ResultadosFac[$row['id']][$rowF['id']][0]!='')
                         $totalRecha=$totalRecha+$context->ResultadosFac[$row['id']][$rowF['id']][0]?>
             <td><input type="hidden" name="idFactor[]" value="<?=$context->idsFac[$row['id']][$rowF['id']]?>">
-                <input type="text" name="Factor[]" onchange="calcula(<?=$row['id']?>);" class="form-control require Factor<?=$row['id']?>" placeholder="Cantidad <?=$rowF['Factor']?>"  value="<?=$context->ResultadosFac[$row['id']][$rowF['id']][0]?>"></td>
+                <input type="text" name="Factor[]" onchange="calcula(<?=$row['id']?>);" class="form-control require Factor<?=$row['id']?>" placeholder="Cantidad <?=$rowF['Factor']?>"  value="<?= number_format($context->ResultadosFac[$row['id']][$rowF['id']][0], 1)?>"></td>
             <? }?>
             <td><input type="text" name="Rechazadas[]" id="Rechazadas<?=$row['id']?>" readonly="" class="form-control " placeholder="Rechazadas"  value="<?=$totalRecha?>"></td>  
             <td><input type="text" name="Total[]" id="Total<?=$row['id']?>" readonly="" class="form-control require" placeholder="Total"  value="<?=($row['Cantidad']-$totalRecha)?>"></td>  

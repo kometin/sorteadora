@@ -17,7 +17,7 @@ $(function(){
     });
 
     $('#btnSave').click(function(){ 
-        if(Full($('#op'))) {
+        if(Full($('#op'), true)) {
             if(haymuestras==0){
                  Error("Es necesario indicar la cantidad de la muestra y dar clic en el ícono");
             }else{
@@ -38,6 +38,10 @@ $(function(){
 
                 }
             }
+        }else{
+            Error("Faltan campos por llenar");
+            
+            
         }
     }); 
     var z=100;
@@ -49,7 +53,7 @@ $(function(){
         table+='    <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?=$row['Fecha']?>"></td>';
         table+='    <td>';
         table+='        <input type="text" onchange="" id="Muestra'+z+'" name="Muestra[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Muestra"  value="<?=$row['Muestra']?>">';
-        table+='        <i class="fa fa-share" onclick="agregaRenglones('+z+',$(\'#Muestra'+z+'\').val(),'+z+')"></i>';
+        table+='    </td><td><i class="fa fa-share  fa-2x" onclick="agregaRenglones('+z+',$(\'#Muestra'+z+'\').val(),'+z+')"></i>';
         table+='    </td>';
         table+='    <td>';
         table+='        <table  class="table table-striped">';
@@ -59,7 +63,7 @@ $(function(){
 
                                                         
         table+='                        <h3><input type="hidden" name="idFactor[]" value="<?=$row['id']?>">';
-        table+='                            <?=$row['Factor']?><?=$row['Especificacion']?>';
+        table+='                            <?=$row['Factor']?> (<?=$row['Especificacion']?>)';
         table+='                        </h3>';
         table+='                    <div>';
         table+='                       <table id="tbresultados'+z+'<?=$row['id']?>" class="table table-striped"></table>';
@@ -165,7 +169,7 @@ function DelFac(id){
             else
                 table+='<input type="hidden" name="idd[]"   value="'+idd+'">'; 
                 
-            table+='<input type="text" name="Resultados'+idd+'<?=$row['id']?>[]"  id="Resultados"  class="form-control numeric " placeholder="Resultado"  value="">'; 
+            table+='<input type="text" name="Resultados'+idd+'<?=$row['id']?>[]"  id="Resultados"  class="form-control numeric require" placeholder="Resultado"  value="">'; 
             
             table+='</td>';
             table+='</tr>'; 
@@ -197,14 +201,15 @@ $data=$context->data;
 <form id="op"  autocomplete="off">
     <table id="tblress" class="table table-striped">
         <tr>
-            <td colspan="3  " >Agrerar resultado</td>
+            <td colspan="5  " >Agrerar resultado</td>
             <td><a class="btn btn-primary" id ="btnNewRes"><i class="fa fa-plus"></i></a></td>
         </tr>        
         <tr>
             <td>Lote</td>
             <td>Fecha</td>
-            <td>Muestra</td>
-            <td>Caracteristica / Especificación </td>            
+            <td colspan="2">Muestra</td>
+            
+            <td>Caracteristica (Especificación) </td>            
         </tr>
         <? $TotalCan=0;
             if(count($context->Resultados )>0){
@@ -215,6 +220,8 @@ $data=$context->data;
                 <input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value="<?=$row['Lote']?>"></td>  
             <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?= SimpleDate($row['Fecha_Lote'])?>"></td>            
             <td><input type="text" name="Muestra[]" id="Muestra<?=$row['id']?>" class=" form-control numeric require" style="width:90px" placeholder="Cantidad"  value="<?=$row['Muestra']?>"></td>          
+            <td></td>
+
             <td>
                 <table  class="table table-striped">
                     <tr>
@@ -222,7 +229,7 @@ $data=$context->data;
                         <div class="accordion">
                         <? $z=0; foreach($context->Factores as $fac){?>                                                        
                             <h3><input type="hidden" name="idFactor[]" value="<?=$fac['id']?>">
-                                <?=$fac['Factor']?> &nbsp; / &nbsp;<?=$fac['Especificacion']?>
+                               <?=$fac['Factor']?>  &nbsp;(<?=$fac['Especificacion']?>)
                             </h3>
                             <div>
                                <table id="tbresultados<?=$row['id'].$fac['id']?>" class="table table-striped">
@@ -230,7 +237,7 @@ $data=$context->data;
                                    <tr>
                                        <td>
                                            <input type="hidden" name="idd[]"   value="<?=$row['id']?>">
-                                           <input type="text" name="Resultados<?=$row['id'].$fac['id']?>[]"  class="form-control numeric " placeholder="Resultado"  value="<?=$context->ResultadosFac[$row['id']][$fac['id']][$z]?>">
+                                           <input type="text" name="Resultados<?=$row['id'].$fac['id']?>[]"  class="form-control numeric require" placeholder="Resultado"  value="<?=$context->ResultadosFac[$row['id']][$fac['id']][$z]?>">
                                        </td>
                                    </tr>
                                    <? }?>
@@ -253,7 +260,9 @@ $data=$context->data;
             <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?=$row['Fecha']?>"></td>
             <td>
                 <input type="text" onchange="" id="Muestra0" name="Muestra[]" class="TotalCol form-control numeric require" style="width:90px" placeholder="Muestra"  value="<?=$row['Muestra']?>">
-                <i class="fa fa-share" onclick="agregaRenglones(0,$('#Muestra0').val(),'')"></i>
+            </td>
+            <td>    
+                <i class="fa fa-share fa-2x" onclick="agregaRenglones(0,$('#Muestra0').val(),'')"></i>
             </td>
             <td>
                 <table  class="table table-striped">

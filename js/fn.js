@@ -398,6 +398,18 @@ function Full(obj, invisibletoo){
 	});
 	return full;	
 }
+function FullRes2(obj, invisibletoo){
+	var full = true;
+	$('.emptyfield').removeClass('emptyfield');
+	$(obj).find('.require:not(".select2-container, .select2-focusser")').each(function(){
+//		if( $.trim($(this).val()) == "" && ( ($(this).is(':visible') && !$(this).hasClass('select2')) || $(this).hasClass('select2-offscreen') || invisibletoo) ){
+		if( $.trim($(this).val()) == "" && ( ($(this).is(':visible') || invisibletoo ) || $(this).hasClass('select2-offscreen') ) ){
+			full = false;
+                        $(this).addClass('emptyfield');
+		}
+	});
+	return full;	
+}
 
 function AjaxSend(form, url, fnNoData, fnReturnData){
     var data = new FormData();

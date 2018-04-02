@@ -46,9 +46,9 @@ $data=$context->data;
     <div class="form-group">
         <label>Tipo de medición del servicio</label>
         <select name="Tipo_Medicion" class="form-control require">
-            <option value="1" <? if($data[0]['Tipo_Medicion']==1) echo "Selected";?>>Uno</option>
-            <option value="2" <? if($data[0]['Tipo_Medicion']==2) echo "Selected";?>>Dos</option>
-            <option value="3" <? if($data[0]['Tipo_Medicion']==3) echo "Selected";?>>Tres</option>
+            <option value="1" <? if($data[0]['Tipo_Medicion']==1) echo "Selected";?>>Conteo de defectos</option>
+            <option value="2" <? if($data[0]['Tipo_Medicion']==2) echo "Selected";?>>Especificación técnica</option>
+            <option value="3" <? if($data[0]['Tipo_Medicion']==3) echo "Selected";?>>Información general</option>
         </select>
     </div>    
     <? }?>
