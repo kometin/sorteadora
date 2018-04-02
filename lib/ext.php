@@ -13,8 +13,9 @@
 //    $mail->Password = "kaffemail";
     DEFINE('MAIL', 'admin@ingeniumservices.com.mx');
     DEFINE('MAIL_NAME', 'Ingenium Services');
-    DEFINE('MAIL_HOST', 'ssl://mail.ingeniumservices.com.mx');
-    DEFINE('MAIL_PORT', 465);
+    DEFINE('MAIL_HOST', 'mail.ingeniumservices.com.mx');
+    DEFINE('MAIL_PORT', 25);
+//    DEFINE('MAIL_PORT', 465);
     DEFINE('MAIL_USER', MAIL);
     DEFINE('MAIL_PWD', 'Ingenium123');
     DEFINE('DOMAIN', 'ingeniumservices.com.mx');

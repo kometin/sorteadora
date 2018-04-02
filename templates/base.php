@@ -71,6 +71,8 @@
             .label-grid {font-size: 10pt; margin: 5px 2px;}
             .fa-cogs {color: #666666; }
             .fa-list {color: #6666ff; }
+            .fa-address-card {color: #333333; }
+            .fa-money {color: #009933;}
             <?}?>
         </style>
 

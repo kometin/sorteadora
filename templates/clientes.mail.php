@@ -18,7 +18,11 @@
                   LoadButton($(this));
                   $.post('clientes.php?action=mail', $(parent).serialize(), function(data){
                         Ready();
-                        OK("Enviado"); 
+                        if(data){
+                            Error(data);
+                        }else{
+                            OK("Enviado"); 
+                        }
                   });
               }else{
                   Warning("Seleccione un idioma para su mensaje");
@@ -48,7 +52,7 @@
                         <option></option>
                         <?foreach($context->contacts as $c){?>
                             <?if($c[Password] == "NEW"){?>
-                                <option value="<?=$c[id]?>" selected> <?=$c[Nombre]?> </option>
+                                <option value="<?=$c[Correo]?>" selected> <?=$c[Nombre]?> (<?=$c[Correo]?>) </option>
                             <?}?>
                         <?}?>
                     </select>
@@ -90,7 +94,7 @@
                         <option></option>
                         <?foreach($context->contacts as $c){?>
                             <?if($c[Tipo] == "Financial"){?>
-                                <option value="<?=$c[Correo]?>" selected> <?=$c[Nombre]?> </option>
+                                <option value="<?=$c[Correo]?>" selected> <?=$c[Nombre]?> (<?=$c[Correo]?>)</option>
                             <?}?>
                         <?}?>
                     </select>
