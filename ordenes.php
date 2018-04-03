@@ -170,7 +170,10 @@ if(!$action){
 }elseif($action == "DelFacRes1"){
     if($id){
         $db->execute ("UPDATE resultados SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
-        $db->execute ("UPDATE resultado_factores SET Activo=0 WHERE resultado_id=$id");
+        //$db->execute ("UPDATE resultado_factores SET Activo=0 WHERE resultado_id=$id");
+       if($id)
+            $db->execute("DELETE FROM resultado_factores WHERE resultado_id=".$id);
+        
     }
 }elseif($action == "res"){
     if($tipo==3){
@@ -301,7 +304,8 @@ if(!$action){
     $IDD='';
     $Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$idOrden." AND Activo=1");
     foreach($Lote as $L){   
-        $db->execute("DELETE FROM resultado_factores WHERE resultado_id=".$id[$x]);
+        if($id[$x])
+            $db->execute("DELETE FROM resultado_factores WHERE resultado_id=".$id[$x]);
 
         if($id[$x]!=''&& $idOrden!=''){
             $sql = "update resultados SET "
