@@ -34,8 +34,9 @@ $(function(){
             table+='<td><input type="hidden" name="id[]" id="id" value=""><i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>';
             table+='</tr>'; 
             $("#tblfactores").append(table);
+            c++;  
         });   
-    c++;    
+      
 });
 function DelFac(id){
 
@@ -107,7 +108,7 @@ $data=$context->data;
         <? }}else{?>
         <tr id="tra">
           <td><input type="text" name="Factor[]" class="form-control require" placeholder="Característica"  value=""></td>  
-          <td><select name="Regla[]" id="Regla0" class="form-control require">
+          <td><select name="Regla[]" id="Regla0"  onchange="validaRegla('00',$(this).val())"  class="form-control require">
                   <option></option>
                           <option value="Mayor">Mayor</option>
                           <option value="Menor">Menor</option>
@@ -115,7 +116,7 @@ $data=$context->data;
               </select>
             </td>  
            <td><input type="text" name="Especificacion[]" class="form-control require numeric" placeholder="Especificación"  value=""></td>  
-            <td><input type="text" name="Tolerancia[]" id="Tolerancia0" class="form-control require numeric" placeholder="Tolerencia"  value=""></td>  
+            <td><input type="text" name="Tolerancia[]" id="Tolerancia00" class="form-control require numeric" placeholder="Tolerencia"  value=""></td>  
               
             <td> <input type="hidden" name="id[]" id="id" value="">
             </td>

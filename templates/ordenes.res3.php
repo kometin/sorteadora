@@ -25,7 +25,7 @@ $(function(){
             table+='<td>';
                 table+='<input type="hidden" name="id[]" id="id" value="">';
                 table+='<textarea id="Informacion" name="Informacion[]" placeholder="Información" class="require form-control"></textarea>';
-            table+='</td>';
+            table+='</td><td><i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>';
         table+='</tr>';             
             $("#tblfactores").append(table);
         });   

@@ -47,11 +47,11 @@ $(function(){
      });        
 });
 
-function DelFac(id){
+function DelFacRes(id){
 
-    Question( "¿Desea eliminar este factor?", function(){
+    Question( "¿Desea eliminar este resultado?", function(){
         Loading();
-        $.get('ordenes.php?action=delfac&id=' + id, function (data) {
+        $.get('ordenes.php?action=DelFacRes1&id=' + id, function (data) {
         Ready();
         if(data)
               Error(data);
@@ -147,9 +147,7 @@ $data=$context->data;
             <td><input type="text" name="Total[]" id="Total<?=$row['id']?>" readonly="" class="form-control require" placeholder="Total"  value="<?=($row['Cantidad']-$totalRecha)?>"></td>  
 
             <td>
-                <i class="fa fa-2x fa-trash-o" onclick="DelFacRes('<?=$row[idFactor]?>')">
-                    
-                </li>
+                <i class="fa fa-2x fa-trash-o" onclick="DelFacRes('<?=$row['id']?>')"></li>
             </td>
         </tr>
         <? }}else{?>

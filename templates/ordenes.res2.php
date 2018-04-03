@@ -1,5 +1,6 @@
 <script>
 $(function(){
+    var sinMuestra=0;
     var error=0;
     <?  if(count($context->Resultados )>0){?>
         haymuestras=1;
@@ -46,6 +47,7 @@ $(function(){
     }); 
     var z=100;
     $('#btnNewRes').click(function(){
+         haymuestras=0;
         z++;
         table='';
         table+='<tr id="tra'+z+'">'; 
@@ -59,9 +61,7 @@ $(function(){
         table+='        <table  class="table table-striped">';
         table+='            <tr><td>';
        table+='             <div class="accordion">';
-                    <? $z=0; foreach($context->Factores as $row){?>
-
-                                                        
+                    <? $z=0; foreach($context->Factores as $row){?>                                                     
         table+='                        <h3><input type="hidden" name="idFactor[]" value="<?=$row['id']?>">';
         table+='                            <?=$row['Factor']?> (<?=$row['Especificacion']?>)';
         table+='                        </h3>';
@@ -158,6 +158,7 @@ function DelFac(id){
     });
 } 
  function agregaRenglones(id,max,idd){
+    sinMuestra=0;
     haymuestras=1;
     <? foreach($context->Factores as $row){?>
         table='';
@@ -272,7 +273,7 @@ $data=$context->data;
 
                                                         
                                 <h3><input type="hidden" name="idFactor[]" value="<?=$row['id']?>">
-                                    <?=$row['Factor']?><?=$row['Especificacion']?>
+                                    <?=$row['Factor']?> (<?=$row['Especificacion']?>)
                                 </h3>
                             <div>
                                <table id="tbresultados<?=$row['id']?>" class="table table-striped"></table>

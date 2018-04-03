@@ -154,7 +154,7 @@ if(!$action){
 }elseif($action == "del"){
     if($id){
         $db->execute ("UPDATE ordenes SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE id=$id");
-        $db->execute ("UPDATE orden_factores SET Estatus=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE orden_id=$id");
+        $db->execute ("UPDATE orden_factores SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE orden_id=$id");
         $db->execute ("UPDATE resultados SET Activo=0, updated_at=now(),updated_by = '{$_SESSION['SORTUSER']}' WHERE orden_id=$id");
 
     }
@@ -230,10 +230,6 @@ if(!$action){
             $db->execute($sql);
             if($id[$x])
                 $db->execute("DELETE FROM resultado_factores WHERE resultado_id=".$id[$x]);
-            
-            
-            
-            
                 foreach($Factores as $Fac){
                     if($Fac['id']){
                         $sql = "insert into resultado_factores SET "
@@ -320,6 +316,8 @@ if(!$action){
     }
     sleep(1);     
 }elseif($action=='savefacres2'){
+  //  echo 1;
+    $contadorElemento=0;
     $x=0;
     $xx=0;
     $IDD='';
@@ -328,7 +326,7 @@ if(!$action){
         if($id[$x])
             $db->execute("DELETE FROM resultado_factores WHERE resultado_id=".$id[$x]);
 
-        if($id[$x]!=''&& $idOrden!=''){
+        if($id[$x]!='' && $idOrden!=''){
             $sql = "update resultados SET "
                    ." Lote='$L',"
                    . "Fecha_Lote ='".SimpleDate($Fecha[$x])."',"
@@ -349,7 +347,8 @@ if(!$action){
                                 . "resultado_id=$id[$x], "
                                 ." factor_id='".$Fac['id']."',"
                                 . "Valor ='".$Res."'";        
-                        $db->execute($sql);                
+                        $db->execute($sql);  
+                    $contadorElemento++;    
                 }                
             }
                 if($idd && $Factor[$xx]!=''){
@@ -374,25 +373,30 @@ if(!$action){
             . "updated_by = '{$_SESSION['SORTUSER']}' ";        
             $db->execute($sql);
             $resultado_id=$db->getOne("SELECT id from resultados ORDER BY id DESC LIMIT 1");
-            
+            $indiceFactor=0;
             foreach($Factores as $Fac){
-                $IDD=$idd[$Muestra[$x]*count($Factores )-1];
-                if($IDD==0)               
+                //echo $contadorElemento."--";
+                //$IDD=$idd[$Muestra[$x]*count($Factores )-1];
+                $IDD=$idd[$contadorElemento];
+                if($IDD==0){ 
                     $Elem=$_POST['Resultados'.$Fac['id']];
-                else
+                }else{
                     $Elem=$_POST['Resultados'.$IDD.$Fac['id']];
+                }
+                //echo $IDD.$Fac['id']."--";
                     foreach($Elem as $Res){
                          $sql = "insert into resultado_factores SET "
                                 . "resultado_id=$resultado_id, "
                                 ." factor_id='".$Fac['id']."',"
                                 . "Valor ='".$Res."'";        
-                         $db->execute($sql);                
+                         $db->execute($sql);        
+                         $contadorElemento++;
                 }
             }
         }
         $x++;
     }
-    sleep(1);      
+    //sleep(1);      
     
 }elseif($action == "saveres3"){
     $x=0;

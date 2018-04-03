@@ -99,7 +99,7 @@ $data=$context->data;
     
     <label>Servicio</label>
     </br>
-    <select  placeholder="Servicios" name="servicio_id"  style="width:500px" id="servicio_id" class="require select2" >
+    <select <? if($context->id!='') echo "disabled"?>  placeholder="Servicios" name="servicio_id"  style="width:500px" id="servicio_id" class="require select2" >
         <option value=""></option>
                     <? foreach($context->servicios as $un){?>
                     <option value="<?= $un['id'] ?>" <? if($data[0]['servicio_id'] ==$un['id']) echo "SELECTED";?> ><?= $un['Servicio'] ?></option>
