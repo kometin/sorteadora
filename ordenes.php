@@ -217,6 +217,7 @@ if(!$action){
     $x=0;
     $xx=0;
     $Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$idOrden." AND Activo=1");
+    
     foreach($Lote as $L){
         if($id[$x]!=''&& $idOrden!=''){
             $sql = "update resultados SET "
@@ -225,17 +226,33 @@ if(!$action){
                    . "Cantidad ='".$Cantidad[$x]."',"                       
             . "updated_at = NOW(), "
             . "updated_by = '{$_SESSION['SORTUSER']}' "
-            . " WHERE id=$id[$x]";        
+            . " WHERE id=$id[$x]";   
             $db->execute($sql);
+            if($id[$x])
+                $db->execute("DELETE FROM resultado_factores WHERE resultado_id=".$id[$x]);
             
-            foreach($idFactor as $idd){                
+            
+            
+            
+                foreach($Factores as $Fac){
+                    if($Fac['id']){
+                        $sql = "insert into resultado_factores SET "
+                                . "resultado_id=$id[$x], "
+                                ." factor_id='".$Fac['id']."',"
+                                . "Valor ='".$Factor[$xx]."'";        
+                         $db->execute($sql);  
+                         $xx++;
+                    }                
+                }                
+                /*
+                 foreach($idFactor as $idd){    
                 if($idd && $Factor[$xx]!=''){
                      $sql = "UPDATE  resultado_factores SET "
                             . "Valor ='".$Factor[$xx]."' "
                             . "WHERE id=".$idd;        
                      $db->execute($sql);   
                      $xx++;
-                }else{                    
+                }else{                     
                     $sql = "insert into resultado_factores SET "
                         . "resultado_id=$id[$x], "
                         ." factor_id='".$Factores[$xx]['id']."',"
@@ -243,8 +260,10 @@ if(!$action){
                     $db->execute($sql);  
                     
                 }
+              }
+              */
                 
-            }            
+                       
         }elseif($L!='' && $idOrden!=''){
            $sql = "insert into resultados SET "
                    . "orden_id=$idOrden, "
@@ -258,12 +277,14 @@ if(!$action){
             $resultado_id=$db->getOne("SELECT id from resultados ORDER BY id DESC LIMIT 1");
             
             foreach($Factores as $Fac){
-              $sql = "insert into resultado_factores SET "
-                        . "resultado_id=$resultado_id, "
-                        ." factor_id='".$Fac['id']."',"
-                        . "Valor ='".$Factor[$xx]."'";        
-                 $db->execute($sql);                
-                 $xx++;
+                if($Fac['id']){
+                    $sql = "insert into resultado_factores SET "
+                            . "resultado_id=$resultado_id, "
+                            ." factor_id='".$Fac['id']."',"
+                            . "Valor ='".$Factor[$xx]."'";        
+                     $db->execute($sql);  
+                     $xx++;
+                }                
             }
         }
         $x++;
