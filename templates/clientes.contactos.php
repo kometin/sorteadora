@@ -161,6 +161,6 @@ $data=$context->data;
     
     
     <input type="hidden" name="cid" id="cid" value="<?=$context->id?>">
-    <p><a class="btn btn-success btn-lg" id ="btnSaveContact"><i class="fa fa-save"></i> Guardar</a></p>
+    <p><a class="btn btn-success btn-lg" id ="btnSaveContact"><i class="fa fa-save"></i> Guardar y continuar</a></p>
     
 </form>

@@ -222,22 +222,45 @@ if(!$action){
             "es" => "Spanish", 
             "en" => "English"
         );
-        $info = "<p><b>Usuario / User:</b> {mail}<br><b>Contraseña / Password:</b> {password}</p>";
+       
         foreach($language as $lan){
             $sql = "update correos set $fields[$lan] = '".$_POST['message-'.$lan]."' where Tipo = '$type'";
             $db->execute($sql);
-            $messages[] = $_POST['message-'.$lan] . $info;
-        }
-        foreach($address as $add){
-//            $mail = $db->getOne("select Correo from contactos where id = $a");
-            $pwd =  generateRandomString();
-            $text = str_replace(array("{mail}", "{password}"), array($add, $pwd), implode("<hr>", $messages));
-            if(SendMail($add, "Acceso a sistema / System access", $text)){
-                $sql = "update contactos set Password = MD5('" . $pwd . "') where Activo = 1 and Correo = '$add'";
-                $db->execute($sql);
-            }else{
-                echo "Error enviando correo a: " . $add . "<br>";
+            switch($type){
+                case "CUSTOMER":
+                    $info = "<p><b>Usuario / User:</b> {mail}<br><b>Contraseña / Password:</b> {password}</p>";
+                    $messages[] = $_POST['message-'.$lan] . $info;
+                    break;
+                case "SUPPLIER":
+                    $messages[] = $_POST['message-'.$lan];
+                    break;
             }
+        }
+        
+        foreach($address as $add){
+             switch($type){
+                case "CUSTOMER":
+                    $pwd =  generateRandomString();
+                    $subject = "Acceso a sistema / System access";
+                    $text = str_replace(array("{mail}", "{password}"), array($add, $pwd), implode("<hr>", $messages));
+                    if(SendMail($add, $subject, $text)){
+                        $sql = "update contactos set Password = MD5('" . $pwd . "') where Activo = 1 and Correo = '$add'";
+                        $db->execute($sql);
+                    }else{
+                        echo "Error enviando correo a: $add <br>";
+                    }
+                    break;
+                case "SUPPLIER":
+                    $file = getParams(6);
+                    $subject = "Bienvenido a Ingenium / Welcome to Ingenium";
+                    $text = implode("<hr>", $messages);
+                    if(!SendMail($add, $subject, $text, ($file ? $file : null))){
+                        echo "Error enviando correo a $add <br>";
+                    }
+                    break;
+            }
+            
+            
         }
     }
     

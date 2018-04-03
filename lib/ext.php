@@ -11,12 +11,14 @@
 //    $mail->SMTPAuth = true;
 //    $mail->Username = "info@grupokaffe.com";
 //    $mail->Password = "kaffemail";
-    DEFINE('MAIL', 'admin@ingeniumservices.com.mx');
+    DEFINE('MAIL_ADD', 'admin@ingeniumservices.com.mx');
     DEFINE('MAIL_NAME', 'Ingenium Services');
-    DEFINE('MAIL_HOST', 'mail.ingeniumservices.com.mx');
-    DEFINE('MAIL_PORT', 25);
-//    DEFINE('MAIL_PORT', 465);
-    DEFINE('MAIL_USER', MAIL);
+//    DEFINE('MAIL_HOST', 'p3plcpnl0438.prod.phx3.secureserver.net');
+    DEFINE('MAIL_HOST', 'ssl://mail.ingeniumservices.com.mx');
+    DEFINE('MAIL_SECURE', '');
+//    DEFINE('MAIL_PORT', 25);
+    DEFINE('MAIL_PORT', 465);
+    DEFINE('MAIL_USER', MAIL_ADD);
     DEFINE('MAIL_PWD', 'Ingenium123');
     DEFINE('DOMAIN', 'ingeniumservices.com.mx');
     
@@ -403,7 +405,7 @@
                     $mail -> AddAddress ($s);
             }else
                 $mail -> AddAddress ($send);
-            $mail -> From = MAIL;
+            $mail -> From = MAIL_ADD;
             $mail -> FromName = MAIL_NAME;		
             $mail -> Subject = utf8_decode($subject);
             $mail -> Body = utf8_decode($text);
@@ -412,12 +414,9 @@
                 $mail->AddAttachment($attach, $file);
             $mail->IsSMTP();
             $mail->SMTPDebug  = 1;  //---->Esta linea es para hacer debug y ver los errores que se generan en el envio del mail.
-//            $mail->SMTPSecure = "tls";
-//            $mail->Host = 'ssl://p3plcpnl0438.prod.phx3.secureserver.net'; 
-//            $mail->Host = 'ssl://mail.techgto.com'; 
+//            $mail->SMTPSecure = MAIL_SECURE;
             $mail->Host = MAIL_HOST; 
             $mail->Port = MAIL_PORT;
-//            $mail->Port = 465;
             $mail->SMTPAuth = true;
             $mail->Username = MAIL_USER;
             $mail->Password = MAIL_PWD;
