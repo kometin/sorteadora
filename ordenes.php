@@ -8,7 +8,7 @@ $context = new Context();
 $db = new DBConn();
 
 if(!$action){
-    $context->title = "Ordenes de servicios";
+    $context->title = "Órdenes de servicios";
     
     $context->params[] = array("Header" => "#", "Width" => "40", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
   //  $context->params[] = array("Header" => "Ver", "Width" => "50", "Attach" => "", "Align" => "center", "Sort" => "str", "Type" => "ro");
@@ -188,14 +188,14 @@ if(!$action){
         $context->Factores=$db->getArray("SELECT * FROM orden_factores WHERE orden_id=".$id." AND Activo=1");
         $context->Resultados=$db->getArray("SELECT *
                                             FROM resultados 
-                                            WHERE orden_id=".$id." AND Activo=1 ");
+                                            WHERE orden_id=".$id." AND Activo=1 order BY Fecha_Lote ASC");
         $context->Total_Partes=$db->getOne("SELECT Total_Partes FROM ordenes WHERE id=".$id);
 
  
         $ResFac=$db->getArray("SELECT RF.factor_id, Valor,  RF.id, RES.id as resultado_id
                             FROM resultado_factores RF
                             INNER JOIN resultados RES on RES.id=RF.resultado_id
-                            WHERE orden_id=".$id. " AND RES.Activo=1 AND RF.Activo=1");
+                            WHERE orden_id=".$id. " AND RES.Activo=1 AND RF.Activo=1 ");
         if(count($ResFac)>0){
             foreach($ResFac as $res){
                 $ResultadosFac[$res['resultado_id']][$res['factor_id']][]=$res['Valor'];

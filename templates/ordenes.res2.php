@@ -32,6 +32,7 @@ $(function(){
                             ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
                             OK("Guardado");
                             CloseModal();
+                            Loading();
                         }                                       
                     });
                 }else{
@@ -160,32 +161,38 @@ function DelFac(id){
  function agregaRenglones(id,max,idd){
     sinMuestra=0;
     haymuestras=1;
+    renglones=0;
+    entra=0;
+    maxOriginal=max;
     <? foreach($context->Factores as $row){?>
         table='';
+        renglones= $("#tbresultados"+idd+<?=$row['id']?>+" tr").length;   
+        if(renglones > maxOriginal){
+            $("#tbresultados"+idd+<?=$row['id']?>+" tr").empty();
+            
+        }else{
+            if(entra==0){
+                max= max-renglones;
+                entra=1;
+            }
+        }
         for(z=0;z<max;z++){
             table+='<tr>'; 
             table+='<td>';
             if(idd=='')
                 table+='<input type="hidden" name="idd[]"   value="0">'; 
             else
-                table+='<input type="hidden" name="idd[]"   value="'+idd+'">'; 
-                
-            table+='<input type="text" name="Resultados'+idd+'<?=$row['id']?>[]"  id="Resultados"  class="form-control numeric require" placeholder="Resultado"  value="">'; 
-            
+                table+='<input type="hidden" name="idd[]"   value="'+idd+'">';                 
+            table+='<input type="text" name="Resultados'+idd+'<?=$row['id']?>[]"  id="Resultados"  class="form-control numeric require" placeholder="Resultado"  value="">';             
             table+='</td>';
             table+='</tr>'; 
         }   
      //      $('#tra'+idd).find($("#tbresultados"+idd+<?=$row['id']?>)).append(table);
-          $("#tbresultados"+idd+<?=$row['id']?>).append(table);
-
-        
+        $("#tbresultados"+idd+<?=$row['id']?>).append(table);
     <? }?>
-                    $( ".accordion" ).accordion({
+    $( ".accordion" ).accordion({
         heightStyle: "content",
-              collapsible: true
-
-        
-
+        collapsible: true        
     });
  }
 </script>
@@ -220,7 +227,7 @@ $data=$context->data;
             <td><input type="hidden" name="id[]" id="id" value="<?=$row['id']?>">
                 <input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value="<?=$row['Lote']?>"></td>  
             <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?= SimpleDate($row['Fecha_Lote'])?>"></td>            
-            <td><input type="text" name="Muestra[]" id="Muestra<?=$row['id']?>" class=" form-control numeric require" style="width:90px" placeholder="Cantidad"  value="<?=$row['Muestra']?>"></td>          
+            <td><input type="text" name="Muestra[]" id="Muestra<?=$row['id']?>" readonly="" class=" form-control numeric require" style="width:90px" placeholder="Cantidad"  value="<?=$row['Muestra']?>"></td>          
             <td></td>
 
             <td>

@@ -25,6 +25,7 @@
                         ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
                         OK("Guardado");
                         CloseModal();
+                        Loading();
                     }                                       
                  });                    
             }

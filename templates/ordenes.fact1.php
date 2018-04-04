@@ -10,10 +10,11 @@ $(function(){
                 Ready();
                 if(data)
                     Error(data);
-                else{
+                else{                    
                     ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
                     OK("Guardado");
                     CloseModal();
+                    Loading();
                 }                                       
             });                    
         }

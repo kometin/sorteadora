@@ -1,6 +1,8 @@
 <?function Style($context){?>
 <style type="text/css">
-   
+    .swal2-popup{
+        z-index: 10000000;
+    }
 </style>
 <?}?>
 
@@ -19,14 +21,17 @@ $('#chkGrid').click(function(){
             Grid();
         });        
         if($('#chkGrid').is(':checked')){
-            Loading();
+            
                 ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+                Loading();
 
         }        
     });
 function Grid(){
-    Loading();
+    
     ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+    Loading();
+    
 }   
 function Edit(id){
     Modal('ordenes.php?action=form&id=' + id, 'Editar orden de servicio', 700, function () {
