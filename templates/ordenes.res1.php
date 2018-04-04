@@ -26,6 +26,7 @@ $(function(){
     }); 
     var z=100;
     $('#btnNewRes').click(function(){
+        
         z++;
         table='<tr id="tra">'; 
          table+='<td><input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value=""></td>';   
@@ -40,7 +41,7 @@ $(function(){
          table+='<td><input type="text" name="Rechazadas[]"  id="Rechazadas'+z+'" readonly="" class="form-control numeric " placeholder="Rechazadas"  value=""></td>  '; 
          table+='<td><input type="text" name="Total[]" id="Total'+z+'" readonly="" class="form-control numeric " placeholder="Total"  value=""></td>  '; 
          table+=' <td>';  
-         table+='<i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove();"></i></td>'; 
+         table+='<i class="fa fa-2x fa-trash-o" onclick="$(this).parent().parent().remove(); calcula(); "></i></td>'; 
          table+=' </tr>  ';            
          $("#tblress").append(table);
     DatePicker($('.date'));         
@@ -57,6 +58,7 @@ function DelFacRes(id){
               Error(data);
         else{
             $('#tr'+id).remove();
+            calcula();
             OK("Borrado");
 
         }
@@ -68,35 +70,52 @@ function DelFacRes(id){
 <? foreach($context->Factores as $row){?>
       facts.push("<?php echo $row['id'] ?>");
 <? }?>
- function calcula(i){
-    total=0;
-    totalCol=0;
-    $(".Factor"+i).each(function() {        
-        if($(this).val()!=''){
-            total=total+parseInt($(this).val());
-        }
-    });
-    $(".TotalCol").each(function() {        
-        if($(this).val()!=''){
-            totalCol=totalCol+parseInt($(this).val());
-        }
-    });    
-    if(($('#Cantidad'+i).val()-total)>=0){
-        if(Total_Partes>=totalCol){
-            $('#Rechazadas'+i).val(total);
-            $('#Total'+i).val($('#Cantidad'+i).val()-total);
-            $('#totalCan').val(totalCol);
-            error=0;
-        }else{
-            Error('Esa cantidad excede el total de la orden: '+Total_Partes);
-            $('#Total'+i).val('');
-            $('#totalCan').val('');
-            error=1;
-        }
+ function calcula(i=''){
+    if(i==''){
+        totalCol=0;
+        $(".TotalCol").each(function() {        
+            if($(this).val()!=''){
+                totalCol=totalCol+parseInt($(this).val());
+                $('#totalCan').val(totalCol);
+                error=0;
+            }
+        });           
+/*        var Cadena='';
+        console.log($('#Cantidad'));
+        Cadena=$('#Cantidad').prop('id');
+        alert(Cadena);
+        i=Cadena.substr(7);
+        */
     }else{
-        Error('Esa cantidad de defectos excede el total del lote:'+$('#Cantidad'+i).val());
-        $('#Total'+i).val('');
-        error=1;
+        total=0;
+        totalCol=0;
+        $(".Factor"+i).each(function() {        
+            if($(this).val()!=''){
+                total=total+parseInt($(this).val());
+            }
+        });
+        $(".TotalCol").each(function() {        
+            if($(this).val()!=''){
+                totalCol=totalCol+parseInt($(this).val());
+            }
+        });    
+        if(($('#Cantidad'+i).val()-total)>=0){
+            if(Total_Partes>=totalCol){
+                $('#Rechazadas'+i).val(total);
+                $('#Total'+i).val($('#Cantidad'+i).val()-total);
+                $('#totalCan').val(totalCol);
+                error=0;
+            }else{
+                Error('Esa cantidad excede el total de la orden: '+Total_Partes);
+                $('#Total'+i).val('');
+                $('#totalCan').val('');
+                error=1;
+            }
+        }else{
+            Error('Esa cantidad de defectos excede el total del lote:'+$('#Cantidad'+i).val());
+            $('#Total'+i).val('');
+            error=1;
+       }
    }
  }
 </script>
