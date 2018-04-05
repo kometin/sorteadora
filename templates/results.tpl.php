@@ -12,8 +12,20 @@
         Loading();
         Grid();
         
-        Chart1();
-        Chart2();
+        <?switch($context->type){
+            case 1:?>
+                Chart1();
+                Chart2();
+                <?break;
+            case 2:?>
+                
+                <?break;
+            case 3:?>
+                
+                <?break;
+                
+        }?>
+        
       
         $('#btnExport').click(function(){
            ExportData(grid); 
@@ -23,6 +35,8 @@
     function Grid(){
         ReloadGrid(grid, 'data/loadResults.php?order=<?=$context->order?>');
     }   
+    
+    <?if($context->type == 1){?>
     
     function Chart1(){
         AmCharts.makeChart("Chart1",{
@@ -92,6 +106,8 @@
                 "dataProvider": <?=$context->chart2?>
         });
     }
+    
+    <?}?>
 </script>
 
 <?}?>

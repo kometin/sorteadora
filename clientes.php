@@ -3,6 +3,7 @@ require_once('lib/secure.php');
 require_once('lib/ext.php');
 require_once('lib/DBConn.php');
 require_once('lib/templates.php');
+require_once('lib/Mail.php');
 
 $context = new Context();
 $db = new DBConn();
@@ -237,13 +238,25 @@ if(!$action){
             }
         }
         
+        $mail = new Mail();
+        $mail->address_from = "admin@ingeniumservices.com.mx";
+        $mail->name_from = "Ingenium Services";
+        $mail->smpt_port = 465;
+        $mail->smtp_host = "email-smtp.us-east-1.amazonaws.com";
+        $mail->smtp_user = "AKIAJZEN4MTJE2FOKAEQ";
+        $mail->smtp_pwd = "AlpLF8lrQRcgKQ7htbmi1RTM4Z9VyktC9JlmTRWq5Ibx";
+        $mail->smtp_secure = "tls";
+        
         foreach($address as $add){
+            $mail->clear();
+            $mail->add($add);
+            
              switch($type){
                 case "CUSTOMER":
                     $pwd =  generateRandomString();
-                    $subject = "Acceso a sistema / System access";
-                    $text = str_replace(array("{mail}", "{password}"), array($add, $pwd), implode("<hr>", $messages));
-                    if(SendMail($add, $subject, $text)){
+                    $mail->subject = "Acceso a sistema / System access";
+                    $mail->text = str_replace(array("{mail}", "{password}"), array($add, $pwd), implode("<hr>", $messages));
+                    if($mail->Send()){
                         $sql = "update contactos set Password = MD5('" . $pwd . "') where Activo = 1 and Correo = '$add'";
                         $db->execute($sql);
                     }else{
@@ -252,9 +265,11 @@ if(!$action){
                     break;
                 case "SUPPLIER":
                     $file = getParams(6);
-                    $subject = "Bienvenido a Ingenium / Welcome to Ingenium";
-                    $text = implode("<hr>", $messages);
-                    if(!SendMail($add, $subject, $text, ($file ? $file : null))){
+                    $mail->subject = "Bienvenido a Ingenium / Welcome to Ingenium";
+                    $mail->text = implode("<hr>", $messages);
+                    if($file)
+                        $mail->attach($file);
+                    if(!$mail->Send()){
                         echo "Error enviando correo a $add <br>";
                     }
                     break;

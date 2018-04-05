@@ -20,7 +20,7 @@
                                         <a href="myorders.php">Servicios / Orders</a>
                                     </li>
                                     <li>
-                                        <a href="account.php">Datos generales / General information</a>
+                                        <a href="account.php">Su cuenta / Your account</a>
                                     </li>
                                 <?}else{?>
                                 <li class="has-child ">
