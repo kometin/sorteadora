@@ -4,6 +4,7 @@ require_once('lib/ext.php');
 require_once('lib/DBConn.php');
 require_once('lib/templates.php');
 require_once('lib/Mail.php');
+require_once('lib/EmailConfig.php');
 
 $context = new Context();
 $db = new DBConn();
@@ -239,13 +240,13 @@ if(!$action){
         }
         
         $mail = new Mail();
-        $mail->address_from = "admin@ingeniumservices.com.mx";
-        $mail->name_from = "Ingenium Services";
-        $mail->smpt_port = 465;
-        $mail->smtp_host = "email-smtp.us-east-1.amazonaws.com";
-        $mail->smtp_user = "AKIAJZEN4MTJE2FOKAEQ";
-        $mail->smtp_pwd = "AlpLF8lrQRcgKQ7htbmi1RTM4Z9VyktC9JlmTRWq5Ibx";
-        $mail->smtp_secure = "tls";
+        $mail->address_from = EMAIL_ADD;
+        $mail->name_from = EMAIL_NAME;
+        $mail->smpt_port = EMAIL_PORT;
+        $mail->smtp_host = EMAIL_HOST;
+        $mail->smtp_user = EMAIL_USER;
+        $mail->smtp_pwd = EMAIL_PWD;
+        $mail->smtp_secure = EMAIL_SECURE;
         
         foreach($address as $add){
             $mail->clear();
