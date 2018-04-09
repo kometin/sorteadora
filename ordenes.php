@@ -18,13 +18,12 @@ if(!$action){
     $context->params[] = array("Header" => "Empresa", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Servicio", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "No. Parte", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Descripción", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
+//    $context->params[] = array("Header" => "Descripción", "Width" => "*", "Attach" => "txt", "Align" => "left", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Folio", "Width" => "80", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
     $context->params[] = array("Header" => "Total", "Width" => "80", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Configuración", "Width" => "80", "Attach" => "", "Align" => "right", "Sort" => "str", "Type" => "ed");
-   
-    $context->params[] = array("Header" => "Resultados", "Width" => "80", "Attach" => "", "Align" => "right", "Sort" => "str", "Type" => "ed");
-    $context->params[] = array("Header" => "Estatus", "Width" => "100", "Attach" => "txt", "Align" => "right", "Sort" => "str", "Type" => "ed");
+    $context->params[] = array("Header" => "Config.", "Width" => "60", "Attach" => "", "Align" => "right", "Sort" => "str", "Type" => "ro");
+    $context->params[] = array("Header" => "Result.", "Width" => "60", "Attach" => "", "Align" => "right", "Sort" => "str", "Type" => "ro");
+    $context->params[] = array("Header" => "Estatus", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ro");
 
 // $context->params[] = array("Header" => "Fecha cierre", "Width" => "100", "Attach" => "txt", "Align" => "center", "Sort" => "str", "Type" => "ed");
 
@@ -425,4 +424,29 @@ if(!$action){
         $x++;
     }
     sleep(1);     
+    
+}elseif($action == "manage"){
+    $sql = "select o.id, o.cliente_id, Servicio, Descripcion, Numero_Parte, Total_Partes, "
+            . "auth_at, o.Estatus, Folio, Empresa, Clave, "
+            . "IFNULL(c.Nombre, CONCAT_WS(' ', u.Nombre, u.Paterno, u.Materno)) as auth "
+            . "from ordenes o "
+            . "join servicios s on s.id = o.servicio_id "
+            . "join clientes cli on cli.id = o.cliente_id "
+            . "left join contactos c on c.id = o.auth_by "
+            . "left join usuarios u on u.id = o.auth_by "
+            . "where o.id = $id";
+    $data = $db->getObject($sql);
+    switch($data->Estatus){
+        case 1:
+            $context->data = $data;
+            $sql = "select * from contactos where Activo = 1 and Tipo = 'Quality' and cliente_id = $data->cliente_id";
+            $context->contacts = $db->getArray($sql);
+            $context->mails = getMails();
+            RenderTemplate('templates/ordenes.confirm.php', $context);
+            break;
+    }
+}elseif($action == "confirm"){
+    $sql = "update ordenes set Estatus = 2, auth_at = NOW() where Estatus = 1 and id = $id";
+    $db->execute($sql);
+    sleep(1);
 }

@@ -9,7 +9,7 @@
 
         <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="css/awesome-bootstrap-checkbox.css"  />
-        <?if($_SESSION[SORTUSER]){?>
+        <?if(isLogged()){?>
         <link type="text/css" rel="stylesheet" href="css/jquery-ui.css">
         <link type="text/css" rel="stylesheet" href="css/menu/plugins.css">
         <link type="text/css" rel="stylesheet" href="css/menu/style.css">
@@ -66,13 +66,14 @@
             .fa-search-plus {color: #036;}
             .fa-line-chart {color: #9933FF; }
             .tab-content {padding-top: 10px; }
-            <?if($_SESSION[SORTUSER]){?>
+            <?if(isLogged()){?>
             #main-content {padding: 10px; border-radius: 5px; border: 2px solid #F7C854; background: white; }
-            .label-grid {font-size: 10pt; margin: 5px 2px;}
+            .label-grid {font-size: 10pt; margin: 5px 2px; cursor: pointer;}
             .fa-cogs {color: #666666; }
             .fa-list {color: #6666ff; }
             .fa-address-card {color: #333333; }
             .fa-money {color: #009933;}
+            .fa-pencil-square-o {color: blue; }
             <?}?>
         </style>
 
@@ -111,7 +112,7 @@
 
     </head>
     <body>
-        <?if($_SESSION[SORTUSER]){?>
+        <?if(isLogged()){?>
 
         <?include('templates/menu.tpl.php')?>
 

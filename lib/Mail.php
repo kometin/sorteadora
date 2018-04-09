@@ -40,6 +40,7 @@ class Mail {
         $this->mail->IsSMTP();
         $this->mail->SMTPDebug  = $this->debug;
         $this->mail->SMTPAuth = $this->auth;
+        $this->mail->Charset = "UTF-8";
     }
     
     public function add($to) {

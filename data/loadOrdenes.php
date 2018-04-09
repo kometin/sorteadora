@@ -13,12 +13,13 @@
     else
         $and=" AND o.Estatus = 1";   
     $db = new DBConn();
-    $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio, of.orden_id,of.id as id_orden_factor,s.Tipo_Medicion
+    $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio, of.orden_id,of.id as id_orden_factor,
+                s.Tipo_Medicion, o.Estatus, e.Estatus as Stage
                 FROM ordenes o
                 INNER JOIN clientes c ON c.id=o.cliente_id 
                 INNER JOIN servicios s on o.servicio_id=s.id
-                left join orden_factores of ON of.orden_id=o.id
                 join ordenes_estatus e on e.id = o.Estatus 
+                left join orden_factores of ON of.orden_id=o.id
                 
             where o.id is not null   $and ORDER by o.id DESC";
     $data = $db->getArray($sql);
@@ -41,7 +42,7 @@
         print "<cell>" . htmlspecialchars($d["Empresa"])."</cell>";		
         print "<cell>" . htmlspecialchars($d["Servicio"])."</cell>";        
         print "<cell>" . htmlspecialchars($d["Numero_Parte"])."</cell>";		
-        print "<cell>" . htmlspecialchars($d["Descripcion"])."</cell>";	
+//        print "<cell>" . htmlspecialchars($d["Descripcion"])."</cell>";	
         if(strlen($d["Folio"])==1)
             $Folio="00".$d["Folio"];
         if(strlen($d["Folio"])==2)
@@ -52,12 +53,12 @@
         if($d['Tipo_Medicion']==1 || $d['Tipo_Medicion']==2){    
             print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Factores(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
             if($d['orden_id']!='')
-                print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['orden_id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
+                print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-pencil-square-o" onclick="Resultados(\'' . $d['orden_id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
             else
                 print "<cell></cell>";
         }else{
             print "<cell></cell>";        
-            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
+            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-pencil-square-o" onclick="Resultados(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
 
         }
         switch($d[Estatus]){
@@ -67,7 +68,7 @@
             case 4: $class = "success"; break;
             default: $class = "danger"; break;
         }
-        print "<cell>" . htmlspecialchars("<div class = 'label label-$class label-grid'>" . $d["Stage"] . "</div>") . "</cell>";
+        print "<cell>" . htmlspecialchars("<div class = 'label label-$class label-grid' onclick='Manage($d[id], $d[Estatus])'>" . $d["Stage"] . "</div>") . "</cell>";
         
         /*
         $estatus=

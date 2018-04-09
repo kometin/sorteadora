@@ -16,6 +16,10 @@
             return $params;
     }
     
+    function isLogged(){
+        return (isset($_SESSION[SORTUSER]) || getModule() == "confirm.php");
+    }
+    
     function getMails() {
         $db = new DBConn();
         $sql = "select * from correos";
