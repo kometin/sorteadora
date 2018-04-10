@@ -72,7 +72,7 @@ function DelFacRes(id){
       facts.push("<?php echo $row['id'] ?>");
 <? }?>
  function calcula(i=''){
-    if(i==''){
+    if(i===''){
         totalCol=0;
         $(".TotalCol").each(function() {        
             if($(this).val()!=''){
@@ -90,8 +90,9 @@ function DelFacRes(id){
     }else{
         total=0;
         totalCol=0;
-        $(".Factor"+i).each(function() {        
+        $(".Factor"+i).each(function() {   
             if($(this).val()!=''){
+                alert(1);
                 total=total+parseInt($(this).val());
             }
         });
@@ -154,7 +155,8 @@ $data=$context->data;
             <td><input type="hidden" name="id[]" id="id" value="<?=$row['id']?>">
                 <input type="text" name="Lote[]" class="form-control require" placeholder="Lote"  value="<?=$row['Lote']?>"></td>  
             <td><input type="text" name="Fecha[]" class="form-control date require" style="width:110px" placeholder="Fecha"  value="<?= SimpleDate($row['Fecha_Lote'])?>"></td>            
-            <td><input type="text" name="Cantidad[]" onchange="calcula(<?=$row['id']?>);" id="Cantidad<?=$row['id']?>" class="TotalCol form-control numeric require" style="width:90px" placeholder="Cantidad"  value="<?=$row['Cantidad']?>"></td>
+            <td>
+                <input type="text" name="Cantidad[]" onchange="calcula(<?=$row['id']?>);" id="Cantidad<?=$row['id']?>" class="TotalCol form-control numeric require" style="width:90px" placeholder="Cantidad"  value="<?=$row['Cantidad']?>"></td>
 
             <? $totalRecha=0;
                 foreach($context->Factores as $rowF){
