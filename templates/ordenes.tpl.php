@@ -56,11 +56,29 @@ function Ver(id){
                   Error(data);
               else{
                   OK("Borrado");
-                    ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+                  ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
               }
            });
         });
     } 
+    
+    function Manage(id, stat){
+        switch(stat){
+            case 1:
+                Modal('ordenes.php?action=manage&id='+ id, 'Enviar confirmación', 900);
+                break;
+            case 2:
+                Modal('ordenes.php?action=manage&id='+ id, 'Avance de servicio', 800);
+                break;
+            case 3:
+                Modal('ordenes.php?action=manage&id='+ id, 'Cerrar órden', 700);
+                break;
+            default: 
+                
+                break;
+                        
+        }
+    }
     
 </script>
 <style>

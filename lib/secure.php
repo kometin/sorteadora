@@ -3,9 +3,9 @@
     
     session_start();
     
-//    $allowed = array("login.php", "document.php");
+    $allowed = array("login.php", "confirm.php");
 //    
-    if(!$_SESSION[SORTUSER] && getModule() != "login.php")
+    if(!$_SESSION[SORTUSER] && !in_array(getModule(), $allowed))
         Header ('location: login.php');
     
 //    if(!empty($_GET) || !empty($_POST)){

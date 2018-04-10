@@ -3,6 +3,8 @@ require_once('lib/secure.php');
 require_once('lib/ext.php');
 require_once('lib/DBConn.php');
 require_once('lib/templates.php');
+require_once('lib/Mail.php');
+require_once('config/Email.php');
 
 $context = new Context();
 $db = new DBConn();
@@ -217,6 +219,7 @@ if(!$action){
         $context->mails = getMails();
 
         RenderTemplate('templates/clientes.mail.php', $context);
+        
     }else{
         $fields = array(
             "es" => "Spanish", 
@@ -228,22 +231,43 @@ if(!$action){
             $db->execute($sql);
             switch($type){
                 case "CUSTOMER":
-                    $info = "<p><b>Usuario / User:</b> {mail}<br><b>Contraseña / Password:</b> {password}</p>";
+                    $info = "<p><b>Usuario / User:</b> {mail}<br><b>Contraseña / Password:</b> {pwd}</p>";
                     $messages[] = $_POST['message-'.$lan] . $info;
                     break;
                 case "SUPPLIER":
                     $messages[] = $_POST['message-'.$lan];
                     break;
+                case "ACCEPT":
+                    $info = "<p>URL / Link: <b><a href = '" . getDomain() . "confirm.php?order=$key" . "'>" . getDomain() . "confirm.php?order=$key" . "</a></b></p> "
+                        . "<p>Sevicio / Service: <b>" . $service . "</b></p> "
+                        . "<p>Folio / Order ID: <b>" . $folio . "</b></p>"
+                        . "<p>Descripción / Description: <b>" . $desc . "</b></p>"
+                        . "<p>Num. Parte / Part Number: <b>" . $number . "</b></p>"
+                        . "<p>Total partes / Total pieces: <b>" . $total . "</b></p>";
+                    $messages[] = $_POST['message-'.$lan] . $info;
+                    break;
             }
         }
         
+        $mail = new Mail();
+        $mail->address_from = EMAIL_ADD;
+        $mail->name_from = EMAIL_NAME;
+        $mail->smpt_port = EMAIL_PORT;
+        $mail->smtp_host = EMAIL_HOST;
+        $mail->smtp_user = EMAIL_USER;
+        $mail->smtp_pwd = EMAIL_PWD;
+        $mail->smtp_secure = EMAIL_SECURE;
+        
         foreach($address as $add){
+            $mail->clear();
+            $mail->add($add);
+            
              switch($type){
                 case "CUSTOMER":
                     $pwd =  generateRandomString();
-                    $subject = "Acceso a sistema / System access";
-                    $text = str_replace(array("{mail}", "{password}"), array($add, $pwd), implode("<hr>", $messages));
-                    if(SendMail($add, $subject, $text)){
+                    $mail->subject = "Acceso a sistema / System access";
+                    $mail->text = str_replace(array("{mail}", "{pwd}"), array($add, $pwd), implode("<hr>", $messages));
+                    if($mail->Send()){
                         $sql = "update contactos set Password = MD5('" . $pwd . "') where Activo = 1 and Correo = '$add'";
                         $db->execute($sql);
                     }else{
@@ -251,10 +275,18 @@ if(!$action){
                     }
                     break;
                 case "SUPPLIER":
-                    $file = getParams(6);
-                    $subject = "Bienvenido a Ingenium / Welcome to Ingenium";
-                    $text = implode("<hr>", $messages);
-                    if(!SendMail($add, $subject, $text, ($file ? $file : null))){
+                    $mail->subject = "Bienvenido a Ingenium / Welcome to Ingenium";
+                    $mail->text = implode("<hr>", $messages);
+                    if($file = getParams(6))
+                        $mail->attach($file);
+                    if(!$mail->Send()){
+                        echo "Error enviando correo a $add <br>";
+                    }
+                    break;
+                case "ACCEPT":
+                    $mail->subject = "Confirmación de servicio / Order confirmation";
+                    $mail->text = implode("<hr>", $messages);
+                     if(!$mail->Send()){
                         echo "Error enviando correo a $add <br>";
                     }
                     break;

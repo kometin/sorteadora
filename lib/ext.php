@@ -1,26 +1,9 @@
 <?
-//    ini_set('display_errors', 1);
-//    require_once ('secure.php');
+
     require_once ('phpAES/AES.class.php');
-    require_once ('class.phpmailer.php');
     require_once ('DBConn.php');
     
     date_default_timezone_set('America/Mexico_City');
-//   $mail->Host = 'ssl://mail.grupokaffe.com'; 
-//    $mail->Port = 465;
-//    $mail->SMTPAuth = true;
-//    $mail->Username = "info@grupokaffe.com";
-//    $mail->Password = "kaffemail";
-    DEFINE('MAIL_ADD', 'admin@ingeniumservices.com.mx');
-    DEFINE('MAIL_NAME', 'Ingenium Services');
-//    DEFINE('MAIL_HOST', 'p3plcpnl0438.prod.phx3.secureserver.net');
-    DEFINE('MAIL_HOST', 'ssl://mail.ingeniumservices.com.mx');
-    DEFINE('MAIL_SECURE', '');
-//    DEFINE('MAIL_PORT', 25);
-    DEFINE('MAIL_PORT', 465);
-    DEFINE('MAIL_USER', MAIL_ADD);
-    DEFINE('MAIL_PWD', 'Ingenium123');
-    DEFINE('DOMAIN', 'ingeniumservices.com.mx');
     
     function getParams($id = null) {
         $db = new DBConn();
@@ -31,6 +14,10 @@
             return $params[$id];
         else
             return $params;
+    }
+    
+    function isLogged(){
+        return (isset($_SESSION[SORTUSER]) || getModule() == "confirm.php");
     }
     
     function getMails() {

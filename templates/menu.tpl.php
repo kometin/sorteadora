@@ -15,80 +15,86 @@
                 <div class="col-sm-10 col-xs-8">
                         <nav class="main-nav pull-right">
                             <ul>
-                                <?if($_SESSION[SORTCLIENT]){?>
-                                    <li>
-                                        <a href="myorders.php">Servicios / Orders</a>
+                                <?if($_SESSION[SORTUSER]){?>
+                                    <?if($_SESSION[SORTCLIENT]){?>
+                                        <li>
+                                            <a href="myorders.php">Servicios / Orders</a>
+                                        </li>
+                                        <li>
+                                            <a href="account.php">Su cuenta / Your account</a>
+                                        </li>
+                                    <?}else{?>
+                                    <li class="has-child ">
+                                        <a href="#">Catálogos</a>
+                                        <div class="dropdown left-indent">
+                                            <ul class="dropdown-items">
+                                                <li>
+                                                    <a href="usuarios.php">Usuarios</a>
+                                                </li>
+                                                <li>
+                                                    <a href="clientes.php">Clientes</a>
+                                                </li>
+                                                <li>
+                                                    <a href="operadores.php">Operadores</a>
+                                                </li>
+                                                <li>
+                                                    <a href="servicios.php">Servicios</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
+                                    <li class="has-child ">
+                                        <a href="#">Servicios</a>
+                                        <div class="dropdown left-indent">
+                                            <ul class="dropdown-items">
+                                                <li>
+                                                    <a href="ordenes.php">Órdenes de servicio</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="has-child ">
+                                        <a href="#">Nómina</a>
+                                        <div class="dropdown left-indent">
+                                            <ul class="dropdown-items">
+                                                <li>
+                                                    <a href="nomina.php">Captura</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="has-child ">
+                                        <a href="#">Reportes</a>
+                                        <div class="dropdown left-indent">
+                                            <ul class="dropdown-items">
+                                                <li>
+                                                    <a href="repnomina.php">Nómina</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="has-child ">
+                                        <a href="#">Sistema</a>
+                                        <div class="dropdown left-indent">
+                                            <ul class="dropdown-items">
+                                                <li>
+                                                    <a href="config.php">Opciones</a>
+                                                </li>
+                                                <li>
+                                                    <a href="calendar.php">Calendario</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <?}?>
                                     <li>
-                                        <a href="account.php">Datos generales / General information</a>
+                                        <a href="login.php?action=logout">Logout</a>
                                     </li>
                                 <?}else{?>
-                                <li class="has-child ">
-                                    <a href="#">Catálogos</a>
-                                    <div class="dropdown left-indent">
-                                        <ul class="dropdown-items">
-                                            <li>
-                                                <a href="usuarios.php">Usuarios</a>
-                                            </li>
-                                            <li>
-                                                <a href="clientes.php">Clientes</a>
-                                            </li>
-                                            <li>
-                                                <a href="operadores.php">Operadores</a>
-                                            </li>
-                                            <li>
-                                                <a href="servicios.php">Servicios</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="has-child ">
-                                    <a href="#">Servicios</a>
-                                    <div class="dropdown left-indent">
-                                        <ul class="dropdown-items">
-                                            <li>
-                                                <a href="ordenes.php">Órdenes de servicio</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="has-child ">
-                                    <a href="#">Nómina</a>
-                                    <div class="dropdown left-indent">
-                                        <ul class="dropdown-items">
-                                            <li>
-                                                <a href="nomina.php">Captura</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="has-child ">
-                                    <a href="#">Reportes</a>
-                                    <div class="dropdown left-indent">
-                                        <ul class="dropdown-items">
-                                            <li>
-                                                <a href="repnomina.php">Nómina</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="has-child ">
-                                    <a href="#">Sistema</a>
-                                    <div class="dropdown left-indent">
-                                        <ul class="dropdown-items">
-                                            <li>
-                                                <a href="config.php">Opciones</a>
-                                            </li>
-                                            <li>
-                                                <a href="calendar.php">Calendario</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <li>
+                                    <a href="login.php">Login</a>
                                 </li>
                                 <?}?>
-                                <li>
-                                    <a href="login.php?action=logout">Logout</a>
-                                </li>
                             </ul>
                         </nav>
 

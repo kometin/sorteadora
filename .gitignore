@@ -1,3 +1,5 @@
 # NetBeans specific #
 nbproject/
 lib/DBConn.php
+/lib/EmailConfig.php
+/config/

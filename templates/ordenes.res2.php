@@ -23,7 +23,7 @@ $(function(){
     $('#btnSave').click(function(){ 
         if(Full($('#op'), true)) {
             if(haymuestras==0){
-                 Error("Es necesario indicar la cantidad de la muestra y dar clic en el ícono");
+                 Error("Es necesario indicar la cantidad de la muestra y dar clic en el Ã­cono");
             }else{
                 var summaMuestras=0;
                 totalOrden=<?=$context->Total_Partes?>;
@@ -42,10 +42,10 @@ $(function(){
                             if(data)
                                 Error(data);
                             else{
-                                ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
                                 OK("Guardado");
                                 CloseModal();
                                 Loading();
+                                ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));                                                                
                             }                                       
                         });
                     }else{
@@ -106,7 +106,7 @@ $( ".accordion" ).accordion({
 
 function DelFac(id){
 
-    Question( "¿Desea eliminar este factor?", function(){
+    Question( "Â¿Desea eliminar este factor?", function(){
         Loading();
         $.get('ordenes.php?action=delfac&id=' + id, function (data) {
         Ready();
@@ -158,7 +158,7 @@ function DelFac(id){
  }
  function DelFacRes1(id){
 
-    Question( "¿Desea eliminar este factor?", function(){
+    Question( "Â¿Desea eliminar este factor?", function(){
         Loading();
         $.get('ordenes.php?action=DelFacRes1&id=' + id, function (data) {
         Ready();
@@ -229,7 +229,7 @@ function DelFac(id){
             <td>Fecha</td>
             <td colspan="2">Muestra</td>
             
-            <td>Caracteristica (Especificación) </td>            
+            <td>Caracteristica (EspecificaciÃ³n) </td>            
         </tr>
         <? $TotalCan=0;
             if(count($context->Resultados )>0){

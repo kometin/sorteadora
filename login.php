@@ -41,5 +41,19 @@ if(!$action){
     session_destroy();
     
     Header('location: ' . getDomain());
+    
+}elseif($action == "setsession"){
+    $sql = "select c.id as CLIENT, c.Empresa, con.id as ID, con.Nombre "
+        . "from contactos con "
+        . "join clientes c on c.id = con.cliente_id "
+        . "where c.Estatus = 1 and con.Activo = 1 and "
+        . "Correo = '$email' and Password = MD5('$pwd')";
+    if($data = $db->getObject($sql)){
+
+        $_SESSION[SORTUSER] = $data->ID;
+        $_SESSION[SORTCLIENT] = $data->CLIENT;
+        $_SESSION[SORTCOMP] = $data->Empresa;
+        $_SESSION[SORTNAME] = $data->Nombre;
+    }
 }
 
