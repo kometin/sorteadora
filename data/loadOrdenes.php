@@ -31,7 +31,7 @@
         print "<row id = '" . $d["id"] ."'>";
         print "<cell>" . $cont++ . "</cell>";
    //     print "<cell align=\"center\" >" . htmlentities('<i class="fa fa-2x fa-search-plus" onclick="Ver(\'' .$d['id'] . '\')"></li>') . "</cell>";        
-        if($d['Estatus']==1){
+        if($d['Estatus']>=1){
         
             print "<cell align=\"center\" >" . htmlentities('<i class="fa fa-2x fa-pencil" onclick="Edit(\'' .$d['id'] . '\')"></li>') . "</cell>";        
             print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-trash-o" onclick="Del(\'' . $d['id'] . '\')"></li>') . "</cell>";        
