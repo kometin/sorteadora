@@ -1,5 +1,7 @@
 <script>
-
+<?
+$data=$context->data;
+?>
 <?php /*
  *  var ser = new Array();
 
@@ -10,9 +12,20 @@
                 <?php } */?>
 
     $(function(){
-                DoSelect($('.select2'));
-   
-                DatePicker($('.date'));
+       var tipo3=["7","8","9","10","12","14"];
+        $('#servicio_id').change(function(){
+            if(tipo3.indexOf($(this).val())!='-1'){
+                $('.tipo3').hide();
+            }else{
+                $('.tipo3').show();
+            }
+        });
+        <? $arrTipo3=array("7","8","9","10","12","14");
+        if(in_array($data[0]['servicio_id'],$arrTipo3)){?>
+                $('.tipo3').hide();
+        <? }?>
+        DoSelect($('.select2'));
+        DatePicker($('.date'));
 
         $('#btnSave').click(function(){ 
             if(Full($('#op'))) {
@@ -40,9 +53,7 @@
         }
     <? }?>
 </style>
-<?
-$data=$context->data;
-?>
+
 <form id="op" <? if($context->ver==1){echo 'class="vista"';}?> autocomplete="off">
    <? /* <div class="form-group">
         <label>Nombre</label>
@@ -59,6 +70,14 @@ $data=$context->data;
         <? }?>
        </select> 
     </div>
+    <label>Servicio</label>
+    </br>
+    <select <? if($context->id!='') echo "disabled"?>  placeholder="Servicios" name="servicio_id"  style="width:500px" id="servicio_id" class="require select2" >
+        <option value=""></option>
+        <? foreach($context->servicios as $un){?>
+        <option value="<?= $un['id'] ?>" <? if($data[0]['servicio_id'] ==$un['id']) echo "SELECTED";?> ><?= $un['Servicio'] ?></option>
+        <? }?>
+    </select>     
     <div class="form-group">
         <label>Número de parte</label>
         <input type="text" class="form-control require"  name="Numero_parte" id="Numero_parte" value="<?=$data[0]['Numero_Parte']?>" placeholder="Número de parte">
@@ -67,27 +86,27 @@ $data=$context->data;
         <label>Descripción</label>
         <textarea  class="form-control require" name="Descripcion" id="Descripcion"  placeholder="Descripción de servicio"><?=$data[0]['Descripcion']?></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group tipo3">
         <label>Herramientas</label>
         <textarea class="form-control " name="Herramientas" placeholder="Herramientas especiales"><?=$data[0]['Herramientas']?></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group tipo3">
         <label>Medidores</label>
         <textarea  class="form-control " name="Medidores" placeholder="Equipo especial de medición "><?=$data[0]['Medidores']?></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group tipo3">
         <label>Químicos</label>
         <textarea  class="form-control " name="Quimicos"  placeholder="Químicos especiales"><?=$data[0]['Quimicos']?></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group tipo3">
         <label>Otros</label>
         <textarea  class="form-control " name="Otros" placeholder="Otros"><?=$data[0]['Otros']?></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group tipo3">
         <label>Tiempo por parte</label>
         <input type="text" class="form-control numeric require" style="width:200px" name="Tiempo_x_parte" value="<?=$data[0]['Tiempo_x_Parte']?>" placeholder="Tiempo por cada parte">
     </div>
-    <div class="form-group">
+    <div class="form-group tipo3">
         <label>Total de partes</label>
         <input type="text" class="form-control numeric require" style="width:200px" name="Total_partes" value="<?=$data[0]['Total_Partes']?>" placeholder="Total partes">
     </div>
@@ -98,14 +117,7 @@ $data=$context->data;
     </div>
     */?>
     
-    <label>Servicio</label>
-    </br>
-    <select <? if($context->id!='') echo "disabled"?>  placeholder="Servicios" name="servicio_id"  style="width:500px" id="servicio_id" class="require select2" >
-        <option value=""></option>
-                    <? foreach($context->servicios as $un){?>
-                    <option value="<?= $un['id'] ?>" <? if($data[0]['servicio_id'] ==$un['id']) echo "SELECTED";?> ><?= $un['Servicio'] ?></option>
-                    <? }?>
-    </select>   
+  
     <input type="hidden" name="id" id="id" value="<?=$context->id?>">
     <br></br>
     <p>

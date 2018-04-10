@@ -11,7 +11,7 @@
     if($_GET['all'] &&  $_GET['all']==1)
         $and=" AND o.Estatus=0";       
     else
-        $and=" AND o.Estatus = 1";   
+        $and=" AND o.Estatus >= 1";   
     $db = new DBConn();
     $sql = "SELECT o.*, c.Direccion,c.Empresa, s.Servicio, of.orden_id,of.id as id_orden_factor,s.Tipo_Medicion
                 FROM ordenes o
@@ -51,13 +51,16 @@
         print "<cell>" . htmlspecialchars($d["Total_Partes"])."</cell>";
         if($d['Tipo_Medicion']==1 || $d['Tipo_Medicion']==2){    
             print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-cogs" onclick="Factores(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
-            if($d['orden_id']!='')
+            if($d['orden_id']!='' && $d[Estatus]>1)
                 print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['orden_id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
             else
                 print "<cell></cell>";
         }else{
-            print "<cell></cell>";        
-            print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
+            print "<cell></cell>";    
+            if($d[Estatus]>=1)
+                print "<cell align=\"center\">" . htmlentities('<i class="fa fa-2x fa-list" onclick="Resultados(\'' . $d['id'] . '\',\'' . $d['Tipo_Medicion'] . '\')"></li>') . "</cell>";        
+            else
+                print "<cell></cell>"; 
 
         }
         switch($d[Estatus]){

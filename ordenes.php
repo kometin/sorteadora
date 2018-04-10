@@ -285,6 +285,19 @@ if(!$action){
         }
         $x++;
     }
+    
+    $res=$db->getOne("SELECT Total_Partes-SUM(r.Cantidad) 
+                                FROM ordenes o 
+                                INNER JOIN resultados r on r.orden_id=o.id
+                                WHERE o.id=$idOrden
+                                GROUP BY o.id");
+    
+//    $resTotal=$db->getOne("SELECT SUM FROM ordenes WHERE id=$idOrden");    
+    if($res>=1){
+        $db->execute("UPDATE ordenes SET Estatus=2 WHERE id=$idOrden");
+    }elseif($res==0){
+        $db->execute("UPDATE ordenes SET Estatus=3 WHERE id=$idOrden");    
+    }    
     sleep(1);      
 
 }elseif($action == "savefact2"){
@@ -396,6 +409,19 @@ if(!$action){
         }
         $x++;
     }
+    $res=$db->getOne("SELECT Total_Partes-SUM(rf.Valor) 
+                                FROM ordenes o 
+                                INNER JOIN resultados r on r.orden_id=o.id
+                                INNER JOIN resultado_factores rf on rf.resultado_id=r.id
+                                WHERE o.id=$idOrden
+                                GROUP BY o.id");
+    
+//    $resTotal=$db->getOne("SELECT SUM FROM ordenes WHERE id=$idOrden");    
+    if($res>=1){
+        $db->execute("UPDATE ordenes SET Estatus=2 WHERE id=$idOrden");
+    }elseif($res==0){
+        $db->execute("UPDATE ordenes SET Estatus=3 WHERE id=$idOrden");    
+    }      
     //sleep(1);      
     
 }elseif($action == "saveres3"){
@@ -424,5 +450,17 @@ if(!$action){
         }
         $x++;
     }
+    $res=$db->getOne("SELECT Total_Partes-SUM(r.Cantidad) 
+                                FROM ordenes o 
+                                INNER JOIN resultados r on r.orden_id=o.id
+                                WHERE o.id=$idOrden
+                                GROUP BY o.id");
+    
+//    $resTotal=$db->getOne("SELECT SUM FROM ordenes WHERE id=$idOrden");    
+    if($res>=1){
+        $db->execute("UPDATE ordenes SET Estatus=2 WHERE id=$idOrden");
+    }elseif($res==0){
+        $db->execute("UPDATE ordenes SET Estatus=3 WHERE id=$idOrden");    
+    }      
     sleep(1);     
 }

@@ -1,3 +1,6 @@
+<?
+    $data=$context->data;
+?>
 <script>
 $(function(){
     var sinMuestra=0;
@@ -22,22 +25,33 @@ $(function(){
             if(haymuestras==0){
                  Error("Es necesario indicar la cantidad de la muestra y dar clic en el ícono");
             }else{
-                if(error==0){
-                    LoadButton($('#btnSave'));                                                                              
-                    $.post('ordenes.php?action=savefacres2', $('#op').serialize(), function(data){
-                        Ready();
-                        if(data)
-                            Error(data);
-                        else{
-                            ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
-                            OK("Guardado");
-                            CloseModal();
-                            Loading();
-                        }                                       
-                    });
+                var summaMuestras=0;
+                totalOrden=<?=$context->Total_Partes?>;
+                $(".totales").each(function() { 
+                    if($(this).val()!=''){
+                        summaMuestras=summaMuestras+parseInt($(this).val());
+                    }
+                });                    
+                if(summaMuestras>totalOrden){
+                    Error('La suma de las muestras '+summaMuestras+' no puede ser mayor al total de la orden '+totalOrden);                    
                 }else{
-                    Error("Es necesario corregir primero las cantidades");
+                    if(error==0){
+                        LoadButton($('#btnSave'));                                                                              
+                        $.post('ordenes.php?action=savefacres2', $('#op').serialize(), function(data){
+                            Ready();
+                            if(data)
+                                Error(data);
+                            else{
+                                ReloadGrid(grid, 'data/loadOrdenes.php?all=' + ($('#chkGrid').is(':checked')?"1":"0"));
+                                OK("Guardado");
+                                CloseModal();
+                                Loading();
+                            }                                       
+                        });
+                    }else{
+                        Error("Es necesario corregir primero las cantidades");
 
+                    }
                 }
             }
         }else{
@@ -67,7 +81,7 @@ $(function(){
         table+='                            <?=$row['Factor']?> (<?=$row['Especificacion']?>)';
         table+='                        </h3>';
         table+='                    <div>';
-        table+='                       <table id="tbresultados'+z+'<?=$row['id']?>" class="table table-striped"></table>';
+        table+='                       <table id="tbresultados'+z+'<?=$row['id']?>" class="table table-striped totales"></table>';
         table+='                    </div>';
                     <? $z++;}?>
         table+='            </div>';                            
@@ -203,9 +217,7 @@ function DelFac(id){
         }
     <? }?>
 </style>
-<?
-$data=$context->data;
-?>
+
 <form id="op"  autocomplete="off">
     <table id="tblress" class="table table-striped">
         <tr>
@@ -245,7 +257,7 @@ $data=$context->data;
                                    <tr>
                                        <td>
                                            <input type="hidden" name="idd[]"   value="<?=$row['id']?>">
-                                           <input type="text" name="Resultados<?=$row['id'].$fac['id']?>[]"  class="form-control numeric require" placeholder="Resultado"  value="<?=$context->ResultadosFac[$row['id']][$fac['id']][$z]?>">
+                                           <input type="text" name="Resultados<?=$row['id'].$fac['id']?>[]"  class="form-control numeric require totales" placeholder="Resultado"  value="<?=$context->ResultadosFac[$row['id']][$fac['id']][$z]?>">
                                        </td>
                                    </tr>
                                    <? }?>
